@@ -7,6 +7,8 @@ public class Collectables : MonoBehaviour
     public float pickupRange = 3f; // Set how close the player needs to be
     private Transform player;
     public GameObject pickupPrompt;
+    private Inventory inventory;
+    public GameObject itemButton;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -16,6 +18,7 @@ public class Collectables : MonoBehaviour
         {
             pickupPrompt.SetActive(false); // Hide prompt initially
         }
+        inventory = player.GetComponent<Inventory>();
     }
 
     // Update is called once per frame
@@ -32,8 +35,7 @@ public class Collectables : MonoBehaviour
 
         if (distance <= pickupRange)
         {
-            if (pickupPrompt != null)
-                pickupPrompt.SetActive(true); // Show prompt
+            pickupPrompt.SetActive(true); // Show prompt
 
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -42,18 +44,25 @@ public class Collectables : MonoBehaviour
         }
         else
         {
-            if (pickupPrompt != null)
-                pickupPrompt.SetActive(false); // Hide prompt
+             pickupPrompt.SetActive(false); // Hide prompt
         }
 
     }
 
     private void CollectItem()
     {
-        pickupItems.Add(this.gameObject);
-        Debug.Log("Item Collected: " + pickupItems);
-        if (pickupPrompt != null)
-            pickupPrompt.SetActive(false);
-        Destroy(gameObject, 1); // Remove the item from the scene
+        for (int i = 0; i < inventory.slots.Length; i++)
+        {
+            if (inventory.isFull[i] == false)
+            {
+                pickupItems.Add(this.gameObject);
+                inventory.isFull[i] = true;
+                Instantiate(itemButton, inventory.slots[i].transform, false);
+                Destroy(pickupPrompt, 1);
+                Destroy(gameObject, 1); // Remove the item from the scene
+                Debug.Log("Item Collected: " + pickupItems);
+                break;
+            }
+        }
     }
 }
