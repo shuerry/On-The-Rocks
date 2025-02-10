@@ -1,0 +1,402 @@
+fileFormatVersion: 2
+guid: 95875f718e879d7478842ba7db6562e6
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ads
+    second: {fileID: 2100000, guid: ccb0e6b26913487479fd1f3262d73894, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: AsientosInteriores
+    second: {fileID: 2100000, guid: 527f0e5b7dbb7f84682652059785b66d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BajosExterioresTren
+    second: {fileID: 2100000, guid: 4c0ede80164813a41a9fec0b3c9866f8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Banco
+    second: {fileID: 2100000, guid: b1af870ac8d0c984aadf53b65d0456fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Barandilla
+    second: {fileID: 2100000, guid: 577c957f8c133654ca3b74650c512135, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black
+    second: {fileID: 2100000, guid: 9e2909c8b8bddd7478ff092d21162c21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CabezaTren
+    second: {fileID: 2100000, guid: 51e833360bb57a64db782b6a419f7792, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CableTexturePack
+    second: {fileID: 2100000, guid: 9c2f38f2323ce7d4a9fa9e41d355a924, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CajaExtintor
+    second: {fileID: 2100000, guid: 3ca2914231e6bb9439a7b5ebb8abe9b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CajaMetalica
+    second: {fileID: 2100000, guid: a3d1faf159ba35940a0240f23af2a34a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CajaT
+    second: {fileID: 2100000, guid: 7da17590e653c35489d7dc080f7fc557, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CajaVias
+    second: {fileID: 2100000, guid: 1f0b7be924a54e94bb547e184ac2314a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CamaraColgante
+    second: {fileID: 2100000, guid: f5b36282ca5e9ef46ada1f78379c18f5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CamaraSeguridad
+    second: {fileID: 2100000, guid: 6313a4965b2598a42b75b3f561e7fa0f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CanTrash
+    second: {fileID: 2100000, guid: 3a5a9892453c75e4fa8cc4304e0a95e0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CartelInformativoV1
+    second: {fileID: 2100000, guid: 290d1082a8218fa4bb5e255474b946ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CartelInformativoV2
+    second: {fileID: 2100000, guid: 9537f5c5ea7478446811fbb5d05bdb21, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CartelInformativoV3
+    second: {fileID: 2100000, guid: 01502b38e90da344bb15d17059cee1ab, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CartelPilar
+    second: {fileID: 2100000, guid: 6cbbb6d23270b7c4b9ea91df887ad6fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CartelSalida_Izquierda
+    second: {fileID: 2100000, guid: 75fcc2b047921ec489304e0c360a4e61, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DriverCabin
+    second: {fileID: 2100000, guid: 9c44065ae3224e440ac79c73b01e9141, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EscaleraV1
+    second: {fileID: 2100000, guid: 37ca7d8ff7de4da428251f97c2415031, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EscaleraV2
+    second: {fileID: 2100000, guid: 2065cdc6f806ae840bef826ad069ddc4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: EscaleraV3
+    second: {fileID: 2100000, guid: 4a875092ebe562f458ed407274af7a47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Extintor
+    second: {fileID: 2100000, guid: 8e17d4b8681e7f3408364f4a82b61209, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Fluorescente
+    second: {fileID: 2100000, guid: 31948e298b848b141b4f2a68792b81aa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FluorescenteLuz
+    second: {fileID: 2100000, guid: a8e4aa28ac0cc3b4891c97946032357b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: JoinedDecals
+    second: {fileID: 2100000, guid: b5c718cacd2e3b744b967a549dd8ed87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LateralTren
+    second: {fileID: 2100000, guid: 8899cf54fa012b84090bcec03702c6c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LateralesInteriores
+    second: {fileID: 2100000, guid: edc0ef5c82b45104e85bf943ceac1d16, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LuzTunelCorta
+    second: {fileID: 2100000, guid: 2c889aceb4ec31e4393252978606bef0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LuzTunelLarga
+    second: {fileID: 2100000, guid: e25f3e32bda91344a994792063ceedc6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Maleta
+    second: {fileID: 2100000, guid: 567cab381b2bb3841aa59286240f3c5b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Megafono
+    second: {fileID: 2100000, guid: 0a049b21ff03eb6438955b60f6e17e56, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NumeroVias
+    second: {fileID: 2100000, guid: 2b3ac0eff570a1a4ab0e0c25dab53055, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PackCajas
+    second: {fileID: 2100000, guid: 9fc1fdeda3b16e647be542daa510f9ac, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Papelera
+    second: {fileID: 2100000, guid: c2acb00600cce4a4e9020514e25a764d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParedTunel
+    second: {fileID: 2100000, guid: 0661daae273ad1b4e80eea16af863c23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ParedesModulares
+    second: {fileID: 2100000, guid: 12e959626afe4ff4fbcd5c4b9ecc3b4a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PiezaViasCables
+    second: {fileID: 2100000, guid: ff1e89ce80f2d6344903bbf5d4a3a63e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pilar
+    second: {fileID: 2100000, guid: 1be43ae53d59d96448a4919443011e24, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Poste
+    second: {fileID: 2100000, guid: cba24b58ee7bf5140affa532314068ea, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PuertaDelantera
+    second: {fileID: 2100000, guid: 9414d44bafc5300429e52c4d4ad4f20f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: PuertasLaterales
+    second: {fileID: 2100000, guid: cfa0b57a6274f0246b16c04fe0911005, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Semaforo
+    second: {fileID: 2100000, guid: 5a03575d4ca01a74da6a795f968443a4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SeparadorAndanas
+    second: {fileID: 2100000, guid: 1cb6d59e9f7a43041b1fa02192ddf003, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SeparadorEscalera
+    second: {fileID: 2100000, guid: 6ab69c7064b792649b57a4df7d2d5073, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SueloInterior
+    second: {fileID: 2100000, guid: 8c8446f4628f6c54a8a710633a3e2b29, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SueloModular
+    second: {fileID: 2100000, guid: eb8a2cf38109b4f4ebbc878e17162047, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SueloVias
+    second: {fileID: 2100000, guid: 4c4c07d036d6da34aabacde93fccb3ff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SujeccionesCables
+    second: {fileID: 2100000, guid: 8f1f442c0da1f8c4aa8e06ae230d6353, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TechoEscalera
+    second: {fileID: 2100000, guid: 376ca2ea6b7bdb24ab18816bce3e4f07, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TechoInterior
+    second: {fileID: 2100000, guid: 0f599f122d173424c96621af9d2d2b94, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TechoTren
+    second: {fileID: 2100000, guid: 681a689f94a80d2438aaf107683a971a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Techos Modulares
+    second: {fileID: 2100000, guid: 73703c8c51f75ba4eb960c8a9082237c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TuberiaViaDetallada
+    second: {fileID: 2100000, guid: f5b0abca5e0554144a441c7b2c2f5bf7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TubosTecho
+    second: {fileID: 2100000, guid: 468b3b267b752a042a84e6a86192992a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Vias
+    second: {fileID: 2100000, guid: 2221767d433bae442a579ab7701f352a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WetFloorCartel
+    second: {fileID: 2100000, guid: 94d06fce4419eb14b8678be55b3031f7, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
