@@ -3,7 +3,32 @@ guid: 3dd7346c68b2b498ab0e27a093633915
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: black_metal
+    second: {fileID: 2100000, guid: 4310761d711d94b15ac66bc2da057005, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blue_strip
+    second: {fileID: 2100000, guid: 3ea28545f91a142329efcaa7b5bbaad8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: red_strip
+    second: {fileID: 2100000, guid: 7030a1c5d7881440995f078085eb6fc0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wood
+    second: {fileID: 2100000, guid: 59b21ddc2e4064ba99d916bb0ac22da8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: yellow_strip
+    second: {fileID: 2100000, guid: 4c898376960ee42209ef6d52468a618e, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

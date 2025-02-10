@@ -3,7 +3,37 @@ guid: 78a10724306834ca6ae06fa969c548b7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Grass
+    second: {fileID: 2100000, guid: 57af61f19b2384469ab6e59e5bdc470d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Ground
+    second: {fileID: 2100000, guid: c46f150a82a2441eb80d43a43f8bb862, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Horse_black
+    second: {fileID: 2100000, guid: 45a2d6179386b47109cd02d3de4c8353, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tent
+    second: {fileID: 2100000, guid: 96ee40be78215411786b275866077116, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: horse_white
+    second: {fileID: 2100000, guid: 106085f2333954479a6332a438f1307e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: surfaceShader3
+    second: {fileID: 2100000, guid: e3de2bcc22b8d4bbeae6ce737891d9f0, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
