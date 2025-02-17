@@ -4,10 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class CarnivalLevelManager : MonoBehaviour
 {
-    public Text scoreText;
     public static bool isGameOver = false;
-    public float time;
-    public Text timerText;
+    public static int score = 0;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,32 +16,28 @@ public class CarnivalLevelManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        time -= Time.deltaTime;
-        SetTimerText();
-        SetScoreText();
-        if (time <= 0)
+       if (Collectables.pickupItems.Count == 3)
         {
-            time = 0;
-            GameOver();
+            if (score < 0)
+            {
+                BadEnding();
+            }
+            else
+            {
+                GoodEnding();
+            }
         }
     }
 
-    void SetTimerText()
-    {
-        int minutes = Mathf.FloorToInt(time / 60);
-        int seconds = Mathf.FloorToInt(time % 60);
-        timerText.text = $"{minutes:00}:{seconds:00}";
-    }
-
-    public void SetScoreText()
-    {
-        scoreText.text = "Score: " + TargetBehavior.scored.ToString();
-    }
-
-    public void GameOver()
+    public void GoodEnding()
     {
         isGameOver = true;
-        scoreText.text = "Time's up!";
-        timerText.text = $"00:00";
+        Debug.Log("Good ending");
+    }
+
+    public void BadEnding()
+    {
+        isGameOver = true;
+        Debug.Log("Bad ending");
     }
 }

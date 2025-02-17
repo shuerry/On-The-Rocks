@@ -46,7 +46,6 @@ public class Collectables : MonoBehaviour
         {
              pickupPrompt.SetActive(false); // Hide prompt
         }
-
     }
 
     private void CollectItem()
@@ -58,9 +57,17 @@ public class Collectables : MonoBehaviour
                 pickupItems.Add(this.gameObject);
                 inventory.isFull[i] = true;
                 Instantiate(itemButton, inventory.slots[i].transform, false);
-                Destroy(pickupPrompt, 1);
-                Destroy(gameObject, 1); // Remove the item from the scene
+                Destroy(pickupPrompt);
+                Destroy(gameObject); // Remove the item from the scene
                 Debug.Log("Item Collected: " + pickupItems);
+                if (gameObject.CompareTag("PigeonItem"))
+                {
+                    CarnivalLevelManager.score += 1;
+                }
+                else if (gameObject.CompareTag("RatItem"))
+                {
+                    CarnivalLevelManager.score -= 1;
+                }
                 break;
             }
         }
