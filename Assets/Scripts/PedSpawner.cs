@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PedSpawner : MonoBehaviour
 {
-    public GameObject pedPrefab;
+    public GameObject[] pedPrefabs;
 
     public int spawnAmount = 5;
     public float spawnTime = 3;
@@ -34,7 +34,7 @@ public class PedSpawner : MonoBehaviour
     void SpawnPeds()
     {
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-        GameObject spawnedPed = Instantiate(pedPrefab, spawnPoint.position, spawnPoint.rotation) as GameObject;
+        GameObject spawnedPed = Instantiate(pedPrefabs[Random.Range(0, pedPrefabs.Length)], spawnPoint.position, spawnPoint.rotation) as GameObject;
         spawnedPed.transform.parent = pedParent.transform;
         spawnAmount--;
     }

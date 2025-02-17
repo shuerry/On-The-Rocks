@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class PedBehavior : MonoBehaviour
 {
+    [SerializeField] float speed = 3f; 
+
     GameObject[] destinationOptions;
     Vector3 destination;
     NavMeshAgent agent;
@@ -13,13 +15,14 @@ public class PedBehavior : MonoBehaviour
         destinationOptions = GameObject.FindGameObjectsWithTag("SubwayExit");
         destination = destinationOptions[Random.Range(0, 2)].transform.position;
         agent = this.GetComponent<NavMeshAgent>();
+        agent.speed = speed;
         agent.SetDestination(destination);
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(agent.remainingDistance);
+        //print(agent.remainingDistance);
         if (agent.remainingDistance < 2)
         {
             Destroy(gameObject);
