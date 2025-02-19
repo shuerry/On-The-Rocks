@@ -2,13 +2,13 @@ using UnityEngine;
 
 public class MoveToPosition : MonoBehaviour
 {
-    public float moveSpeed;
-    public Transform arrivalPosition;
-    public Transform departurePosition;
-    public GameObject spawners;
-    public float stopLength;
+    [SerializeField] float moveSpeed;
+    [SerializeField] Transform arrivalPosition;
+    [SerializeField] Transform departurePosition;
+    [SerializeField] float stopLength;
+
     bool arrived = false;
-    public bool departing = false;
+    bool departing = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -23,10 +23,9 @@ public class MoveToPosition : MonoBehaviour
         {
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, arrivalPosition.position, step);
-        } else if (!arrived && spawners.activeInHierarchy == false)
+        } else if (!arrived)
         {
             arrived = true;
-            spawners.SetActive(true);
             Invoke("Depart", stopLength);
         } else if (departing && gameObject.transform.position != departurePosition.position)
         {
@@ -41,5 +40,15 @@ public class MoveToPosition : MonoBehaviour
     void Depart()
     {
         departing = true;
+    }
+
+    public bool GetArrived()
+    {
+        return arrived;
+    }
+
+    public bool GetDeparted()
+    {
+        return departing;
     }
 }

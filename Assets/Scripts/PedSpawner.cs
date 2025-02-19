@@ -6,26 +6,31 @@ public class PedSpawner : MonoBehaviour
 {
     public GameObject[] pedPrefabs;
 
-    public int spawnAmount = 5;
-    public float spawnTime = 3;
-    public Transform[] spawnPoints;
+    [SerializeField] int spawnAmount = 5;
+    [SerializeField] float spawnTime = 3;
+    [SerializeField] Transform[] spawnPoints;
 
-    GameObject pedParent;
-    MoveToPosition train;
+    [SerializeField] GameObject pedParent;
+    [SerializeField] MoveToPosition train;
+
+    bool spawning = false;
 
     // Start is called before the first frame update
     void Start()
     {
         pedParent = GameObject.FindGameObjectWithTag("PedParent");
-        InvokeRepeating("SpawnPeds", spawnTime, spawnTime);
-        train = GameObject.FindFirstObjectByType<MoveToPosition>();
+        train = gameObject.GetComponentInParent<MoveToPosition>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-        if (spawnAmount == 0 || train.departing == true)
+        if (!spawning && train.GetArrived())
+        {
+            spawning = true;
+            InvokeRepeating("SpawnPeds", spawnTime, spawnTime);
+        }
+        if (spawnAmount == 0 || train.GetDeparted())
         {
             CancelInvoke();
         }

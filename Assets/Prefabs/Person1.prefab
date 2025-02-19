@@ -270,8 +270,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1051456229649797410}
-  - component: {fileID: 4513818470094865811}
-  - component: {fileID: 617519177748099738}
+  - component: {fileID: 6667436312187019599}
+  - component: {fileID: 2582864574854506250}
   m_Layer: 0
   m_Name: Person1_Walk1
   m_TagString: Untagged
@@ -294,7 +294,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6338337081817539317}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &4513818470094865811
+--- !u!212 &6667436312187019599
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -343,13 +343,13 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.16, y: 10.24}
+  m_Size: {x: 10.24, y: 10.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &617519177748099738
+--- !u!95 &2582864574854506250
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
