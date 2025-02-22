@@ -5,24 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
-
+    [SerializeField] private LevelManager levelManager;
     public void NewGame()
     {
         SceneManager.LoadScene(PlayerPrefs.GetInt("Progress",SceneManager.GetActiveScene().buildIndex + 1));
+        PlayerPrefs.SetInt("TherapyCounter", 0);
+        levelManager.SetTherapyCounter(0);
     }
 
     public void StartGame()
     {
         SceneManager.LoadScene(PlayerPrefs.GetInt("Progress",SceneManager.GetActiveScene().buildIndex + 1));
+        levelManager.SetTherapyCounter(PlayerPrefs.GetInt("TherapyCounter", 0));
     }
 
     public void Settings()
