@@ -5,7 +5,6 @@ using UnityEngine.Video;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private DialogueScript dialogueScript;
     [SerializeField] private string nextLevel;
     private int therapyCounter;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,14 +15,14 @@ public class LevelManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /* void Update()
     {
         String activeSceneName = SceneManager.GetActiveScene().name;
         if (activeSceneName.Contains("Therapy")) {
             activeSceneName += therapyCounter;
         }
         dialogueScript.SetInkScene(activeSceneName);
-    }
+    } */
 
     public void SetTherapyCounter(int newCounter) {
         therapyCounter = newCounter;

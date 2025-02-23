@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Ink.Runtime;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +17,12 @@ public class DialogueScript : MonoBehaviour {
     // UI Prefabs
     [SerializeField] private TextMeshProUGUI dialogueText = null;
     [SerializeField] private TextMeshProUGUI nameText = null;
+    [SerializeField] private GameObject nameBox = null;
     [SerializeField] private Button buttonPrefab = null;
+    [SerializeField] private GameObject choicesBackground = null;
     
     private bool justClicked = false;
+    [SerializeField] private LevelManager levelManager;
 
     void Update() {
         // Only process the click if it hasn't been processed already
@@ -44,7 +48,6 @@ public class DialogueScript : MonoBehaviour {
     void RefreshView() {
         // Remove all the UI on screen
         RemoveChildren();
-        Debug.Log("Refresh View");
 
         // Read all the content until we can't continue anymore
         if (story.canContinue) {
@@ -56,26 +59,37 @@ public class DialogueScript : MonoBehaviour {
 
         // Display all the choices if there are any
         if (story.currentChoices.Count > 0) {
-            for (int i = 0; i < story.currentChoices.Count; i++) {
-                Choice choice = story.currentChoices[i];
-                Button button = CreateChoiceView(choice.text.Trim());
-                // Tell the button what to do when we press it
-                button.onClick.AddListener(delegate {
-                    OnClickChoiceButton(choice);
-                });
-            }
+            Debug.Log("Current Choices Counter " + story.currentChoices.Count);
+            HandleChoices();
         }
         // If we've read all the content and there are no choices, show the "End of story" button
-        else {
+        /* else {
             Button choice = CreateChoiceView("End of story.\nRestart?");
             choice.onClick.AddListener(delegate {
                 StartStory();
+            });
+        } */
+    }
+
+    void HandleChoices() {
+        dialogueBox.SetActive(false);
+        nameBox.SetActive(false);
+        choicesBackground.SetActive(true);
+
+        for (int i = 0; i < story.currentChoices.Count; i++) {
+            Choice choice = story.currentChoices[i];
+            Button button = CreateChoiceView(choice.text.Trim(), i);
+            Debug.Log(choice.text);
+            // Tell the button what to do when we press it
+            button.onClick.AddListener(delegate {
+                OnClickChoiceButton(choice);
             });
         }
     }
 
     // When we click the choice button, tell the story to choose that choice!
     void OnClickChoiceButton(Choice choice) {
+        SetInkScene(choice.text);
         story.ChooseChoiceIndex(choice.index);
         RefreshView();
     }
@@ -84,22 +98,25 @@ public class DialogueScript : MonoBehaviour {
     void CreateContentView(string text) {
         HandleTags(story.currentTags);
         dialogueText.text = text;
-        dialogueText.transform.SetParent(dialogueBox.transform, false);
         justClicked = false;
     }
 
     // Creates a button showing the choice text
-    Button CreateChoiceView(string text) {
+    Button CreateChoiceView(string text, int index) {
+        Debug.Log("Making buttons! + " + text);
         Button choice = Instantiate(buttonPrefab) as Button;
-        choice.transform.SetParent(dialogueBox.transform, false);
+        choice.transform.SetParent(choicesBackground.transform, false);
 
         // Get the text from the button prefab
-        Text choiceText = choice.GetComponentInChildren<Text>();
+        TextMeshProUGUI choiceText = choice.GetComponentInChildren<TextMeshProUGUI>();
+        Debug.Log(choiceText);
         if (choiceText != null) {
             choiceText.text = text;
         }
 
         // Make the button expand to fit the text
+        RectTransform buttonRectangleTransform = choice.GetComponent<RectTransform>();
+        buttonRectangleTransform.localPosition = new Vector3(buttonRectangleTransform.localPosition.x, buttonRectangleTransform.localPosition.y - (80 * index), buttonRectangleTransform.localPosition.z);
         // HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
         // layoutGroup.childForceExpandHeight = false;
 
