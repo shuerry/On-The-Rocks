@@ -8,7 +8,8 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     public void NewGame()
     {
-        SceneManager.LoadScene(PlayerPrefs.GetInt("Progress",SceneManager.GetActiveScene().buildIndex + 1));
+        // SceneManager.LoadScene(PlayerPrefs.GetInt("Progress",SceneManager.GetActiveScene().buildIndex + 1));
+        SceneManager.LoadScene("Therapy Scene");
         PlayerPrefs.SetInt("TherapyCounter", 0);
         levelManager.SetTherapyCounter(0);
     }

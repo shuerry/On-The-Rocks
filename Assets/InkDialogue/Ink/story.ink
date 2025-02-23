@@ -11,16 +11,13 @@
 - "No pressure or anything, right?" #speaker:Rocky
 - "That sounds like a fun challenge." #speaker:Therapist
 // start choices
-* "Rocky, when you were picking out gifts, what was on your mind?" #speaker:Therapist
-	ABC
++ ["Rocky, when you were picking out gifts, what was on your mind?"]
 	-> carnival_scene
-* "Rocky, how did you feel being put on the spot?" #speaker:Therapist
-	DEF
++ ["Rocky, how did you feel being put on the spot?"]
 	-> carnival_scene
-* "Rocky, did you think Peggy's idea was creative?" #speaker:Therapist
-	GHI
++ ["Rocky, did you think Peggy's idea was creative?"]
 	-> carnival_scene
 
 === carnival_scene ===
-- [] "Test Carnival"
+- "Carnival Scene"
 -> END

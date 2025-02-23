@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Therapy Scene.unity
     guid: b0a4873df7eaf4c059b5c34c2d0cc982
+  - enabled: 1
+    path: Assets/Scenes/Carnival Scene.unity
+    guid: 72989db003ed8437484f785b85db4162
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

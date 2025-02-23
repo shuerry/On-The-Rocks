@@ -59,7 +59,6 @@ public class DialogueScript : MonoBehaviour {
 
         // Display all the choices if there are any
         if (story.currentChoices.Count > 0) {
-            Debug.Log("Current Choices Counter " + story.currentChoices.Count);
             HandleChoices();
         }
         // If we've read all the content and there are no choices, show the "End of story" button
@@ -79,7 +78,6 @@ public class DialogueScript : MonoBehaviour {
         for (int i = 0; i < story.currentChoices.Count; i++) {
             Choice choice = story.currentChoices[i];
             Button button = CreateChoiceView(choice.text.Trim(), i);
-            Debug.Log(choice.text);
             // Tell the button what to do when we press it
             button.onClick.AddListener(delegate {
                 OnClickChoiceButton(choice);
@@ -89,9 +87,14 @@ public class DialogueScript : MonoBehaviour {
 
     // When we click the choice button, tell the story to choose that choice!
     void OnClickChoiceButton(Choice choice) {
-        SetInkScene(choice.text);
         story.ChooseChoiceIndex(choice.index);
-        RefreshView();
+        if (story.canContinue) {
+            string text = story.Continue();
+            text = text.Trim();
+            SetInkScene(text);
+        }
+        // story.ChooseChoiceIndex(choice.index);
+        // RefreshView();
     }
 
     // Creates a textbox showing the line of text
@@ -103,13 +106,11 @@ public class DialogueScript : MonoBehaviour {
 
     // Creates a button showing the choice text
     Button CreateChoiceView(string text, int index) {
-        Debug.Log("Making buttons! + " + text);
         Button choice = Instantiate(buttonPrefab) as Button;
         choice.transform.SetParent(choicesBackground.transform, false);
 
         // Get the text from the button prefab
         TextMeshProUGUI choiceText = choice.GetComponentInChildren<TextMeshProUGUI>();
-        Debug.Log(choiceText);
         if (choiceText != null) {
             choiceText.text = text;
         }
@@ -117,9 +118,7 @@ public class DialogueScript : MonoBehaviour {
         // Make the button expand to fit the text
         RectTransform buttonRectangleTransform = choice.GetComponent<RectTransform>();
         buttonRectangleTransform.localPosition = new Vector3(buttonRectangleTransform.localPosition.x, buttonRectangleTransform.localPosition.y - (80 * index), buttonRectangleTransform.localPosition.z);
-        // HorizontalLayoutGroup layoutGroup = choice.GetComponent<HorizontalLayoutGroup>();
-        // layoutGroup.childForceExpandHeight = false;
-
+    
         return choice;
     }
 
@@ -160,6 +159,6 @@ public class DialogueScript : MonoBehaviour {
     }
 
     public void SetInkScene(string sceneName) {
-        Debug.Log(sceneName);
+        levelManager.SetScene(sceneName);
     }
 }
