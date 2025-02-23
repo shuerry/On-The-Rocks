@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Ink.Runtime;
 using TMPro;
 using UnityEngine;
@@ -14,6 +15,7 @@ public class DialogueScript : MonoBehaviour {
 
     // UI Prefabs
     [SerializeField] private TextMeshProUGUI dialogueText = null;
+    [SerializeField] private TextMeshProUGUI nameText = null;
     [SerializeField] private Button buttonPrefab = null;
     
     private bool justClicked = false;
@@ -80,6 +82,7 @@ public class DialogueScript : MonoBehaviour {
 
     // Creates a textbox showing the line of text
     void CreateContentView(string text) {
+        HandleTags(story.currentTags);
         dialogueText.text = text;
         dialogueText.transform.SetParent(dialogueBox.transform, false);
         justClicked = false;
@@ -101,6 +104,31 @@ public class DialogueScript : MonoBehaviour {
         // layoutGroup.childForceExpandHeight = false;
 
         return choice;
+    }
+
+    void HandleTags(List<string> tags) {
+        if (tags != null) {
+            foreach (string tag in tags) {
+                string[] splitTag = tag.Split(':');
+                if (splitTag.Length != 2) 
+                {
+                    Debug.LogError("Tag could not be appropriately parsed: " + tag);
+                }
+                string tagKey = splitTag[0].Trim();
+                string tagValue = splitTag[1].Trim();
+
+                switch (tagKey) {
+                    case "speaker":
+                        nameText.text = tagValue;
+                        break;
+                    default:
+                        nameText.text = " ";
+                        break;
+                }
+            }
+        } else {
+            nameText.text = " ";
+        }
     }
 
     // Destroys all the children of this gameobject (all the UI)
