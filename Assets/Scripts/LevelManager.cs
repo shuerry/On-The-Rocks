@@ -31,11 +31,15 @@ public class LevelManager : MonoBehaviour
     }
 
     public void SetScene(string sceneName) {
+        // remove quotes from string
+        int sceneNameLength = sceneName.Length - 2;
+        string newSceneName = sceneName.Substring(1, sceneNameLength);
+
         String activeSceneName = SceneManager.GetActiveScene().name;
         if (activeSceneName.Contains("Therapy")) {
             therapyCounter++;
         }
 
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(newSceneName);
     }
 }
