@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
 
     CharacterController controller;
     Vector3 input, moveDirection;
+
+    private float originalMovespeed;
     /*
     Animator anim;
     int animState;*/
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        originalMovespeed = moveSpeed;
     }
 
     void Update()
@@ -49,5 +52,21 @@ public class PlayerController : MonoBehaviour
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+    }
+
+    public void Freeze()
+    {
+        Debug.Log("Freeze - originalMovespeed: " + originalMovespeed);
+        Debug.Log("Freeze - moveSpeed: " + moveSpeed);
+
+        moveSpeed = 0;
+    }
+
+    public void Unfreeze()
+    {
+        moveSpeed = originalMovespeed;
+        Debug.Log("Unfreeze - originalMovespeed: " + originalMovespeed);
+        Debug.Log("Unfreeze - moveSpeed: " + moveSpeed);
+
     }
 }
