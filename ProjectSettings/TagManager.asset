@@ -12,6 +12,7 @@ TagManager:
   - PigeonItem
   - Neutral
   - RatItem
+  - Pedestrian
   layers:
   - Default
   - TransparentFX

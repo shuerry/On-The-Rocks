@@ -12,10 +12,9 @@ GameObject:
   - component: {fileID: 7553536571373903978}
   - component: {fileID: 5416622626510294002}
   - component: {fileID: 8877024800129847993}
-  - component: {fileID: 7206637338079062995}
   m_Layer: 0
   m_Name: Person2
-  m_TagString: Untagged
+  m_TagString: Pedestrian
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,18 +93,6 @@ CapsuleCollider:
   m_Height: 2.14
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7206637338079062995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8053911374024244409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e58001ba4da1996468fd495c2b2b38d2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8353032504149768837
 GameObject:
   m_ObjectHideFlags: 0

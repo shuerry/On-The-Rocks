@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -16,7 +18,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        // anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -34,19 +35,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump"))
             {
                 moveDirection.y = Mathf.Sqrt(2 * jumpHeight * gravity);
-                //animState = 3;
             }
             else
             {
                 moveDirection.y = 0.0f;
-                /*
-                if (moveHorizontal != 0 || moveVertical != 0)
-                {
-                    animState = 1;
-                } else
-                {
-                    animState = 0;
-                }*/
             }
         }
         else
@@ -54,7 +46,6 @@ public class PlayerController : MonoBehaviour
             input.y = moveDirection.y;
             moveDirection = Vector3.Lerp(moveDirection, input, airControl * Time.deltaTime);
         }
-        //anim.SetInteger("animState", animState);
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
