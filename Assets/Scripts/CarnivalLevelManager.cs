@@ -52,6 +52,7 @@ public class CarnivalLevelManager : MonoBehaviour
         if (gameStart)
         {
             isGameOver = true;
+            SceneManager.LoadScene("Subway Scene");
             Debug.Log("Good ending");
         }
     }
@@ -61,6 +62,7 @@ public class CarnivalLevelManager : MonoBehaviour
         if (gameStart)
         {
             isGameOver = true;
+            SceneManager.LoadScene("Subway Scene");
             Debug.Log("Bad ending");
         }
     }
