@@ -6,38 +6,62 @@ public class CarnivalLevelManager : MonoBehaviour
 {
     public static bool isGameOver = false;
     public static int score = 0;
+    public static bool gameStart = false;
+    private GameObject collectibles;
+    public GameObject UIManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        collectibles = GameObject.Find("Collectibles");
+        collectibles.SetActive(false);
+        UIManager.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+        UIManager.SetActive(true);
         isGameOver = false;
+        collectibles.SetActive(true);
     }
 
     // Update is called once per frame
     void Update()
     {
-       if (Collectables.pickupItems.Count == 3)
+        if (gameStart)
         {
-            if (score < 0)
+            StartGame();
+
+            if (Collectables.pickupItems.Count == 3)
             {
-                BadEnding();
-            }
-            else
-            {
-                GoodEnding();
+                Debug.Log(Collectables.pickupItems.Count);
+                if (score < 0)
+                {
+                    BadEnding();
+                }
+                else
+                {
+                    GoodEnding();
+                }
             }
         }
     }
 
     public void GoodEnding()
     {
-        isGameOver = true;
-        Debug.Log("Good ending");
+        if (gameStart)
+        {
+            isGameOver = true;
+            Debug.Log("Good ending");
+        }
     }
 
     public void BadEnding()
     {
-        isGameOver = true;
-        Debug.Log("Bad ending");
+        if (gameStart)
+        {
+            isGameOver = true;
+            Debug.Log("Bad ending");
+        }
     }
 }
