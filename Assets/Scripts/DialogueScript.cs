@@ -64,6 +64,7 @@ public class DialogueScript : MonoBehaviour {
 
             if (text.Contains("carnival_minigame")) {
                 Debug.Log("Minigame detected! Starting minigame...");
+                CarnivalLevelManager.gameStart = true;
                 EndOfDialogue();
                 return;
             }
@@ -97,8 +98,6 @@ public class DialogueScript : MonoBehaviour {
 
     void EndOfDialogue()
     {
-        Debug.Log("PRINT CARNIVAL START");
-        CarnivalLevelManager.gameStart = true;
         dialogueBox.SetActive(false);
         nameBox.SetActive(false);
         choicesBackground.SetActive(false);
