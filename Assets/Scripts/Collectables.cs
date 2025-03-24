@@ -13,6 +13,7 @@ public class Collectables : MonoBehaviour
     public GameObject itemButton;
     public DialogueScript dialogueScript;
     private bool playingStory = false;
+    public AudioClip pickupSFX;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -63,6 +64,7 @@ public class Collectables : MonoBehaviour
         {
             if (inventory.isFull[i] == false)
             {
+                AudioSource.PlayClipAtPoint(pickupSFX, Camera.main.transform.position);
                 pickupItems.Add(this.gameObject);
                 inventory.isFull[i] = true;
                 Instantiate(itemButton, inventory.slots[i].transform, false);
