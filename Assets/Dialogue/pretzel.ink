@@ -7,13 +7,14 @@
 - "Wait. Hold up. Am I just picking things I want?” #speaker:Rocky
 // He exhales, rubbing his temple.
 - "Think, Rocky. Think. Do you want this because it’s the right choice or because you’re hungry?" #speaker:Rocky
+-> END
 
 // choice
-+ ["Take the Pretzel"]
+/* + ["Take the Pretzel"]
     -> handle_pick_up
 + ["Keep Looking"]
     -> END
 
 === handle_pick_up ===
 - "Obtained Pretzel!"
--> END
+-> END */

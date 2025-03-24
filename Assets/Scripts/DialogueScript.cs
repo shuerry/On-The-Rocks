@@ -24,6 +24,8 @@ public class DialogueScript : MonoBehaviour {
     private bool justClicked = false;
     [SerializeField] private LevelManager levelManager;
 
+    private static bool carnivalEnding = true; // assume good
+
     void Update() {
         // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked) {
@@ -42,6 +44,11 @@ public class DialogueScript : MonoBehaviour {
         Debug.Log("Start Story");
         story = new Story(inkJSONAsset.text);
         if (OnCreateStory != null) OnCreateStory(story);
+
+        dialogueBox.SetActive(true);
+        nameBox.SetActive(true);
+        // choicesBackground.SetActive(true);
+
         RefreshView();
     }
     
@@ -54,13 +61,25 @@ public class DialogueScript : MonoBehaviour {
             // Continue gets the next line of the story
             string text = story.Continue();
             text = text.Trim();  // Clean up whitespace
+
+            if (text.Contains("carnival_minigame")) {
+                Debug.Log("Minigame detected! Starting minigame...");
+                EndOfDialogue();
+                return;
+            }
+
             CreateContentView(text);
+        } else {
+            Debug.Log("Story over.");
+            EndOfDialogue();
+            return;
         }
 
         // Display all the choices if there are any
         if (story.currentChoices.Count > 0) {
             HandleChoices();
         }
+
         // If we've read all the content and there are no choices, show the "End of story" button
         /* else {
             Button choice = CreateChoiceView("End of story.\nRestart?");
@@ -69,6 +88,21 @@ public class DialogueScript : MonoBehaviour {
             });
         } */
     }
+
+    public void SetInkStory(TextAsset newStory) {
+        inkJSONAsset = newStory;
+
+        StartStory();
+    }
+
+    void EndOfDialogue()
+    {
+        Debug.Log("PRINT CARNIVAL START");
+        CarnivalLevelManager.gameStart = true;
+        dialogueBox.SetActive(false);
+        nameBox.SetActive(false);
+        choicesBackground.SetActive(false);
+   } 
 
     void HandleChoices() {
         dialogueBox.SetActive(false);
