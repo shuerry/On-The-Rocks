@@ -4,9 +4,16 @@ public class SpawnTrain : MonoBehaviour
 {
     [SerializeField] GameObject train;
 
+    bool triggered = false;
+
     private void OnTriggerEnter(Collider other)
     {
-        FindAnyObjectByType<PlayerController>().Freeze();
-        train.SetActive(true);
+        if (!triggered)
+        {
+            // Player is unfrozen in TrainCameraShake
+            FindAnyObjectByType<PlayerController>().Freeze();
+            train.SetActive(true);
+            triggered = true;
+        }
     }
 }
