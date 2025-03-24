@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,11 @@ public class Collectables : MonoBehaviour
     public float pickupRange = 3f; // Set how close the player needs to be
     private Transform player;
     public GameObject pickupPrompt;
+    [SerializeField] private TextAsset pickupPromptJSON = null;
     private Inventory inventory;
     public GameObject itemButton;
+    public DialogueScript dialogueScript;
+    private bool playingStory = false;
     public AudioClip pickupSFX;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -37,6 +41,11 @@ public class Collectables : MonoBehaviour
         if (distance <= pickupRange)
         {
             pickupPrompt.SetActive(true); // Show prompt
+            
+            if (!playingStory) {
+                dialogueScript.SetInkStory(pickupPromptJSON);
+                playingStory = true;
+            }
 
             if (Input.GetKeyDown(KeyCode.E))
             {

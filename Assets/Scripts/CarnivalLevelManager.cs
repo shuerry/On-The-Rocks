@@ -7,6 +7,7 @@ public class CarnivalLevelManager : MonoBehaviour
     public static bool isGameOver = false;
     public static int score = 0;
     public static bool gameStart = false;
+    public static bool gameEnding = true; // assume good
     private GameObject collectibles;
     public GameObject UIManager;
 
@@ -52,6 +53,7 @@ public class CarnivalLevelManager : MonoBehaviour
         if (gameStart)
         {
             isGameOver = true;
+            gameEnding = true;
             SceneManager.LoadScene("Subway Scene");
             Debug.Log("Good ending");
         }
@@ -62,6 +64,7 @@ public class CarnivalLevelManager : MonoBehaviour
         if (gameStart)
         {
             isGameOver = true;
+            gameEnding = false;
             SceneManager.LoadScene("Subway Scene");
             Debug.Log("Bad ending");
         }

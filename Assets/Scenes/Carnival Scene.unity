@@ -4081,6 +4081,10 @@ PrefabInstance:
       propertyPath: inkJSONAsset
       value: 
       objectReference: {fileID: 4900000, guid: 548edb76cab0f49e296fe97408e4b496, type: 3}
+    - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+      propertyPath: levelManager
+      value: 
+      objectReference: {fileID: 840600748}
     - target: {fileID: 4501885714739341316, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4165,8 +4169,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Dialogue_Clipboard
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -4174,6 +4177,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 544697249}
   m_SourcePrefab: {fileID: 100100000, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+--- !u!114 &229047554 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+  m_PrefabInstance: {fileID: 229047553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544697244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e3fd43c27384928ae4bfa81e7be81b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &231780965
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4981,6 +4995,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 1415782431}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: 42cdfbccf53954182aa42393b926a96b, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: Necklace
@@ -5695,6 +5717,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 1817948480}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: 65901762a27fa4e47907202297dad937, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: Hotdog
@@ -9063,7 +9093,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544697244}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93b30afad9f12409b98d7c0a0cafc203, type: 3}
   m_Name: 
@@ -10010,6 +10040,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 1384170080}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: c98b97311652247aea19275a35e3f9ab, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: FrenchFries
@@ -13278,6 +13316,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 1311607057}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: 579b24d7caacc4cb3b21e210e50530de, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: KeyChain
@@ -15690,6 +15736,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 1514652555}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: a4b725f2c69fd41dab67c61458058d95, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: CottonCandy
@@ -20086,6 +20140,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 119580634}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: fceae82ac1a2c4781ba50010e6ce6ce2, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: Pizza
@@ -21760,6 +21822,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 102293151}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: eb1660aa83ec842f2908dbd3a635f311, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: GlowSticks
@@ -26001,6 +26071,14 @@ PrefabInstance:
       propertyPath: pickupPrompt
       value: 
       objectReference: {fileID: 1806149682}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: dialogueScript
+      value: 
+      objectReference: {fileID: 229047554}
+    - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
+      propertyPath: pickupPromptJSON
+      value: 
+      objectReference: {fileID: 4900000, guid: f43c0ac15afe842f2bf8fdbf94eef7a6, type: 3}
     - target: {fileID: 3095248801713701276, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: m_Name
       value: Pretzel
