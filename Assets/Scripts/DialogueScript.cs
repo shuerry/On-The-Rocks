@@ -4,6 +4,7 @@ using Ink.Runtime;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueScript : MonoBehaviour {
@@ -69,6 +70,10 @@ public class DialogueScript : MonoBehaviour {
                 return;
             }
 
+            /* if (text.Contains("VAR")) {
+                HandleVariables(text);
+            } */
+
             CreateContentView(text);
         } else {
             Debug.Log("Story over.");
@@ -102,6 +107,10 @@ public class DialogueScript : MonoBehaviour {
         nameBox.SetActive(false);
         choicesBackground.SetActive(false);
    } 
+
+    void HandleVariables(string text) {
+        
+    }
 
     void HandleChoices() {
         dialogueBox.SetActive(false);

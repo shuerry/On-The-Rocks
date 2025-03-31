@@ -3,6 +3,7 @@
 -> therapy_1
 
 === therapy_1 ===
+// VAR good_ending = true
 - "So, when you were picking out gifts, what was on your mind?" #speaker:Therapist
 // Rocky hesitates, then exhales as he thinks back to that night.
 
