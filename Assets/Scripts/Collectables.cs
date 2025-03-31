@@ -40,7 +40,9 @@ public class Collectables : MonoBehaviour
 
         if (distance <= pickupRange)
         {
-            pickupPrompt.SetActive(true); // Show prompt
+            if (playingStory && !dialogueScript.story.canContinue) {
+                pickupPrompt.SetActive(true); // Show prompt
+            }
             
             if (!playingStory) {
                 dialogueScript.SetInkStory(pickupPromptJSON);
