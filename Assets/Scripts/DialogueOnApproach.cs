@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DialogueOnApproach : MonoBehaviour
 {
-    public float range = 1f; // Set how close the player needs to be
+    public float range = 0.15f; // Set how close the player needs to be
     private Transform player;
     [SerializeField] private TextAsset pickupPromptJSON = null;
     public DialogueScript dialogueScript;

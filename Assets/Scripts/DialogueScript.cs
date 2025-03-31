@@ -36,6 +36,8 @@ public class DialogueScript : MonoBehaviour {
     }
 
     void Awake () {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
             StartStory();
         } else {
@@ -78,11 +80,11 @@ public class DialogueScript : MonoBehaviour {
                 CarnivalLevelManager.gameStart = true;
                 EndOfDialogue();
                 return;
+            } else if (text.Contains("Therapy Scene Subway Ending")) {
+                Debug.Log("Ending subway scene.");
+                EndOfDialogue();
+                SceneManager.LoadScene("Therapy Scene Subway Ending");
             }
-
-            /* if (text.Contains("VAR")) {
-                HandleVariables(text);
-            } */
 
             CreateContentView(text);
         } else {
@@ -139,8 +141,6 @@ public class DialogueScript : MonoBehaviour {
             text = text.Trim();
             SetInkScene(text);
         }
-        // story.ChooseChoiceIndex(choice.index);
-        // RefreshView();
     }
 
     // Creates a textbox showing the line of text
