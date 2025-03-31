@@ -17,6 +17,7 @@ public class CarnivalLevelManager : MonoBehaviour
         collectibles = GameObject.Find("Collectibles");
         collectibles.SetActive(false);
         UIManager.SetActive(false);
+        FindAnyObjectByType<PlayerController>().Freeze();
     }
 
     public void StartGame()
@@ -24,6 +25,7 @@ public class CarnivalLevelManager : MonoBehaviour
         UIManager.SetActive(true);
         isGameOver = false;
         collectibles.SetActive(true);
+        FindAnyObjectByType<PlayerController>().Unfreeze();
     }
 
     // Update is called once per frame

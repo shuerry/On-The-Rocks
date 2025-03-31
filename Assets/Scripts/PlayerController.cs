@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     Vector3 input, moveDirection;
 
     private float originalMovespeed;
+    private float originalJumpHeight;
+
     /*
     Animator anim;
     int animState;*/
@@ -21,6 +23,9 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         originalMovespeed = moveSpeed;
+        originalJumpHeight = jumpHeight;
+        Debug.Log("OriginalMovespeed: " + originalMovespeed);
+
     }
 
     void Update()
@@ -60,11 +65,13 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Freeze - moveSpeed: " + moveSpeed);
 
         moveSpeed = 0;
+        jumpHeight = 0;
     }
 
     public void Unfreeze()
     {
         moveSpeed = originalMovespeed;
+        jumpHeight = originalJumpHeight;
         Debug.Log("Unfreeze - originalMovespeed: " + originalMovespeed);
         Debug.Log("Unfreeze - moveSpeed: " + moveSpeed);
 
