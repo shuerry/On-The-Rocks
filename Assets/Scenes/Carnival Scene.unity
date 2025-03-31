@@ -31898,16 +31898,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2283764027601174552, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
+      propertyPath: gravity
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 2283764027601174552, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
       propertyPath: moveSpeed
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2283764027601174552, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
       propertyPath: jumpHeight
-      value: 6
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3265202954976791477, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
+      propertyPath: mouseSensitivity
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3982155029405876317, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
       propertyPath: m_Name
       value: Temp Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6185873171703052554, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7061095724255153605, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
       propertyPath: m_LocalScale.x
