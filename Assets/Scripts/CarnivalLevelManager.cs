@@ -56,6 +56,7 @@ public class CarnivalLevelManager : MonoBehaviour
             isGameOver = true;
             gameEnding = true;
             Debug.Log("Good ending");
+            DialogueScript.SetCarnivalEnding(true);
             SceneManager.LoadScene("Therapy Scene");
         }
     }
@@ -67,6 +68,7 @@ public class CarnivalLevelManager : MonoBehaviour
             isGameOver = true;
             gameEnding = false;
             Debug.Log("Bad ending");
+            DialogueScript.SetCarnivalEnding(false);
             SceneManager.LoadScene("Therapy Scene");
         }
     }

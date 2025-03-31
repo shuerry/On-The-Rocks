@@ -194,4 +194,8 @@ public class DialogueScript : MonoBehaviour {
     public void SetInkScene(string sceneName) {
         levelManager.SetScene(sceneName);
     }
+
+    public static void SetCarnivalEnding(bool goodEnding) {
+        carnivalEnding = goodEnding;
+    }
 }
