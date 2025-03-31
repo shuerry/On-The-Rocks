@@ -46,6 +46,11 @@ public class DialogueScript : MonoBehaviour {
         story = new Story(inkJSONAsset.text);
         if (OnCreateStory != null) OnCreateStory(story);
 
+        if (story.variablesState.GlobalVariableExistsWithName("good_ending")) {
+            story.variablesState["good_ending"] = carnivalEnding;
+            Debug.Log("Updated Ink Variable. + " + story.variablesState["good_ending"]);
+        }
+
         dialogueBox.SetActive(true);
         nameBox.SetActive(true);
         // choicesBackground.SetActive(true);
@@ -85,14 +90,6 @@ public class DialogueScript : MonoBehaviour {
         if (story.currentChoices.Count > 0) {
             HandleChoices();
         }
-
-        // If we've read all the content and there are no choices, show the "End of story" button
-        /* else {
-            Button choice = CreateChoiceView("End of story.\nRestart?");
-            choice.onClick.AddListener(delegate {
-                StartStory();
-            });
-        } */
     }
 
     public void SetInkStory(TextAsset newStory) {
