@@ -26,25 +26,8 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private LevelManager levelManager;
 
     private static bool carnivalEnding = true; // assume good
-    private Transform Rocky;
-    private float range = 3f;
-    private static bool subwayScene = false;
 
     void Update() {
-        if (subwayScene) {
-            Debug.Log("Subway scene???");
-            transform.rotation = Quaternion.Euler(0f, Camera.main.transform.rotation.eulerAngles.y, 0f);
-        
-            if (Rocky == null) return;
-            float distance = Vector3.Distance(transform.position, Rocky.position);
-
-            if (distance <= range) {
-                Debug.Log("Starting Subway Dialogue");
-                StartStory();
-                subwayScene = false;
-            }
-        }
-        
         // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked) {
             justClicked = true;  // Prevent multiple clicks from advancing
@@ -56,12 +39,8 @@ public class DialogueScript : MonoBehaviour {
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
             StartStory();
         } else {
-            Debug.Log("AWAKE and subway.");
             dialogueBox.SetActive(false);
             nameBox.SetActive(false);
-
-            Rocky = GameObject.FindGameObjectWithTag("Rocky")?.transform;
-            subwayScene = true;
         }
     }
 

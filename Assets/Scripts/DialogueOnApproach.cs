@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class DialogueOnApproach : MonoBehaviour
 {
-    public float range = 3f; // Set how close the player needs to be
+    public float range = 1f; // Set how close the player needs to be
     private Transform player;
     [SerializeField] private TextAsset pickupPromptJSON = null;
-    [SerializeField] private GameObject dialogueCanvas = null;
     public DialogueScript dialogueScript;
     private bool playingStory = false;
 
@@ -27,8 +26,8 @@ public class DialogueOnApproach : MonoBehaviour
 
         if (distance <= range)
         {
-            dialogueCanvas.transform.Find("DialogueBox").gameObject.SetActive(true); 
-            dialogueCanvas.transform.Find("Name Box").gameObject.SetActive(true); 
+            dialogueScript.transform.parent.gameObject.SetActive(true);
+            Debug.Log("Start story.");
 
             if (!playingStory) {
                 dialogueScript.SetInkStory(pickupPromptJSON);
