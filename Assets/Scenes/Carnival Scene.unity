@@ -13189,7 +13189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09180d6879d2a4d788db937a77ce47ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevel: Therapy Scene
+  nextLevel: Therapy Scene Carnival Ending
 --- !u!1 &845345354
 GameObject:
   m_ObjectHideFlags: 0
