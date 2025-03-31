@@ -16,16 +16,20 @@ public class TherapyCameraController : MonoBehaviour
     private Vector2 mouseLook;
     // smooth the mouse moving
     private Vector2 smoothV;
+    // should the player be able to move or not
 
-	// Use this for initialization
-	void Start () {
-        if(player == null) {
+    // Use this for initialization
+    void Start()
+    {
+        if (player == null)
+        {
             player = GameObject.FindGameObjectWithTag("Player");
         }
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         // md is mouse delta
         var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
         md = Vector2.Scale(md, new Vector2(sensitivity * smoothing, sensitivity * smoothing));
