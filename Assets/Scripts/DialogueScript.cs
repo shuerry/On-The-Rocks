@@ -105,14 +105,14 @@ public class DialogueScript : MonoBehaviour {
         choicesBackground.SetActive(false);
    } 
 
-    void HandleVariables(string text) {
-        
-    }
-
     void HandleChoices() {
         dialogueBox.SetActive(false);
         nameBox.SetActive(false);
         choicesBackground.SetActive(true);
+        
+        // Enable mouse cursor
+        Cursor.lockState = CursorLockMode.None; // Unlock the cursor from the center
+        Cursor.visible = true; // Make the cursor visible
 
         for (int i = 0; i < story.currentChoices.Count; i++) {
             Choice choice = story.currentChoices[i];
@@ -128,6 +128,8 @@ public class DialogueScript : MonoBehaviour {
     void OnClickChoiceButton(Choice choice) {
         story.ChooseChoiceIndex(choice.index);
         if (story.canContinue) {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
             string text = story.Continue();
             text = text.Trim();
             SetInkScene(text);
