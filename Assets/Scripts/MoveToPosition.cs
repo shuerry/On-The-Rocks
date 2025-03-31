@@ -43,7 +43,7 @@ public class MoveToPosition : MonoBehaviour
         {
             if (smoothMovements)
             {
-                Debug.Log("Velocity: " + velocity);
+                // Debug.Log("Velocity: " + velocity);
                 transform.position = Vector3.SmoothDamp(transform.position, departurePosition.position, ref velocity, smoothRate, moveSpeed);
             }
             else
