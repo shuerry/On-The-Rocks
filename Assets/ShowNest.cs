@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ShowNest : MonoBehaviour
 {
-    public static bool allowMovement = false;
+    public static bool allowMovement = true;
     public bool doZoom = false;
 
     public Transform zoomLocation;
@@ -24,10 +24,8 @@ public class ShowNest : MonoBehaviour
 
         if (doZoom)
         {
+            allowMovement = false;
             StartCoroutine(nameof(ZoomCamera));
-        } else
-        {
-            allowMovement = true;
         }
     }
 
