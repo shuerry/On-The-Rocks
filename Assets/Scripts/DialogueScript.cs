@@ -26,6 +26,8 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private LevelManager levelManager;
 
     private static bool carnivalEnding = true; // assume good
+    [SerializeField] GameObject pigeon = null;
+    [SerializeField] GameObject rat = null;
 
     void Update() {
         // Only process the click if it hasn't been processed already
@@ -182,6 +184,25 @@ public class DialogueScript : MonoBehaviour {
                 switch (tagKey) {
                     case "speaker":
                         nameText.text = tagValue;
+                        break;
+                    case "pigeon":
+                        Debug.Log("Animal Animations/" + tagValue + ".PNG");
+                        if (pigeon) {
+                            Sprite pigeon_sprite = Resources.Load<Sprite>("Animal Animation/" + tagValue);
+                            if (pigeon_sprite != null) {
+                                pigeon.GetComponent<SpriteRenderer>().sprite = pigeon_sprite;
+                                Debug.Log("Changing pigeon sprite " + tagValue);
+                            }
+                        }
+                        break;
+                    case "rat":
+                        Debug.Log("rat ??? " + tagValue);
+                        if (rat) {
+                            Sprite rat_sprite = Resources.Load<Sprite>("Animal Animation/" + tagValue);                            if (rat_sprite != null) {
+                                rat.GetComponent<SpriteRenderer>().sprite = rat_sprite;
+                                Debug.Log("Changing rat sprite " + tagValue);
+                            }
+                        }
                         break;
                     default:
                         nameText.text = " ";

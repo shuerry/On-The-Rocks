@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Subway Scene.unity
     guid: 712ebbcec289b4c5591fe3c2c3b7ce5b
+  - enabled: 1
+    path: Assets/Scenes/Therapy Scene Subway Ending.unity
+    guid: e9ad8db4814b247bdada22b125e7d472
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
