@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Ink.Runtime;
 using TMPro;
 using Unity.VisualScripting;
@@ -28,10 +29,11 @@ public class DialogueScript : MonoBehaviour {
     private static bool carnivalEnding = true; // assume good
     [SerializeField] GameObject pigeon = null;
     [SerializeField] GameObject rat = null;
+    private bool playingVoicedDialogue = false;
 
     void Update() {
         // Only process the click if it hasn't been processed already
-        if (Input.GetMouseButtonDown(0) && !justClicked) {
+        if (Input.GetMouseButtonDown(0) && !justClicked && !playingVoicedDialogue) {
             justClicked = true;  // Prevent multiple clicks from advancing
             RefreshView();
         }
@@ -186,23 +188,29 @@ public class DialogueScript : MonoBehaviour {
                         nameText.text = tagValue;
                         break;
                     case "pigeon":
-                        Debug.Log("Animal Animations/" + tagValue + ".PNG");
                         if (pigeon) {
                             Sprite pigeon_sprite = Resources.Load<Sprite>("Animal Animation/" + tagValue);
                             if (pigeon_sprite != null) {
                                 pigeon.GetComponent<SpriteRenderer>().sprite = pigeon_sprite;
-                                Debug.Log("Changing pigeon sprite " + tagValue);
                             }
                         }
                         break;
                     case "rat":
-                        Debug.Log("rat ??? " + tagValue);
                         if (rat) {
-                            Sprite rat_sprite = Resources.Load<Sprite>("Animal Animation/" + tagValue);                            if (rat_sprite != null) {
+                            Sprite rat_sprite = Resources.Load<Sprite>("Animal Animation/" + tagValue);
+                            if (rat_sprite != null) {
                                 rat.GetComponent<SpriteRenderer>().sprite = rat_sprite;
-                                Debug.Log("Changing rat sprite " + tagValue);
                             }
                         }
+                        break;
+                    case "audio":
+                        Debug.Log("playing audio file " + tagValue);
+                        /* AudioClip voice_acting = Resources.Load<AudioClip>("Audio/" + tagValue);
+                        
+                        voice_acting.Play();
+                        playingVoicedDialogue = true;
+                        when voice_acting.finished, stop()
+                        playingVoicedDialogue = false; */
                         break;
                     default:
                         nameText.text = " ";
