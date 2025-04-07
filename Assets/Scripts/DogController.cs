@@ -16,6 +16,9 @@ public class DogController : MonoBehaviour
     void Start()
     {
         ScheduleNextBark();
+        dogAnimator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
@@ -45,10 +48,9 @@ public class DogController : MonoBehaviour
         if (barkingClips.Length == 0 || audioSource == null || dogAnimator == null)
             return;
 
-        dogAnimator.SetTrigger("MouthOpen");
+        dogAnimator.SetTrigger("Bark");
 
         AudioClip randomClip = barkingClips[Random.Range(0, barkingClips.Length)];
-        audioSource.clip = randomClip;
-        audioSource.Play();
+        audioSource.PlayOneShot(randomClip, 5);
     }
 }
