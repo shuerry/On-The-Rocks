@@ -4,7 +4,7 @@ using System.Collections;
 public class ShowNest : MonoBehaviour
 {
     public static bool allowMovement = false;
-    public bool disabled = false;
+    public bool doZoom = false;
 
     public Transform zoomLocation;
     [SerializeField] float moveSpeed;
@@ -22,7 +22,7 @@ public class ShowNest : MonoBehaviour
         startPosition = transform.position;
         startRotation = transform.rotation;
 
-        if (!disabled)
+        if (doZoom)
         {
             StartCoroutine(nameof(ZoomCamera));
         } else
