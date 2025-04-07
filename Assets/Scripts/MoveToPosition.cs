@@ -22,6 +22,10 @@ public class MoveToPosition : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!ShowNest.allowMovement)
+        {
+            return;
+        }
         if (!arrived && Vector3.Distance(gameObject.transform.position, arrivalPosition.position) > 0.5f)
         {
             if (smoothMovements)

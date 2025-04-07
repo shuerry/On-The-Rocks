@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 10;
     public float gravity = 9.81f;
     public float airControl = 10;
+    public AudioClip jumpSound;
 
     CharacterController controller;
     Vector3 input, moveDirection;
@@ -15,17 +16,12 @@ public class PlayerController : MonoBehaviour
     private float originalMovespeed;
     private float originalJumpHeight;
 
-    /*
-    Animator anim;
-    int animState;*/
+    private AudioSource audioSource;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        originalMovespeed = moveSpeed;
-        originalJumpHeight = jumpHeight;
-        Debug.Log("OriginalMovespeed: " + originalMovespeed);
-
+        audioSource = GetComponents<AudioSource>()[0];
     }
 
     void Update()
@@ -42,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
+                audioSource.PlayOneShot(jumpSound);
                 moveDirection.y = Mathf.Sqrt(2 * jumpHeight * gravity);
             }
             else
@@ -61,11 +58,13 @@ public class PlayerController : MonoBehaviour
 
     public void Freeze()
     {
-        Debug.Log("Freeze - originalMovespeed: " + originalMovespeed);
-        Debug.Log("Freeze - moveSpeed: " + moveSpeed);
+        originalMovespeed = moveSpeed;
+        originalJumpHeight = jumpHeight;
 
         moveSpeed = 0;
         jumpHeight = 0;
+        Debug.Log("Freeze - originalMovespeed: " + originalMovespeed);
+        Debug.Log("Freeze - moveSpeed: " + moveSpeed);
     }
 
     public void Unfreeze()

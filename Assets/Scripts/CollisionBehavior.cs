@@ -1,73 +1,3 @@
-/*using UnityEngine;
-using System.Collections;
-
-public class CollisionBehavior : MonoBehaviour
-{
-    // Assign the player's camera in the inspector or it will default to Camera.main.
-    public Camera playerCamera;
-
-    // How long the camera will shake.
-    public float shakeDuration = 0.5f;
-
-    // How much the camera will move during the shake.
-    public float shakeMagnitude = 0.2f;
-
-    public Rigidbody rb;
-    public float ragdollDuration;
-
-    // Store the original local position of the camera.
-    private Vector3 originalCameraPos;
-
-    void Start()
-    {
-        // If the camera hasn't been assigned, default to the main camera.
-        if (playerCamera == null)
-        {
-            playerCamera = Camera.main;
-        }
-        originalCameraPos = playerCamera.transform.localPosition;
-        rb = GetComponent<Rigidbody>();
-        rb.constraints = RigidbodyConstraints.FreezeRotation;
-    }
-
-    // Called when a collision occurs.
-    void OnCollisionEnter(Collision collision)
-    {
-        // Check if the collided object is tagged as "Pedestrian".
-        if (collision.gameObject.CompareTag("Pedestrian"))
-        {
-            Debug.Log("Collided");
-            // Start the camera shake coroutine.
-            StartCoroutine(ShakeCamera());
-        }
-    }
-
-    // Coroutine to shake the camera.
-    IEnumerator ShakeCamera()
-    {
-        Debug.Log("Shaking");
-        float elapsed = 0.0f;
-
-        while (elapsed < shakeDuration)
-        {
-            // Randomly offset the camera position in X and Y.
-            float offsetX = Random.Range(-1f, 1f) * shakeMagnitude;
-            float offsetY = Random.Range(-1f, 1f) * shakeMagnitude;
-
-            // Apply the offset.
-            playerCamera.transform.localPosition = originalCameraPos + new Vector3(offsetX, offsetY, 0);
-
-            // Increment elapsed time.
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        // Reset the camera to its original position after the shake.
-        playerCamera.transform.localPosition = originalCameraPos;
-    }
-}
-*/
-
 using UnityEngine;
 using System.Collections;
 
@@ -86,7 +16,6 @@ public class CollisionBehavior : MonoBehaviour
     public Rigidbody rb;
 
     // Store the original camera transform values.
-    private Vector3 originalCameraPos;
     private Quaternion originalCameraRot;
     private Coroutine tiltCoroutine;
 
@@ -97,7 +26,6 @@ public class CollisionBehavior : MonoBehaviour
         {
             playerCamera = Camera.main;
         }
-        originalCameraPos = playerCamera.transform.localPosition;
         originalCameraRot = playerCamera.transform.localRotation;
 
         rb = GetComponent<Rigidbody>();
@@ -128,6 +56,8 @@ public class CollisionBehavior : MonoBehaviour
             float rollTilt = Mathf.Clamp(localTilt.x, -1f, 1f) * tiltAngle;
             float pitchTilt = Mathf.Clamp(-localTilt.y, -1f, 1f) * tiltAngle;
 
+            originalCameraRot = playerCamera.transform.localRotation;
+
             // Calculate the target rotation by adding the tilt to the original rotation.
             Quaternion targetRotation = Quaternion.Euler(
                 originalCameraRot.eulerAngles.x + pitchTilt,
@@ -140,9 +70,6 @@ public class CollisionBehavior : MonoBehaviour
                 StopCoroutine(tiltCoroutine);
             }
             tiltCoroutine = StartCoroutine(TiltCamera(targetRotation));
-
-            // Start the coroutine to tilt the camera.
-            StartCoroutine(TiltCamera(targetRotation));
         }
     }
 
@@ -162,6 +89,11 @@ public class CollisionBehavior : MonoBehaviour
         }
         playerCamera.transform.localRotation = targetRotation;
 
+        originalCameraRot = Quaternion.Euler(
+            targetRotation.eulerAngles.x,
+            originalCameraRot.eulerAngles.y,
+            originalCameraRot.eulerAngles.z
+        ) ;
         // Second half: smoothly return to the original rotation.
         elapsed = 0f;
         while (elapsed < halfDuration)
