@@ -3779,6 +3779,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneFadeDuration: 1
+  zoomTo: {fileID: 843902240}
+  camera: {fileID: 330585545}
 --- !u!1 &2049042939
 GameObject:
   m_ObjectHideFlags: 0
