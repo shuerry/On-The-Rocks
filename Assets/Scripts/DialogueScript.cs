@@ -88,6 +88,9 @@ public class DialogueScript : MonoBehaviour {
                 Debug.Log("Ending subway scene.");
                 EndOfDialogue();
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
+            } else if (text.Contains("the end?")) {
+                EndOfDialogue();
+                SceneManager.LoadScene("StartScene");
             }
 
             CreateContentView(text);
