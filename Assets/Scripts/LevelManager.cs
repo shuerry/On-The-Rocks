@@ -7,11 +7,13 @@ using UnityEngine.Video;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private string nextLevel = "Therapy Scene";
+    [SerializeField] SceneController sceneController;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PlayerPrefs.SetInt("Progress", SceneManager.GetActiveScene().buildIndex);
         PlayerPrefs.Save();
+        sceneController.GetComponent<SceneController>();
     }
 
     // Update is called once per frame
@@ -34,6 +36,6 @@ public class LevelManager : MonoBehaviour
             MainMenu.SetTherapyCounter(MainMenu.GetTherapyCounter() + 1);
         }
 
-        SceneManager.LoadScene(newSceneName);
+        sceneController.LoadScene(newSceneName);
     }
 }
