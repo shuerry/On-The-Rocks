@@ -6933,6 +6933,37 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2608760560507969712, guid: 78a10724306834ca6ae06fa969c548b7, type: 3}
+--- !u!1 &433615504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 433615505}
+  m_Layer: 0
+  m_Name: ZoomTo
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &433615505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433615504}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.14055112, y: -0.69299746, z: -0.69299746, w: -0.14055112}
+  m_LocalPosition: {x: -54.96, y: 32.56, z: -25.582434}
+  m_LocalScale: {x: 2.6519194, y: 2.0141416, z: 3.2700515}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &436154166 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7166471928632657587, guid: 7945f5bf50d4c4f9fb3760a578662086, type: 3}
@@ -31015,6 +31046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneFadeDuration: 1
+  zoomTo: {fileID: 433615504}
+  camera: {fileID: 1966398242}
 --- !u!4 &1845789837
 Transform:
   m_ObjectHideFlags: 0
@@ -33176,6 +33209,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1694602655}
   m_SourcePrefab: {fileID: 100100000, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
+--- !u!20 &1966398242 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8179449776289171059, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
+  m_PrefabInstance: {fileID: 1966398241}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1971642264 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -4133703932355585839, guid: 3dd7346c68b2b498ab0e27a093633915, type: 3}
@@ -58596,4 +58634,5 @@ SceneRoots:
   - {fileID: 1024832117}
   - {fileID: 1220171833}
   - {fileID: 1179877436}
+  - {fileID: 433615505}
   - {fileID: 1845789837}

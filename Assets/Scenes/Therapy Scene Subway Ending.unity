@@ -1896,7 +1896,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443c6487056c3412eada64faf954410d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneFadeDuration: 1
+  sceneFadeDuration: 2
+  zoomTo: {fileID: 465964948}
+  camera: {fileID: 465964950}
 --- !u!4 &782421027
 Transform:
   m_ObjectHideFlags: 0

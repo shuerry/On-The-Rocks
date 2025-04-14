@@ -358,7 +358,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443c6487056c3412eada64faf954410d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneFadeDuration: 1
+  sceneFadeDuration: 2
+  zoomTo: {fileID: 1396295026}
+  camera: {fileID: 465964950}
 --- !u!4 &68971354
 Transform:
   m_ObjectHideFlags: 0
@@ -3051,6 +3053,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 670e9ab602834f049b0dac77d6a298d8, type: 3}
   m_PrefabInstance: {fileID: 843751053}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1396295026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1396295027}
+  m_Layer: 0
+  m_Name: Peggy (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1396295027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396295026}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0074128993, y: 0.9850699, z: 0.036114987, w: -0.1681613}
+  m_LocalPosition: {x: 2.47, y: 1.94, z: 4.58}
+  m_LocalScale: {x: 0.28596008, y: 0.2859599, z: 0.95319986}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 85.104, y: 88.296, z: 88.633}
 --- !u!1 &1454705909
 GameObject:
   m_ObjectHideFlags: 0
@@ -7395,3 +7428,4 @@ SceneRoots:
   - {fileID: 1160782515}
   - {fileID: 1768602564}
   - {fileID: 68971354}
+  - {fileID: 1396295027}
