@@ -31,6 +31,9 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] GameObject rat = null;
     private bool playingVoicedDialogue = false;
 
+    [Header("Camera")]
+    [SerializeField] private TherapyCameraController cameraController = null;
+
     void Update() {
         // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked && !playingVoicedDialogue) {
@@ -42,6 +45,10 @@ public class DialogueScript : MonoBehaviour {
     void Awake () {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (cameraController == null)
+            cameraController = FindObjectOfType<TherapyCameraController>();
+
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
             StartStory();
         } else {
@@ -128,6 +135,8 @@ public class DialogueScript : MonoBehaviour {
         Cursor.lockState = CursorLockMode.None; // Unlock the cursor from the center
         Cursor.visible = true; // Make the cursor visible
 
+        cameraController.LockAndCenter();
+
         for (int i = 0; i < story.currentChoices.Count; i++) {
             Choice choice = story.currentChoices[i];
             Button button = CreateChoiceView(choice.text.Trim(), i);
@@ -142,6 +151,7 @@ public class DialogueScript : MonoBehaviour {
     void OnClickChoiceButton(Choice choice) {
         story.ChooseChoiceIndex(choice.index);
         if (story.canContinue) {
+            //cameraController.UnlockCamera();
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             string text = story.Continue();
