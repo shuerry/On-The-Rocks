@@ -15,12 +15,15 @@ public class ShowNest : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Vector3 velocity = Vector3.zero;
+    private RockyController Rocky;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         startPosition = transform.position;
         startRotation = transform.rotation;
+
+        Rocky = GameObject.FindFirstObjectByType<RockyController>();
 
         if (doZoom)
         {
@@ -70,6 +73,7 @@ public class ShowNest : MonoBehaviour
 
         FindAnyObjectByType<PlayerController>().Unfreeze();
         allowMovement = true;
+        Rocky.PutRockyBack();
     }
 }
 

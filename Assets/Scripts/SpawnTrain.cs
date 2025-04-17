@@ -3,6 +3,7 @@ using UnityEngine;
 public class SpawnTrain : MonoBehaviour
 {
     [SerializeField] GameObject train;
+    public bool freezePlayer = true;
 
     bool triggered = false;
 
@@ -10,8 +11,11 @@ public class SpawnTrain : MonoBehaviour
     {
         if (!triggered)
         {
-            // Player is unfrozen in TrainCameraShake
-            FindAnyObjectByType<PlayerController>().Freeze();
+            if (freezePlayer)
+            {
+                // Player is unfrozen in TrainCameraShake
+                FindAnyObjectByType<PlayerController>().Freeze();
+            }
             train.SetActive(true);
             triggered = true;
         }
