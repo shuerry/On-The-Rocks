@@ -10,6 +10,7 @@ public class CarnivalLevelManager : MonoBehaviour
     public static bool gameEnding = true; // assume good
     private GameObject collectibles;
     public GameObject UIManager;
+    private bool started = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +23,7 @@ public class CarnivalLevelManager : MonoBehaviour
 
     public void StartGame()
     {
+        started = true;
         UIManager.SetActive(true);
         isGameOver = false;
         collectibles.SetActive(true);
@@ -33,7 +35,10 @@ public class CarnivalLevelManager : MonoBehaviour
     {
         if (gameStart)
         {
-            StartGame();
+            if (!started)
+            {
+                StartGame();
+            }
 
             if (Collectables.pickupItems.Count == 3)
             {
