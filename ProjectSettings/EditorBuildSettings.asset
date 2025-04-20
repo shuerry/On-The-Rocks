@@ -16,13 +16,16 @@ EditorBuildSettings:
     guid: 72989db003ed8437484f785b85db4162
   - enabled: 1
     path: Assets/Scenes/Therapy Scene Carnival Ending.unity
-    guid: fbfcca337fef7465a98f7fdb343ca768
+    guid: d933cefe0db474abc9ceed2c0fc4981b
   - enabled: 1
     path: Assets/Scenes/Subway Scene.unity
     guid: 712ebbcec289b4c5591fe3c2c3b7ce5b
   - enabled: 1
     path: Assets/Scenes/Therapy Scene Subway Ending.unity
     guid: e9ad8db4814b247bdada22b125e7d472
+  - enabled: 1
+    path: Assets/Scenes/EndScene.unity
+    guid: 4de11535046ed09419e55246f8337b37
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
