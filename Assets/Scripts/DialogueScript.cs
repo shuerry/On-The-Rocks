@@ -206,8 +206,14 @@ public class DialogueScript : MonoBehaviour {
                             }
                         }
                         break;
-                    case "audio":
-                        Debug.Log("playing audio file " + tagValue);
+                    case "va":
+                        if (MainMenu.useVoiceActing) {
+                            Debug.Log("playing audio file " + tagValue);
+                            AudioClip voice_acting = Resources.Load<AudioClip>("VoiceOver/" + tagValue);
+                            // playingVoicedDialogue = true;
+                            // Debug.Log(voice_acting.name);
+                            // voice_acting.LoadAudioData();
+                        }
                         /* AudioClip voice_acting = Resources.Load<AudioClip>("Audio/" + tagValue);
                         
                         voice_acting.Play();
