@@ -3876,8 +3876,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 443c6487056c3412eada64faf954410d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneFadeDuration: 1
-  zoomTo: {fileID: 843902240}
+  sceneFadeDuration: 3
+  zoomTo: {fileID: 330585543}
   camera: {fileID: 330585545}
 --- !u!1 &2049042939
 GameObject:
