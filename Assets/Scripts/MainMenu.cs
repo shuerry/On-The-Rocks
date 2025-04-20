@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
     private static int therapyCounter;
+    public static bool useVoiceActing = true;
 
     void Awake()
     {

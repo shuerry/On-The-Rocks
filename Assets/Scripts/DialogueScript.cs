@@ -29,14 +29,15 @@ public class DialogueScript : MonoBehaviour {
     private static bool carnivalEnding = true; // assume good
     [SerializeField] GameObject pigeon = null;
     [SerializeField] GameObject rat = null;
-    private bool playingVoicedDialogue = false;
+    private AudioSource pigeon_audioSource = null;
+    private AudioSource rat_audioSource = null;
 
     [Header("Camera")]
     [SerializeField] private TherapyCameraController cameraController = null;
 
     void Update() {
         // Only process the click if it hasn't been processed already
-        if (Input.GetMouseButtonDown(0) && !justClicked && !playingVoicedDialogue) {
+        if (Input.GetMouseButtonDown(0) && !justClicked && !pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying) {
             justClicked = true;  // Prevent multiple clicks from advancing
             RefreshView();
         }
@@ -45,10 +46,14 @@ public class DialogueScript : MonoBehaviour {
     void Awake () {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
         if (cameraController == null)
             cameraController = FindObjectOfType<TherapyCameraController>();
-
+        if (pigeon != null) {
+            pigeon_audioSource = pigeon.GetComponent<AudioSource>();
+        }
+        if (rat != null) {
+            rat_audioSource = rat.GetComponent<AudioSource>();
+        }
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
             StartStory();
         } else {
@@ -216,14 +221,22 @@ public class DialogueScript : MonoBehaviour {
                             }
                         }
                         break;
-                    case "audio":
-                        Debug.Log("playing audio file " + tagValue);
-                        /* AudioClip voice_acting = Resources.Load<AudioClip>("Audio/" + tagValue);
-                        
-                        voice_acting.Play();
-                        playingVoicedDialogue = true;
-                        when voice_acting.finished, stop()
-                        playingVoicedDialogue = false; */
+                    case "va":
+                        if (MainMenu.useVoiceActing) {
+                            Debug.Log("playing audio file " + tagValue);
+                            AudioClip voice_acting = Resources.Load<AudioClip>("VoiceOver/" + tagValue);
+                            if (tagValue.Contains("Peggy")) {
+                                if (pigeon_audioSource != null) {
+                                    pigeon_audioSource.clip = voice_acting;
+                                    pigeon_audioSource.Play();
+                                }
+                            } else if (tagValue.Contains("Rocky")) {
+                                if (rat_audioSource != null) {
+                                    rat_audioSource.clip = voice_acting;
+                                    rat_audioSource.Play();
+                                }
+                            }
+                        }
                         break;
                     default:
                         nameText.text = " ";
