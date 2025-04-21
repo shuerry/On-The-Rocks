@@ -2,11 +2,13 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
     private static int therapyCounter;
     public static bool useVoiceActing = true;
+    [SerializeField] public TextMeshProUGUI voiceActingButton = null;
 
     void Awake()
     {
@@ -44,5 +46,14 @@ public class MainMenu : MonoBehaviour
     public void ExitGame()
     {
         Application.Quit();
+    }
+
+    public void ToggleVoiceActing() {
+        if (useVoiceActing) {
+            voiceActingButton.text = "Deactivated";
+        } else {
+            voiceActingButton.text = "Activated";
+        }
+        useVoiceActing = !useVoiceActing;
     }
 }

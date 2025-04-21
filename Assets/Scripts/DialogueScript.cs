@@ -37,7 +37,7 @@ public class DialogueScript : MonoBehaviour {
 
     void Update() {
         // Only process the click if it hasn't been processed already
-        if (Input.GetMouseButtonDown(0) && !justClicked && !pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying) {
+        if (Input.GetMouseButtonDown(0) && !justClicked && (!MainMenu.useVoiceActing || (!pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying))) {
             justClicked = true;  // Prevent multiple clicks from advancing
             RefreshView();
         }

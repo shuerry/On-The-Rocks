@@ -571,8 +571,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -992.2999, y: -159.39998}
-  m_SizeDelta: {x: 295.8001, y: -70}
+  m_AnchoredPosition: {x: -1059.3999, y: -159.39998}
+  m_SizeDelta: {x: 430.0003, y: -70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &331749701
 MonoBehaviour:
@@ -813,6 +813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c683020a22f694e1bb6e2bfa1020ff8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  voiceActingButton: {fileID: 0}
 --- !u!1 &404226851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,9 +1394,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'X
-
-'
+  m_text: Activated
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 641f5b434fabe45dbbd7dd7e9d94daaa, type: 2}
   m_sharedMaterial: {fileID: -4477435725442542745, guid: 641f5b434fabe45dbbd7dd7e9d94daaa, type: 2}
@@ -1744,6 +1743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c683020a22f694e1bb6e2bfa1020ff8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  voiceActingButton: {fileID: 0}
 --- !u!114 &674734452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3146,8 +3146,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -774.9, y: -158.9}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -771, y: -162.5}
+  m_SizeDelta: {x: 225.5, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1317521647
 MonoBehaviour:
@@ -3193,21 +3193,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1380367404}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1483085990}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: 
+      - m_Target: {fileID: 1737224073}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: ToggleVoiceActing
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3425,6 +3413,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c683020a22f694e1bb6e2bfa1020ff8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  voiceActingButton: {fileID: 0}
 --- !u!114 &1380367406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3834,6 +3823,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c683020a22f694e1bb6e2bfa1020ff8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  voiceActingButton: {fileID: 557139783}
 --- !u!1 &1751785213
 GameObject:
   m_ObjectHideFlags: 0
