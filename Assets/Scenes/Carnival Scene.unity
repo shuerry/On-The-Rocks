@@ -34561,7 +34561,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2283764027601174552, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
       propertyPath: jumpHeight
-      value: 4
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 2283764027601174552, guid: 31c45396509c6ec4d9776034116f04eb, type: 3}
       propertyPath: enableGroundStickiness

@@ -209,8 +209,8 @@ public class PlayerController : MonoBehaviour
 
     public void Freeze()
     {
-        originalMoveSpeed = moveSpeed;
-        originalJumpHeight = jumpHeight;
+        /*originalMoveSpeed = moveSpeed;
+        originalJumpHeight = jumpHeight;*/
 
         moveSpeed = 0f;
         jumpHeight = 0f;
