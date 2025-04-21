@@ -33,10 +33,15 @@ public class PlayerController : MonoBehaviour
     {
         controller = GetComponent<CharacterController>();
         audioSource = GetComponent<AudioSource>();
+    }
 
+    private void Awake()
+    {
         originalMoveSpeed = moveSpeed;
         originalJumpHeight = jumpHeight;
     }
+
+
 
     void Update()
     {
