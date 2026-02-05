@@ -4356,7 +4356,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 229047554}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -5092,7 +5092,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 229047554}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -10038,7 +10038,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 229047554}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -13369,7 +13369,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 229047554}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -16080,7 +16080,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 229047554}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -22669,7 +22669,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 229047554}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -27224,7 +27224,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 229047554}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
