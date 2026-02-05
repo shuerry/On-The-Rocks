@@ -11,10 +11,6 @@
 - "Dates. I mean, birds aren’t exactly known for commitment, you know? We’re more of a fly-in, fly-out kind of species." #speaker:Peggy #pigeon:PeggyP2
 - "Rats have kind of the opposite problem. We’re pack animals. Lots of cousins. Aunts. Uncles. Sometimes it’s… a lot." #speaker:Rocky
 - "Oh, I get that! My flock can’t keep out of my business. When I told them I was meeting you, they were like, 'A rat? Really? Are you feeling okay?' Like I don't have standards." #speaker:Peggy #pigeon:PeggyP7
-// ...
-- "My cousins are everywhere. My uncle runs half the street carts in town." #speaker:Rocky 
-- "Oh yeah? Maybe he’s here. You think we could get free snacks?" #speaker:Peggy #pigeon:PeggyP4
-- "Pfft, knowing him? He’d charge me double just for showing up." #speaker:Rocky
 // Peggy laughs as they pass a game stall. A display of cheap trinkets catches her eye, plastic bead necklaces, tiny keychains, glow sticks glowing faintly under the carnival lights.
 - "Ooh, I used to love these! Total junk, but I don’t know… something about them. Maybe it’s the colors. Or the way they catch the light. Like tiny little treasures." #speaker:Peggy #pigeon:PeggyP2
 // Hidden Clue: Peggy likes shiny, decorative things. (but these hints aren’t shown to the player they must pay attention to what she is saying)
