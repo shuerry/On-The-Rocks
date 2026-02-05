@@ -15,6 +15,7 @@ public class DialogueScript : MonoBehaviour {
     public Story story;
 
     [SerializeField] private GameObject dialogueBox = null;
+    [SerializeField] private Image dialogueBoxImage = null;
     [SerializeField] private GameObject internalBox = null;
 
     // UI Prefabs
@@ -42,7 +43,10 @@ public class DialogueScript : MonoBehaviour {
         // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked && (!MainMenu.useVoiceActing || (!pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying))) {
             justClicked = true;  // Prevent multiple clicks from advancing
-            Debug.Log("inner voice? " + innerVoice);
+            if (innerVoice)
+            {
+                Debug.Log("inner voice? " + innerVoice);
+            }
             RefreshView();
         }
     }
@@ -79,13 +83,17 @@ public class DialogueScript : MonoBehaviour {
             Debug.Log("Updated Ink Variable. + " + story.variablesState["good_ending"]);
         } 
 
+        dialogueBox.SetActive(true);
         if (innerVoice)
         {
             internalBox.SetActive(true);
+            dialogueBoxImage.enabled = false;
+            dialogueText.enabled = false;
         } else
         {
-            dialogueBox.SetActive(true);
             nameBox.SetActive(true);
+            dialogueBoxImage.enabled = true;
+            dialogueText.enabled = true;
         }
         
         // choicesBackground.SetActive(true);

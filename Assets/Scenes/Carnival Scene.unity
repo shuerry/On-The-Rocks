@@ -3445,6 +3445,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1179395310783321818, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1179395310783321818, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: m_FillCenter
       value: 1
       objectReference: {fileID: 0}
@@ -3484,6 +3488,10 @@ PrefabInstance:
       propertyPath: levelManager
       value: 
       objectReference: {fileID: 840600748}
+    - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+      propertyPath: dialogueBoxImage
+      value: 
+      objectReference: {fileID: 544697251}
     - target: {fileID: 3884074850188049601, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -8924,6 +8932,17 @@ MonoBehaviour:
   buttonPrefab: {fileID: 415418726}
   choicesBackground: {fileID: 558647111}
   levelManager: {fileID: 840600748}
+--- !u!114 &544697251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1179395310783321818, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+  m_PrefabInstance: {fileID: 229047553}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544697244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &544902768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5342034176638142636, guid: 3dd7346c68b2b498ab0e27a093633915, type: 3}
@@ -60426,7 +60445,6 @@ SceneRoots:
   - {fileID: 993870776}
   - {fileID: 1966398241}
   - {fileID: 840600746}
-  - {fileID: 229047553}
   - {fileID: 992422343}
   - {fileID: 1625030271}
   - {fileID: 621979824}
@@ -60436,3 +60454,4 @@ SceneRoots:
   - {fileID: 433615505}
   - {fileID: 1845789837}
   - {fileID: 429629544}
+  - {fileID: 229047553}
