@@ -15,6 +15,7 @@ public class DialogueScript : MonoBehaviour {
     public Story story;
 
     [SerializeField] private GameObject dialogueBox = null;
+    [SerializeField] private GameObject internalBox = null;
 
     // UI Prefabs
     [SerializeField] private TextMeshProUGUI dialogueText = null;
@@ -22,6 +23,7 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private GameObject nameBox = null;
     [SerializeField] private Button buttonPrefab = null;
     [SerializeField] private GameObject choicesBackground = null;
+    [SerializeField] private TextMeshProUGUI internalText = null;
     
     private bool justClicked = false;
     [SerializeField] private LevelManager levelManager;
@@ -31,6 +33,7 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] GameObject rat = null;
     private AudioSource pigeon_audioSource = null;
     private AudioSource rat_audioSource = null;
+    bool innerVoice = false;
 
     [Header("Camera")]
     [SerializeField] private TherapyCameraController cameraController = null;
@@ -39,6 +42,7 @@ public class DialogueScript : MonoBehaviour {
         // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked && (!MainMenu.useVoiceActing || (!pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying))) {
             justClicked = true;  // Prevent multiple clicks from advancing
+            Debug.Log("inner voice? " + innerVoice);
             RefreshView();
         }
     }
@@ -59,6 +63,7 @@ public class DialogueScript : MonoBehaviour {
         } else {
             dialogueBox.SetActive(false);
             nameBox.SetActive(false);
+            internalBox.SetActive(false);
         }
     }
 
@@ -74,8 +79,15 @@ public class DialogueScript : MonoBehaviour {
             Debug.Log("Updated Ink Variable. + " + story.variablesState["good_ending"]);
         } 
 
-        dialogueBox.SetActive(true);
-        nameBox.SetActive(true);
+        if (innerVoice)
+        {
+            internalBox.SetActive(true);
+        } else
+        {
+            dialogueBox.SetActive(true);
+            nameBox.SetActive(true);
+        }
+        
         // choicesBackground.SetActive(true);
 
         RefreshView();
@@ -128,12 +140,14 @@ public class DialogueScript : MonoBehaviour {
     {
         dialogueBox.SetActive(false);
         nameBox.SetActive(false);
+        internalBox.SetActive(false);
         choicesBackground.SetActive(false);
    } 
 
     void HandleChoices() {
         dialogueBox.SetActive(false);
         nameBox.SetActive(false);
+        internalBox.SetActive(false);
         choicesBackground.SetActive(true);
         
         // Enable mouse cursor
@@ -168,7 +182,13 @@ public class DialogueScript : MonoBehaviour {
     // Creates a textbox showing the line of text
     void CreateContentView(string text) {
         HandleTags(story.currentTags);
-        dialogueText.text = text;
+        if (innerVoice)
+        {
+            internalText.text = text;
+        } else
+        {
+            dialogueText.text = text;
+        }
         justClicked = false;
     }
 
@@ -265,5 +285,9 @@ public class DialogueScript : MonoBehaviour {
 
     public static void SetCarnivalEnding(bool goodEnding) {
         carnivalEnding = goodEnding;
+    }
+
+    public void SetInternalVoice(bool internalVoice) {
+        innerVoice = internalVoice;
     }
 }

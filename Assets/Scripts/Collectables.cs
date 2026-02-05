@@ -42,9 +42,11 @@ public class Collectables : MonoBehaviour
         {
             if (playingStory && !dialogueScript.story.canContinue) {
                 pickupPrompt.SetActive(true); // Show prompt
+                dialogueScript.SetInternalVoice(false);
             }
             
             if (!playingStory) {
+                dialogueScript.SetInternalVoice(true);
                 dialogueScript.SetInkStory(pickupPromptJSON);
                 playingStory = true;
             }
