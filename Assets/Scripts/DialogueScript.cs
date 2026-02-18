@@ -27,6 +27,8 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private LevelManager levelManager;
 
     private static bool carnivalEnding = true; // assume good
+    private Dictionary<string, Sprite> pigeonSpriteMap;
+    private Dictionary<string, Sprite> ratSpriteMap;
     [SerializeField] GameObject pigeon = null;
     [SerializeField] GameObject rat = null;
     private AudioSource pigeon_audioSource = null;
@@ -47,12 +49,24 @@ public class DialogueScript : MonoBehaviour {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         if (cameraController == null)
-            cameraController = FindObjectOfType<TherapyCameraController>();
+            cameraController = FindFirstObjectByType<TherapyCameraController>();
         if (pigeon != null) {
             pigeon_audioSource = pigeon.GetComponent<AudioSource>();
+            Sprite[] pigeonSprites = Resources.LoadAll<Sprite>("peggy_sprite_sheet");
+
+            pigeonSpriteMap = new Dictionary<string, Sprite>();
+            foreach (Sprite s in pigeonSprites) {
+                pigeonSpriteMap[s.name] = s;
+            }
         }
         if (rat != null) {
             rat_audioSource = rat.GetComponent<AudioSource>();
+            Sprite[] ratSprites = Resources.LoadAll<Sprite>("rocky_sprite_sheet");
+
+            ratSpriteMap = new Dictionary<string, Sprite>();
+            foreach (Sprite s in ratSprites) {
+                ratSpriteMap[s.name] = s;
+            }
         }
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
             StartStory();
@@ -207,17 +221,20 @@ public class DialogueScript : MonoBehaviour {
                         break;
                     case "pigeon":
                         if (pigeon) {
-                            Sprite pigeon_sprite = Resources.Load<Sprite>("Animal Animation/" + tagValue);
-                            if (pigeon_sprite != null) {
+                            // Debug.Log("pigeoning " + tagValue);
+                            if (pigeonSpriteMap.TryGetValue(tagValue, out Sprite pigeon_sprite)) {
                                 pigeon.GetComponent<SpriteRenderer>().sprite = pigeon_sprite;
+                            } else {
+                                Debug.LogWarning("Sprite not found in sheet: " + tagValue);
                             }
                         }
                         break;
                     case "rat":
                         if (rat) {
-                            Sprite rat_sprite = Resources.Load<Sprite>("Animal Animation/" + tagValue);
-                            if (rat_sprite != null) {
+                            if (ratSpriteMap.TryGetValue(tagValue, out Sprite rat_sprite)) {
                                 rat.GetComponent<SpriteRenderer>().sprite = rat_sprite;
+                            } else {
+                                Debug.LogWarning("Sprite not found in sheet: " + tagValue);
                             }
                         }
                         break;
