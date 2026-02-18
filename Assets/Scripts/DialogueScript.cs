@@ -240,7 +240,7 @@ public class DialogueScript : MonoBehaviour {
                         break;
                     case "va":
                         if (MainMenu.useVoiceActing) {
-                            Debug.Log("playing audio file " + tagValue);
+                            // Debug.Log("playing audio file " + tagValue);
                             AudioClip voice_acting = Resources.Load<AudioClip>("VoiceOver/" + tagValue);
                             if (tagValue.Contains("Peggy")) {
                                 if (pigeon_audioSource != null) {
