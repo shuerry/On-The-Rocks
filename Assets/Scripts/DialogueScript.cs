@@ -36,12 +36,28 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] GameObject rat = null;
     private AudioSource pigeon_audioSource = null;
     private AudioSource rat_audioSource = null;
+
+    [Header("Peggy Movement")]
+    [SerializeField] private PeggyCarnivalMovements peggyMover = null;
+    [SerializeField] private CarnivalWaypointMap waypointMap = null;
     bool innerVoice = false;
 
     [Header("Camera")]
     [SerializeField] private TherapyCameraController cameraController = null;
 
+    private bool pausedForDistance = false;
+    private bool holdUntilPeggyArrived = false;
+
     void Update() {
+        if (holdUntilPeggyArrived)
+        {
+            dialogueBox.SetActive(false);
+            nameBox.SetActive(false);
+            return;
+        } 
+
+        if (pausedForDistance) return;
+
         // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked && (!MainMenu.useVoiceActing || (!pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying))) {
             justClicked = true;  // Prevent multiple clicks from advancing
@@ -56,6 +72,12 @@ public class DialogueScript : MonoBehaviour {
     void Awake () {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (peggyMover != null)
+        {
+            peggyMover.Arrived += OnPeggyArrived;
+        }
+
         if (cameraController == null)
             cameraController = FindFirstObjectByType<TherapyCameraController>();
         if (pigeon != null) {
@@ -283,8 +305,34 @@ public class DialogueScript : MonoBehaviour {
                             }
                         }
                         break;
+                    case "npc":
+                        if (tagValue.StartsWith("peggy_to="))
+                        {
+                            if (peggyMover == null || waypointMap == null)
+                            {
+                                Debug.LogWarning("Missing peggyMover or waypointMap reference.");
+                                break;
+                            }
+
+                            string wpId = tagValue.Substring("peggy_to=".Length).Trim();
+                            Transform wp = waypointMap.Get(wpId);
+
+                            if (wp == null)
+                            {
+                                Debug.LogWarning($"Waypoint '{wpId}' not found.");
+                                break;
+                            }
+
+                            peggyMover.SetWaypoint(wp);
+                        }
+                        break;
+                    case "hold":
+                        if (tagValue == "peggy_arrived")
+                        {
+                            holdUntilPeggyArrived = true;
+                        }
+                        break;
                     default:
-                        nameText.text = " ";
                         break;
                 }
             }
@@ -299,7 +347,7 @@ public class DialogueScript : MonoBehaviour {
         for (int i = childCount - 1; i >= 0; --i) {
             Transform child = dialogueBox.transform.GetChild(i);
             if (child.GetComponent<TextMeshProUGUI>() == null) {
-                Destroy(dialogueBox.transform.GetChild(i).gameObject);
+                Destroy(child.gameObject);
             }
         }
     }
@@ -311,6 +359,36 @@ public class DialogueScript : MonoBehaviour {
     public static void SetCarnivalEnding(bool goodEnding) {
         carnivalEnding = goodEnding;
     }
+
+    public void PauseForDistance(bool pause)
+    {
+        pausedForDistance = pause;
+
+        if (pause)
+        {
+            dialogueBox.SetActive(false);
+            nameBox.SetActive(false);
+        }
+        else
+        {
+            dialogueBox.SetActive(true);
+            nameBox.SetActive(true);
+        }
+    }
+
+    private void OnPeggyArrived()
+    {
+        Debug.Log("Peggy has arrived at her destination.");
+        holdUntilPeggyArrived = false;
+
+        if (!pausedForDistance)
+        {
+            dialogueBox.SetActive(true);
+            nameBox.SetActive(true);
+            justClicked = false;
+        }
+    }
+
 
     public void SetInternalVoice(bool internalVoice) {
         innerVoice = internalVoice;
