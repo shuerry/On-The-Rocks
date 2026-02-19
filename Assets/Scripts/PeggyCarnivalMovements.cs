@@ -1,69 +1,42 @@
 using UnityEngine;
+using System;
 
 public class PeggyCarnivalMovements : MonoBehaviour
 {
-    [Header("References")]
-    public Transform rocky;
     public Transform currentWaypoint;
 
-    [Header("Movement")]
     public float moveSpeed = 2.0f;
     public float arriveDistance = 0.3f;
-    public bool slowDownNearTarget = true;
-    public float slowDownDistance = 1.5f;
 
-    [Header("Leash (don't outrun Rocky)")]
-    public float maxLeadDistance = 3.0f;   // if Peggy is farther than this from Rocky, she waits
-    public float resumeLeadDistance = 2.2f; // hysteresis so she doesn't stutter
-    public bool leashEnabled = true;
-
-    [Header("Ground / Height")]
     public bool lockY = true;
-    public float lockedY = 0f;
+    public float lockedY;
 
     public bool IsMoving { get; private set; }
     public bool HasArrived { get; private set; }
+    public event Action Arrived;
+    private bool arrivedFired = false;
 
-    private bool waitingForRocky = false;
+    [Header("Animation")]
+    [SerializeField] private Animator animator = null;
+    [SerializeField] private string walkParameterName = "IsWalking";
 
     void Awake()
     {
         if (lockY) lockedY = transform.position.y;
+
+        // Auto-find animator if not assigned
+        if (animator == null)
+            animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        HasArrived = false;
-
         if (currentWaypoint == null)
         {
-            IsMoving = false;
+            SetMoving(false);
             return;
         }
 
-        // Leash check: if Peggy is too far from Rocky, pause
-        if (leashEnabled && rocky != null)
-        {
-            float distToRocky = DistanceXZ(transform.position, rocky.position);
-
-            if (!waitingForRocky && distToRocky > maxLeadDistance)
-                waitingForRocky = true;
-
-            if (waitingForRocky)
-            {
-                IsMoving = false;
-
-                // Wait until Rocky gets closer than resume threshold
-                if (distToRocky <= resumeLeadDistance)
-                    waitingForRocky = false;
-
-                // Keep Y stable even while waiting
-                if (lockY) transform.position = new Vector3(transform.position.x, lockedY, transform.position.z);
-                return;
-            }
-        }
-
-        // Move toward waypoint (XZ only)
         Vector3 pos = transform.position;
         Vector3 target = currentWaypoint.position;
 
@@ -74,46 +47,46 @@ public class PeggyCarnivalMovements : MonoBehaviour
         }
         else
         {
-            // Still avoid vertical movement by ignoring Y delta
             target.y = pos.y;
         }
 
-        float distToTarget = DistanceXZ(pos, target);
-        if (distToTarget <= arriveDistance)
+        float dist = DistanceXZ(pos, target);
+
+        if (dist <= arriveDistance)
         {
-            // Snap to final XZ (keep Y)
             transform.position = new Vector3(target.x, lockY ? lockedY : transform.position.y, target.z);
-            IsMoving = false;
             HasArrived = true;
+            SetMoving(false);
+            if (!arrivedFired)
+            {
+                arrivedFired = true;
+                Arrived?.Invoke();
+                Debug.Log("Arrive fired");
+            }
             return;
         }
 
-        float speed = moveSpeed;
-        if (slowDownNearTarget && distToTarget < slowDownDistance)
-        {
-            // Smooth slowdown as approaching target
-            float t = Mathf.Clamp01(distToTarget / slowDownDistance);
-            speed *= Mathf.Lerp(0.35f, 1f, t);
-        }
-
-        Vector3 next = Vector3.MoveTowards(pos, target, speed * Time.deltaTime);
-        transform.position = next;
-        IsMoving = true;
+        transform.position = Vector3.MoveTowards(pos, target, moveSpeed * Time.deltaTime);
+        SetMoving(true);
     }
 
     public void SetWaypoint(Transform wp)
     {
         currentWaypoint = wp;
+        HasArrived = false;
+        arrivedFired = false;
     }
 
-    public void ClearWaypoint()
+    private void SetMoving(bool moving)
     {
-        currentWaypoint = null;
-        IsMoving = false;
-        waitingForRocky = false;
+        IsMoving = moving;
+
+        if (animator != null)
+        {
+            animator.SetBool(walkParameterName, moving);
+        }
     }
 
-    // XZ distance only
     private float DistanceXZ(Vector3 a, Vector3 b)
     {
         float dx = a.x - b.x;
@@ -121,4 +94,3 @@ public class PeggyCarnivalMovements : MonoBehaviour
         return Mathf.Sqrt(dx * dx + dz * dz);
     }
 }
-
