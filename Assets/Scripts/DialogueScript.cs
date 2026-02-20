@@ -47,8 +47,6 @@ public class DialogueScript : MonoBehaviour {
 
     private bool pausedForDistance = false;
     private bool holdUntilPeggyArrived = false;
-    private SpriteRenderer peggySpriteRender = null;
-    private SpriteRenderer peggyVisualSpriteRender = null;
 
     void Update() {
         if (holdUntilPeggyArrived)
@@ -89,15 +87,6 @@ public class DialogueScript : MonoBehaviour {
             pigeonSpriteMap = new Dictionary<string, Sprite>();
             foreach (Sprite s in pigeonSprites) {
                 pigeonSpriteMap[s.name] = s;
-            }
-
-            peggySpriteRender = pigeon.GetComponent<SpriteRenderer>();
-            peggySpriteRender.enabled = true;
-
-            if (SceneManager.GetActiveScene().name == "Carnival Experiment")
-            {
-                peggyVisualSpriteRender = pigeon.GetComponentInChildren<SpriteRenderer>();
-                peggyVisualSpriteRender.enabled = false;
             }
         }
         if (rat != null) {
@@ -284,7 +273,9 @@ public class DialogueScript : MonoBehaviour {
                         if (pigeon) {
                             Debug.Log("pigeoning " + tagValue);
                             if (pigeonSpriteMap.TryGetValue(tagValue, out Sprite pigeon_sprite)) {
-                                peggySpriteRender.sprite = pigeon_sprite;
+                                if (pigeon.GetComponent<Animator>() != null)
+                                    pigeon.GetComponent<Animator>().enabled = false;
+                                pigeon.GetComponent<SpriteRenderer>().sprite = pigeon_sprite;
                             } else {
                                 Debug.LogWarning("Sprite not found in sheet: " + tagValue);
                             }
@@ -319,14 +310,6 @@ public class DialogueScript : MonoBehaviour {
                     case "npc":
                         if (tagValue.StartsWith("peggy_to="))
                         {
-                            if (peggySpriteRender == null || peggyVisualSpriteRender == null)
-                            {
-                                Debug.LogWarning("Peggy has no sprite renderer");
-                            } else
-                            {
-                                // peggySpriteRender.enabled = false;
-                                peggyVisualSpriteRender.enabled = true;
-                            }
                             if (peggyMover == null || waypointMap == null)
                             {
                                 Debug.LogWarning("Missing peggyMover or waypointMap reference.");
@@ -348,6 +331,7 @@ public class DialogueScript : MonoBehaviour {
                     case "hold":
                         if (tagValue == "peggy_arrived")
                         {
+                            pigeon.GetComponent<Animator>().enabled = true;
                             holdUntilPeggyArrived = true;
                         }
                         break;
@@ -399,8 +383,6 @@ public class DialogueScript : MonoBehaviour {
     {
         Debug.Log("Peggy has arrived at her destination.");
         holdUntilPeggyArrived = false;
-        peggySpriteRender.enabled = true;
-        peggyVisualSpriteRender.enabled = false;
 
         if (!pausedForDistance)
         {

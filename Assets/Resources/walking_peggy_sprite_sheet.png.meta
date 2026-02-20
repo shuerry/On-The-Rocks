@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d983be522ba1748f98736abf28f7046d
+guid: eb8e2c5cbe7ac435ea79592fd377ee0b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,57 +110,57 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PeggyP1
+      name: WalkingPeggyP1
       rect:
         serializedVersion: 2
-        x: 808
-        y: 3676
-        width: 635
-        height: 949
+        x: 669
+        y: 425
+        width: 683
+        height: 910
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e67c01627f6a418395e156de894d2a0
-      internalID: -591013199
+      spriteID: cdd4d2dac078b446d8496cac4fe0382a
+      internalID: -303279811
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PeggyP2
+      name: WalkingPeggyP2
       rect:
         serializedVersion: 2
-        x: 2235
-        y: 3678
-        width: 2083
-        height: 1067
+        x: 2887
+        y: 401
+        width: 620
+        height: 997
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 672e13f18ff7f4a4aad59abd4a884944
-      internalID: 1495922224
+      spriteID: 31d924448633c4419ac8234742e06c75
+      internalID: 836867926
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PeggyP3
+      name: WalkingPeggyP3
       rect:
         serializedVersion: 2
-        x: 5118
-        y: 3679
+        x: 5065
+        y: 426
         width: 644
-        height: 911
+        height: 909
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,140 +169,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd40d149a37194ea3bd77e0c95d0c4b0
-      internalID: 1943274611
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP6
-      rect:
-        serializedVersion: 2
-        x: 5124
-        y: 2048
-        width: 643
-        height: 984
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f753b17f8861446097e5bfa0b345bda
-      internalID: -1158117532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP9
-      rect:
-        serializedVersion: 2
-        x: 4931
-        y: 433
-        width: 851
-        height: 913
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5a8d4cbc712f04eff98c181e3de003c3
-      internalID: 1615582270
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP5
-      rect:
-        serializedVersion: 2
-        x: 2225
-        y: 2057
-        width: 2106
-        height: 1075
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c36c0c55fee3a45798c291694d0bbc8f
-      internalID: -514890270
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP8
-      rect:
-        serializedVersion: 2
-        x: 2232
-        y: 433
-        width: 2099
-        height: 1061
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 40040bf71bda4413a82be3d15b4083f7
-      internalID: -168494726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP4
-      rect:
-        serializedVersion: 2
-        x: 788
-        y: 2053
-        width: 652
-        height: 952
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2dc211fd78055425cbbcbd79d0fa5ea6
-      internalID: 1119839612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP7
-      rect:
-        serializedVersion: 2
-        x: 792
-        y: 421
-        width: 651
-        height: 955
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a329680f6f2de4728bde6820afa93e14
-      internalID: -364341786
+      spriteID: d25db2c336f9947758ad5cbb804b0136
+      internalID: 1907007091
       vertices: []
       indices: 
       edges: []
@@ -311,7 +179,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 953931c47739d425f9cb14a67e212a5f
+    spriteID: 8723edcc54a9d4cc99e2efcc23f8f32c
     internalID: 0
     vertices: []
     indices: 
@@ -321,15 +189,14 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PeggyP1: -591013199
-      PeggyP2: 1495922224
-      PeggyP3: 1943274611
-      PeggyP4: 1119839612
-      PeggyP5: -514890270
-      PeggyP6: -1158117532
-      PeggyP7: -364341786
-      PeggyP8: -168494726
-      PeggyP9: 1615582270
+      WalkingPeggyP1: -303279811
+      WalkingPeggyP2: 836867926
+      WalkingPeggyP3: 1907007091
+      walking_peggy_sprite_sheet_2: 75985043
+      walking_peggy_sprite_sheet_4: 2139198554
+      walking_peggy_sprite_sheet_5: 1821298336
+      walking_peggy_sprite_sheet_6: 1888679397
+      walking_peggy_sprite_sheet_7: -1170114968
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
