@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(AudioSource))]
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 10f;
     public float gravity = 9.81f;
     public float airControl = 10f;
+    public bool allowDoubleJump = true;
 
     [Header("Platform Stickiness")]
     public bool enablePlatformStickiness = true;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private Transform currentPlatform;
 
     private float jumpIndex;
+    private bool hasDoubleJump = true;
     private float originalMoveSpeed;
     private float originalJumpHeight;
 
@@ -40,9 +43,6 @@ public class PlayerController : MonoBehaviour
         originalMoveSpeed = moveSpeed;
         originalJumpHeight = jumpHeight;
     }
-
-
-
     void Update()
     {
         // --- Movement Input ---
@@ -85,23 +85,31 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetButtonDown("Jump"))
             {
-                jumpIndex++;
-                Debug.Log("Jump " + jumpIndex);
-
+                hasDoubleJump = true;
                 if (jumpSound && audioSource)
                     audioSource.PlayOneShot(jumpSound);
 
                 moveDirection.y = Mathf.Sqrt(2 * jumpHeight * gravity);
             }
-            else
-            {
-                moveDirection.y = -1f; // Small downward force to stay grounded
-            }
         }
         else
         {
-            Vector3 inAirInput = new Vector3(flatInput.x, moveDirection.y, flatInput.z);
-            moveDirection = Vector3.Lerp(moveDirection, inAirInput, airControl * Time.deltaTime);
+            if (Input.GetButtonDown("Jump"))
+            {
+                if (hasDoubleJump && allowDoubleJump)
+                {
+                    hasDoubleJump = false;
+                    if (jumpSound && audioSource)
+                        audioSource.PlayOneShot(jumpSound);
+
+                    moveDirection.y = Mathf.Sqrt(2 * jumpHeight * gravity);
+                }
+            } 
+            else
+            {
+                Vector3 inAirInput = new Vector3(flatInput.x, moveDirection.y, flatInput.z);
+                moveDirection = Vector3.Lerp(moveDirection, inAirInput, airControl * Time.deltaTime);
+            }
         }
 
         // --- Gravity ---
@@ -120,9 +128,6 @@ public class PlayerController : MonoBehaviour
 
     public void Freeze()
     {
-        /*originalMoveSpeed = moveSpeed;
-        originalJumpHeight = jumpHeight;*/
-
         moveSpeed = 0f;
         jumpHeight = 0f;
 

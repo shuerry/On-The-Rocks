@@ -3,44 +3,38 @@ using System.Collections;
 
 public class CollisionBehavior : MonoBehaviour
 {
-    // Assign the player's camera in the inspector or it will default to Camera.main.
     public Camera playerCamera;
 
-    // Total duration for the tilt effect (tilt out then return).
     public float tiltDuration = 0.5f;
 
-    // Maximum tilt angle (in degrees) for the camera.
     public float tiltAngle = 10f;
 
-    // Reference to this object's Rigidbody.
     public Rigidbody rb;
 
-    // Store the original camera transform values.
-    private Quaternion originalCameraRot;
+    private Quaternion centerCameraRot;
+
+    // Currently running tilt coroutine (if any).
     private Coroutine tiltCoroutine;
 
     void Start()
     {
-        // Default to main camera if not assigned.
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
         }
-        originalCameraRot = playerCamera.transform.localRotation;
+
+        centerCameraRot = playerCamera.transform.localRotation;
 
         rb = GetComponent<Rigidbody>();
-        // Freeze rotation to prevent unwanted physics rotations on the player.
         rb.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
     // Called when a collision occurs.
     void OnCollisionEnter(Collision collision)
     {
-        // Check if the collided object is tagged as "Pedestrian".
         if (collision.gameObject.CompareTag("Pedestrian"))
         {
             Debug.Log("Collided");
-            // Use the first contact point from the collision.
             ContactPoint contact = collision.contacts[0];
             Vector3 impactNormal = contact.normal;
 
@@ -56,15 +50,12 @@ public class CollisionBehavior : MonoBehaviour
             float rollTilt = Mathf.Clamp(localTilt.x, -1f, 1f) * tiltAngle;
             float pitchTilt = Mathf.Clamp(-localTilt.y, -1f, 1f) * tiltAngle;
 
-            originalCameraRot = playerCamera.transform.localRotation;
+            // Target rotation is a tilt *relative to the fixed center rotation*.
+            Quaternion tiltOffset = Quaternion.Euler(pitchTilt, 0f, rollTilt);
+            Quaternion targetRotation = centerCameraRot * tiltOffset;
 
-            // Calculate the target rotation by adding the tilt to the original rotation.
-            Quaternion targetRotation = Quaternion.Euler(
-                originalCameraRot.eulerAngles.x + pitchTilt,
-                originalCameraRot.eulerAngles.y,
-                originalCameraRot.eulerAngles.z + rollTilt
-            );
-
+            // If there's an existing tilt coroutine, stop it and start fresh
+            // from the current camera rotation.
             if (tiltCoroutine != null)
             {
                 StopCoroutine(tiltCoroutine);
@@ -73,35 +64,40 @@ public class CollisionBehavior : MonoBehaviour
         }
     }
 
-    // Coroutine that tilts the camera to the target rotation then returns to the original.
+    // Coroutine that tilts the camera toward targetRotation, then returns to center.
     IEnumerator TiltCamera(Quaternion targetRotation)
     {
         Debug.Log("Tilting");
-        float elapsed = 0f;
-        float halfDuration = tiltDuration / 2f;
 
-        // First half: smoothly tilt from original rotation to the target.
+        float halfDuration = tiltDuration * 0.5f;
+
+        // PHASE 1: From current rotation targetRotation
+        float elapsed = 0f;
+        Quaternion startRot = playerCamera.transform.localRotation;
+
         while (elapsed < halfDuration)
         {
-            playerCamera.transform.localRotation = Quaternion.Slerp(originalCameraRot, targetRotation, elapsed / halfDuration);
+            float t = elapsed / halfDuration;
+            playerCamera.transform.localRotation = Quaternion.Slerp(startRot, targetRotation, t);
             elapsed += Time.deltaTime;
             yield return null;
         }
         playerCamera.transform.localRotation = targetRotation;
 
-        originalCameraRot = Quaternion.Euler(
-            targetRotation.eulerAngles.x,
-            originalCameraRot.eulerAngles.y,
-            originalCameraRot.eulerAngles.z
-        ) ;
-        // Second half: smoothly return to the original rotation.
+        // PHASE 2: From targetRotation centerCameraRot (the true neutral)
         elapsed = 0f;
+        startRot = targetRotation;
+
         while (elapsed < halfDuration)
         {
-            playerCamera.transform.localRotation = Quaternion.Slerp(targetRotation, originalCameraRot, elapsed / halfDuration);
+            float t = elapsed / halfDuration;
+            playerCamera.transform.localRotation = Quaternion.Slerp(startRot, centerCameraRot, t);
             elapsed += Time.deltaTime;
             yield return null;
         }
-        playerCamera.transform.localRotation = originalCameraRot;
+
+        // Snap exactly to center at the end.
+        playerCamera.transform.localRotation = centerCameraRot;
+        tiltCoroutine = null;
     }
 }
