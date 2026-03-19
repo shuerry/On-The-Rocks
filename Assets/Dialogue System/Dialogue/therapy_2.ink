@@ -5,8 +5,8 @@
 // Therapist (speaking gently but firmly):( RockyP1 Peggy P1) 
 - "It seems like you both have very different perspectives on your relationship, but it’s clear there’s love here, even amidst the tension.” #speaker:Therapist #pigeon:PeggyP1 #rat:RockyP1
 - “Rocky, you’re under a lot of pressure from your family, trying to provide for your community, and balancing that with your feelings for Peggy.”  #speaker:Therapist 
-- "Peggy, you’re feeling neglected, not just by Rocky’s absence but by the differences in your worlds. You come from a life of privilege, and it’s hard for you to reconcile that with the life Rocky is leading. But that doesn’t mean your struggles aren’t real." #speaker:Therapist 
-- "You’ve had to adjust to a world that doesn’t always feel safe for you. That’s a heavy thing to carry, isn’t it?" #speaker:Therapist
+- "Peggy, you’re feeling neglected, not just by Rocky’s absence but by the differences in your worlds. You come from a life of privilege, and it’s hard for you to reconcile that with the life Rocky is leading." #speaker:Therapist
+- "But that doesn’t mean your struggles aren’t real. You’ve had to adjust to a world that doesn’t always feel safe for you. That’s a heavy thing to carry, isn’t it?" #speaker:Therapist
 
 // (Peggy exhales through her beak, her voice comes out quieter, less performative.) 
 // Peggy (softly, hesitating): (PeggyP3) 

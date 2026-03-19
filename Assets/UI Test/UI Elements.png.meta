@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d983be522ba1748f98736abf28f7046d
+guid: e902f73ebbabe4a5c8faf4166cf43bc1
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -69,10 +69,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 4096
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,57 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: PeggyP1
+      name: Gradient Square
       rect:
         serializedVersion: 2
-        x: 808
-        y: 3676
-        width: 635
-        height: 949
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2e67c01627f6a418395e156de894d2a0
-      internalID: -591013199
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP2
-      rect:
-        serializedVersion: 2
-        x: 2235
-        y: 3678
-        width: 2083
-        height: 1067
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 672e13f18ff7f4a4aad59abd4a884944
-      internalID: 1495922224
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP3
-      rect:
-        serializedVersion: 2
-        x: 5118
-        y: 3679
-        width: 644
-        height: 911
+        x: 32
+        y: 1077
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,20 +125,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd40d149a37194ea3bd77e0c95d0c4b0
-      internalID: 1943274611
+      spriteID: 4ad70e8c780da4c6396f560dcb8139f6
+      internalID: 1574296296
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PeggyP6
+      name: Square
       rect:
         serializedVersion: 2
-        x: 5124
-        y: 2048
-        width: 643
-        height: 984
+        x: 600
+        y: 1077
+        width: 500
+        height: 500
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f753b17f8861446097e5bfa0b345bda
-      internalID: -1158117532
+      spriteID: 5ee1d7e6c415c4bc99b87baf6ecde5b6
+      internalID: -227983946
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PeggyP9
+      name: Name Dialogue
       rect:
         serializedVersion: 2
-        x: 4931
-        y: 433
-        width: 851
-        height: 913
+        x: 1
+        y: 430
+        width: 300
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -213,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a8d4cbc712f04eff98c181e3de003c3
-      internalID: 1615582270
+      spriteID: ea959df47cadf4b7ca0f9889a907b879
+      internalID: -1281487065
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: PeggyP5
+      name: Dialogue
       rect:
         serializedVersion: 2
-        x: 2225
-        y: 2057
-        width: 2106
-        height: 1075
+        x: 0
+        y: 0
+        width: 1200
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,74 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c36c0c55fee3a45798c291694d0bbc8f
-      internalID: -514890270
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP8
-      rect:
-        serializedVersion: 2
-        x: 2232
-        y: 433
-        width: 2099
-        height: 1061
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 40040bf71bda4413a82be3d15b4083f7
-      internalID: -168494726
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP4
-      rect:
-        serializedVersion: 2
-        x: 788
-        y: 2053
-        width: 652
-        height: 952
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2dc211fd78055425cbbcbd79d0fa5ea6
-      internalID: 1119839612
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PeggyP7
-      rect:
-        serializedVersion: 2
-        x: 792
-        y: 421
-        width: 651
-        height: 955
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a329680f6f2de4728bde6820afa93e14
-      internalID: -364341786
+      spriteID: 79832202b34af406b98efbe4760ceb5b
+      internalID: -938243544
       vertices: []
       indices: 
       edges: []
@@ -311,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 953931c47739d425f9cb14a67e212a5f
+    spriteID: 97193eff1a05a47be8d91b9c8df38505
     internalID: 0
     vertices: []
     indices: 
@@ -321,15 +211,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      PeggyP1: -591013199
-      PeggyP2: 1495922224
-      PeggyP3: 1943274611
-      PeggyP4: 1119839612
-      PeggyP5: -514890270
-      PeggyP6: -1158117532
-      PeggyP7: -364341786
-      PeggyP8: -168494726
-      PeggyP9: 1615582270
+      Dialogue: -938243544
+      Gradient Square: 1574296296
+      Name Dialogue: -1281487065
+      Square: -227983946
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -24,7 +24,8 @@ VAR good_ending = true
 	// Rocky hesitates, then nods, slower this time.
 }
 
-- "It sounds like that night wasn’t just about the scavenger hunt...it was about how you both showed up for each other. Maybe that’s something to think about. How you bring that effort, that attention, into your relationship now." #speaker:Therapist
+- "It sounds like that night wasn’t just about the scavenger hunt... it was about how you both showed up for each other." #speaker:Therapist
+- "Maybe that’s something to think about. How you bring that effort, that attention, into your relationship now." #speaker:Therapist
 // There’s a flicker of something...nostalgia, maybe. Or longing.
 // Rocky (nodding slowly)
 - "Yeah. I miss that. The laughing, the bantering... I think I forgot how much I loved it." #speaker:Rocky #rat:RockyP4
