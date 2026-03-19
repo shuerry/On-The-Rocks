@@ -4215,7 +4215,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -4951,7 +4951,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -8808,6 +8808,17 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 9167155283363808791, guid: 78a10724306834ca6ae06fa969c548b7, type: 3}
+--- !u!114 &537811106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
+  m_PrefabInstance: {fileID: 1623970892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1623970896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75e3fd43c27384928ae4bfa81e7be81b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &544902768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5342034176638142636, guid: 3dd7346c68b2b498ab0e27a093633915, type: 3}
@@ -9842,7 +9853,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -13205,7 +13216,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -16117,7 +16128,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -20740,7 +20751,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -22838,7 +22849,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 
@@ -27425,7 +27436,7 @@ PrefabInstance:
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: dialogueScript
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 537811106}
     - target: {fileID: 1785167435142927646, guid: 1c708e3d74d1e467ca08221bc0936f18, type: 3}
       propertyPath: pickupPromptJSON
       value: 

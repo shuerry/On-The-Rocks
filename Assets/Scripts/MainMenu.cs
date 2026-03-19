@@ -7,7 +7,7 @@ using TMPro;
 public class MainMenu : MonoBehaviour
 {
     private static int therapyCounter;
-    public static bool useVoiceActing = true;
+    public static bool useVoiceActing = false;
     [SerializeField] public TextMeshProUGUI voiceActingButton = null;
 
     void Awake()
