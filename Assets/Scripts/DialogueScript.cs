@@ -14,17 +14,21 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private TextAsset inkJSONAsset = null;
     public Story story;
 
+    [Header("Dialogue")]
     [SerializeField] private GameObject dialogueBox = null;
     [SerializeField] private Image dialogueBoxImage = null;
-    [SerializeField] private GameObject internalBox = null;
-
     // UI Prefabs
     [SerializeField] private TextMeshProUGUI dialogueText = null;
     [SerializeField] private TextMeshProUGUI nameText = null;
     [SerializeField] private GameObject nameBox = null;
+    
+    [Header("Internal Dialogue")]
+    [SerializeField] private GameObject internalBox = null;
+    [SerializeField] private TextMeshProUGUI internalText = null;
+
+    [Header("Clipboard Choices")]
     [SerializeField] private Button buttonPrefab = null;
     [SerializeField] private GameObject choicesBackground = null;
-    [SerializeField] private TextMeshProUGUI internalText = null;
     
     private bool justClicked = false;
     [SerializeField] private LevelManager levelManager;
