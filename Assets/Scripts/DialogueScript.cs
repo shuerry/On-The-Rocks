@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Ink.Runtime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,6 +19,7 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI dialogueText = null;
     [SerializeField] private TextMeshProUGUI nameText = null;
     [SerializeField] private GameObject nameBox = null;
+    [SerializeField] private GameObject startDialogueButton = null;
     
     [Header("Internal Dialogue")]
     [SerializeField] private GameObject internalBox = null;
@@ -51,8 +50,14 @@ public class DialogueScript : MonoBehaviour {
 
     private bool pausedForDistance = false;
     private bool holdUntilPeggyArrived = false;
+    private bool startDialogueButtonClicked = false;
 
     void Update() {
+        if (startDialogueButton && !startDialogueButtonClicked) {
+            Cursor.lockState = CursorLockMode.None;
+            return;
+        }
+
         if (holdUntilPeggyArrived)
         {
             dialogueBox.SetActive(false);
@@ -103,8 +108,13 @@ public class DialogueScript : MonoBehaviour {
             }
         }
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
-            StartStory();
+            if (!startDialogueButton || 
+            (startDialogueButton && startDialogueButtonClicked))
+            {
+                StartStory();
+            }
         } else {
+            Debug.Log("Test here");
             dialogueBox.SetActive(false);
             nameBox.SetActive(false);
             internalBox.SetActive(false);
@@ -399,5 +409,10 @@ public class DialogueScript : MonoBehaviour {
 
     public void SetInternalVoice(bool internalVoice) {
         innerVoice = internalVoice;
+    }
+
+    public void SetStartDialogueButtonClicked(bool buttonClicked)
+    {
+        startDialogueButtonClicked = buttonClicked;
     }
 }
