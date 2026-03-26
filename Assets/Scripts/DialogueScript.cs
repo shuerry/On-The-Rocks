@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Ink.Runtime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -21,6 +19,11 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI dialogueText = null;
     [SerializeField] private TextMeshProUGUI nameText = null;
     [SerializeField] private GameObject nameBox = null;
+    [SerializeField] private Image nameBoxImage = null;
+    private Color peggyColor = new Color(0.898f, 0.559f, 0.898f);
+    private Color rockyColor = new Color(0.555f, 0.895f, 0.848f);
+    private Color therapistColor = new Color(0.898f, 0.898f, 0.559f);
+    private Color defaultColor = new Color(0.559f, 0.898f, 0.727f);
     
     [Header("Internal Dialogue")]
     [SerializeField] private GameObject internalBox = null;
@@ -272,6 +275,21 @@ public class DialogueScript : MonoBehaviour {
                 switch (tagKey) {
                     case "speaker":
                         nameText.text = tagValue;
+                        switch (tagValue)
+                        {
+                            case "Peggy":
+                                nameBoxImage.color = peggyColor;
+                                break;
+                            case "Rocky":
+                                nameBoxImage.color = rockyColor;
+                                break;
+                            case "Therapist":
+                                nameBoxImage.color = therapistColor;
+                                break;
+                            default:
+                                nameBoxImage.color = defaultColor;
+                                break;
+                        }
                         break;
                     case "pigeon":
                         if (pigeon) {

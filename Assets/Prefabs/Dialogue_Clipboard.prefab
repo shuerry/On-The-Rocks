@@ -61,14 +61,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.8820755, b: 0.90847653, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -938243544, guid: e902f73ebbabe4a5c8faf4166cf43bc1, type: 3}
+  m_Sprite: {fileID: 1946784709, guid: 0e5fe351680e942d5825e92f2accaf90, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -93,13 +93,14 @@ MonoBehaviour:
   inkJSONAsset: {fileID: 4900000, guid: 548edb76cab0f49e296fe97408e4b496, type: 3}
   dialogueBox: {fileID: 2048732732671826777}
   dialogueBoxImage: {fileID: 1179395310783321818}
-  internalBox: {fileID: 0}
   dialogueText: {fileID: 2627440691551889132}
   nameText: {fileID: 3884074850188049601}
   nameBox: {fileID: 4298950170747282815}
+  nameBoxImage: {fileID: 6069013087219382123}
+  internalBox: {fileID: 0}
+  internalText: {fileID: 0}
   buttonPrefab: {fileID: 342691944335969354}
   choicesBackground: {fileID: 6728877042394967371}
-  internalText: {fileID: 0}
   levelManager: {fileID: 0}
   pigeon: {fileID: 0}
   rat: {fileID: 0}
@@ -185,14 +186,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5538003, g: 0.8962264, b: 0.84813285, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1281487065, guid: e902f73ebbabe4a5c8faf4166cf43bc1, type: 3}
+  m_Sprite: {fileID: -849557760, guid: 0e5fe351680e942d5825e92f2accaf90, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e902f73ebbabe4a5c8faf4166cf43bc1
+guid: 0e5fe351680e942d5825e92f2accaf90
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,11 +110,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Gradient Square
+      name: gradient square
       rect:
         serializedVersion: 2
-        x: 32
-        y: 1077
+        x: 34
+        y: 1071
         width: 500
         height: 500
       alignment: 0
@@ -125,18 +125,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ad70e8c780da4c6396f560dcb8139f6
-      internalID: 1574296296
+      spriteID: 38eb09cbb44004fefb3fa7468478d967
+      internalID: -206497233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Square
+      name: square
       rect:
         serializedVersion: 2
-        x: 600
-        y: 1077
+        x: 599
+        y: 1071
         width: 500
         height: 500
       alignment: 0
@@ -147,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5ee1d7e6c415c4bc99b87baf6ecde5b6
-      internalID: -227983946
+      spriteID: dbe00333a3641437aa52c768689d23ff
+      internalID: 1108584463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Name Dialogue
+      name: white dialogue
       rect:
         serializedVersion: 2
-        x: 1
-        y: 430
-        width: 300
-        height: 150
+        x: 0
+        y: 635
+        width: 1200
+        height: 400
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,14 +169,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea959df47cadf4b7ca0f9889a907b879
-      internalID: -1281487065
+      spriteID: 6727e786e114d470b94ba6d2af269f2f
+      internalID: 1946784709
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dialogue
+      name: dialogue box
       rect:
         serializedVersion: 2
         x: 0
@@ -191,8 +191,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79832202b34af406b98efbe4760ceb5b
-      internalID: -938243544
+      spriteID: 95ba69445aeb6423abc3008ebfd11e08
+      internalID: 770346025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: name
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 430
+        width: 300
+        height: 150
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4501b05565b0f4827b31810693064d7e
+      internalID: -849557760
       vertices: []
       indices: 
       edges: []
@@ -201,7 +223,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 97193eff1a05a47be8d91b9c8df38505
+    spriteID: fa3ec70dbfb59415598a74f5bd5993bd
     internalID: 0
     vertices: []
     indices: 
@@ -211,10 +233,11 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Dialogue: -938243544
-      Gradient Square: 1574296296
-      Name Dialogue: -1281487065
-      Square: -227983946
+      dialogue box: 770346025
+      gradient square: -206497233
+      name: -849557760
+      square: 1108584463
+      white dialogue: 1946784709
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
