@@ -19,6 +19,12 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI dialogueText = null;
     [SerializeField] private TextMeshProUGUI nameText = null;
     [SerializeField] private GameObject nameBox = null;
+    [SerializeField] private Image nameBoxImage = null;
+    private Color rockyColor = new Color(0.5f, 0.273f, 0.074f); // Russet
+    private Color peggyColor = new Color(0.434f, 0.559f, 0.684f); // Denim
+    private Color therapistColor = new Color(0.996f, 0.977f, 0.625f);// Pastel Yellow
+    private Color defaultColor = new Color(0.047f, 0.254f, 0.336f); // Millenial Pink
+
     [SerializeField] private GameObject startDialogueButton = null;
     
     [Header("Internal Dialogue")]
@@ -282,6 +288,21 @@ public class DialogueScript : MonoBehaviour {
                 switch (tagKey) {
                     case "speaker":
                         nameText.text = tagValue;
+                        switch (tagValue)
+                        {
+                            case "Peggy":
+                                nameBoxImage.color = peggyColor;
+                                break;
+                            case "Rocky":
+                                nameBoxImage.color = rockyColor;
+                                break;
+                            case "Therapist":
+                                nameBoxImage.color = therapistColor;
+                                break;
+                            default:
+                                nameBoxImage.color = defaultColor;
+                                break;
+                        }
                         break;
                     case "pigeon":
                         if (pigeon) {
