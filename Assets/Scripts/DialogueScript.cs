@@ -20,10 +20,10 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI nameText = null;
     [SerializeField] private GameObject nameBox = null;
     [SerializeField] private Image nameBoxImage = null;
-    private Color peggyColor = new Color(0.898f, 0.559f, 0.898f);
-    private Color rockyColor = new Color(0.555f, 0.895f, 0.848f);
-    private Color therapistColor = new Color(0.898f, 0.898f, 0.559f);
-    private Color defaultColor = new Color(0.559f, 0.898f, 0.727f);
+    private Color rockyColor = new Color(0.5f, 0.273f, 0.074f); // Russet
+    private Color peggyColor = new Color(0.434f, 0.559f, 0.684f); // Denim
+    private Color therapistColor = new Color(0.996f, 0.977f, 0.625f);// Pastel Yellow
+    private Color defaultColor = new Color(0.047f, 0.254f, 0.336f); // Millenial Pink
     
     [Header("Internal Dialogue")]
     [SerializeField] private GameObject internalBox = null;
