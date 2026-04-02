@@ -18,7 +18,7 @@ public class MainMenu : MonoBehaviour
     public void NewGame()
     {
         // SceneManager.LoadScene(PlayerPrefs.GetInt("Progress",SceneManager.GetActiveScene().buildIndex + 1));
-        SceneManager.LoadScene("Therapy Scene");
+        SceneManager.LoadScene("PeggyCall Scene");
         PlayerPrefs.SetInt("TherapyCounter", 0);
         therapyCounter = 0; 
     }
