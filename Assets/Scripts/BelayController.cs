@@ -81,6 +81,26 @@ public class BelayController : MonoBehaviour
     public float CurrentUiMaxDistance => uiMaxDistance;
     public float CurrentTolerance => tensionTolerance;
 
+    public float CurrentAcceptableMinDistance => targetDistance - tensionTolerance;
+    public float CurrentAcceptableMaxDistance => targetDistance + tensionTolerance;
+
+    public float CurrentTimerRemainingSeconds
+    {
+        get
+        {
+            if (!tensionEventActive) return 0f;
+            return Mathf.Max(0f, tensionEventTimer);
+        }
+    }
+
+    public float CurrentTimerDurationSeconds
+    {
+        get
+        {
+            return Mathf.Max(0f, tensionEventDuration);
+        }
+    }
+
     public float CurrentTimerRemainingNormalized
     {
         get
@@ -90,37 +110,10 @@ public class BelayController : MonoBehaviour
         }
     }
 
-    public float CurrentDistanceNormalized
-    {
-        get
-        {
-            return NormalizeDistance(CurrentDistanceToRocky);
-        }
-    }
-
-    public float TargetDistanceNormalized
-    {
-        get
-        {
-            return NormalizeDistance(targetDistance);
-        }
-    }
-
-    public float ToleranceMinNormalized
-    {
-        get
-        {
-            return NormalizeDistance(targetDistance - tensionTolerance);
-        }
-    }
-
-    public float ToleranceMaxNormalized
-    {
-        get
-        {
-            return NormalizeDistance(targetDistance + tensionTolerance);
-        }
-    }
+    public float CurrentDistanceNormalized => NormalizeDistance(CurrentDistanceToRocky);
+    public float TargetDistanceNormalized => NormalizeDistance(targetDistance);
+    public float ToleranceMinNormalized => NormalizeDistance(CurrentAcceptableMinDistance);
+    public float ToleranceMaxNormalized => NormalizeDistance(CurrentAcceptableMaxDistance);
 
     private void Awake()
     {
@@ -222,10 +215,7 @@ public class BelayController : MonoBehaviour
     private void UpdateTensionEvent()
     {
         if (!tensionEventActive || rocky == null)
-        {
-            OnTensionTimerUpdated?.Invoke(0f);
             return;
-        }
 
         tensionEventTimer -= Time.deltaTime;
         if (tensionEventTimer < 0f)
@@ -237,9 +227,11 @@ public class BelayController : MonoBehaviour
             return;
 
         float currentDistance = CurrentDistanceToRocky;
-        float distanceError = Mathf.Abs(currentDistance - targetDistance);
+        bool inAcceptableRange =
+            currentDistance >= CurrentAcceptableMinDistance &&
+            currentDistance <= CurrentAcceptableMaxDistance;
 
-        if (distanceError <= tensionTolerance)
+        if (inAcceptableRange)
         {
             CompleteTensionEventSuccess();
         }
@@ -258,20 +250,22 @@ public class BelayController : MonoBehaviour
         }
 
         tensionEventActive = true;
-        tensionEventDuration = duration;
-        tensionEventTimer = duration;
+        tensionEventDuration = Mathf.Max(0.01f, duration);
+        tensionEventTimer = tensionEventDuration;
 
         tensionStartDistance = CurrentDistanceToRocky;
         requiredDistanceDelta = requiredDelta;
         targetDistance = tensionStartDistance + requiredDistanceDelta;
 
-        float minCore = Mathf.Min(tensionStartDistance, targetDistance - tensionTolerance);
-        float maxCore = Mathf.Max(tensionStartDistance, targetDistance + tensionTolerance);
+        float acceptableMin = CurrentAcceptableMinDistance;
+        float acceptableMax = CurrentAcceptableMaxDistance;
+
+        float minCore = Mathf.Min(tensionStartDistance, acceptableMin);
+        float maxCore = Mathf.Max(tensionStartDistance, acceptableMax);
 
         uiMinDistance = Mathf.Max(0f, minCore - uiDistancePadding);
         uiMaxDistance = maxCore + uiDistancePadding;
 
-        // Prevent zero-width range
         if (Mathf.Approximately(uiMinDistance, uiMaxDistance))
         {
             uiMaxDistance = uiMinDistance + 1f;
@@ -283,6 +277,7 @@ public class BelayController : MonoBehaviour
         Debug.Log(
             $"Tension Event Started | Start: {tensionStartDistance:F2}, " +
             $"Delta: {requiredDistanceDelta:F2}, Target: {targetDistance:F2}, " +
+            $"Acceptable: [{acceptableMin:F2}, {acceptableMax:F2}], " +
             $"UI Range: [{uiMinDistance:F2}, {uiMaxDistance:F2}]"
         );
     }
@@ -298,7 +293,7 @@ public class BelayController : MonoBehaviour
     private void CompleteTensionEventSuccess()
     {
         tensionEventActive = false;
-        OnTensionTimerUpdated?.Invoke(1f);
+        OnTensionTimerUpdated?.Invoke(0f);
         OnTensionEventSucceeded?.Invoke();
 
         Debug.Log("BelayController: Tension corrected successfully.");

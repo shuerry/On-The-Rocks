@@ -37,6 +37,7 @@ public class BelayUIController : MonoBehaviour
 
     [Header("Feedback")]
     public TMP_Text resultText;
+    public Image resultBackground;
     public float resultMessageDuration = 1.25f;
     public bool hideUIWhenInactive = true;
 
@@ -50,6 +51,7 @@ public class BelayUIController : MonoBehaviour
             belayController = FindObjectOfType<BelayController>();
         }
 
+        ConfigureSliders();
         ResetUIImmediate();
     }
 
@@ -61,11 +63,22 @@ public class BelayUIController : MonoBehaviour
             if (resultMessageTimer <= 0f)
             {
                 resultText.gameObject.SetActive(false);
+                resultBackground.gameObject.SetActive(false);
             }
         }
 
-        if (isEventActive && belayController != null)
+        if (belayController == null)
+            return;
+
+        bool controllerSaysActive = belayController.IsTensionEventActive;
+        if (controllerSaysActive != isEventActive)
         {
+            isEventActive = controllerSaysActive;
+        }
+
+        if (isEventActive)
+        {
+            UpdateTimerUIFromController();
             UpdateDistanceUI();
             UpdateLiveStatusText();
             UpdateSweetSpotVisuals();
@@ -79,11 +92,8 @@ public class BelayUIController : MonoBehaviour
         if (root != null)
             root.SetActive(true);
 
-        SetResultText("", false);
-        SetTimerValue(1f);
-
-        if (timerText != null)
-            timerText.text = "";
+        ConfigureSliders();
+        SetResult(true, false);
 
         if (targetMarker != null)
             targetMarker.gameObject.SetActive(true);
@@ -91,6 +101,7 @@ public class BelayUIController : MonoBehaviour
         if (sweetSpotBand != null)
             sweetSpotBand.gameObject.SetActive(true);
 
+        UpdateTimerUIFromController();
         UpdateDistanceUI();
         UpdateSweetSpotVisuals();
         UpdateLiveStatusText();
@@ -100,7 +111,7 @@ public class BelayUIController : MonoBehaviour
     {
         isEventActive = false;
 
-        SetTimerValue(1f);
+        SetTimerValue(0f);
         UpdateDistanceUI();
 
         if (timerText != null)
@@ -109,7 +120,7 @@ public class BelayUIController : MonoBehaviour
         if (tensionStatusText != null)
             tensionStatusText.text = "Good";
 
-        SetResultText("Success", true);
+        SetResult(true, true);
 
         if (targetMarker != null)
             targetMarker.gameObject.SetActive(false);
@@ -131,9 +142,9 @@ public class BelayUIController : MonoBehaviour
             timerText.text = "Too late";
 
         if (tensionStatusText != null)
-            tensionStatusText.text = "Rocky fell";
+            tensionStatusText.text = "Rocky fell!";
 
-        SetResultText("Failed", true);
+        SetResult(false, true);
 
         if (targetMarker != null)
             targetMarker.gameObject.SetActive(false);
@@ -145,15 +156,46 @@ public class BelayUIController : MonoBehaviour
             root.SetActive(false);
     }
 
-    public void HandleTimerUpdated(float normalizedRemaining)
-    {
-        SetTimerValue(normalizedRemaining);
+    //public void HandleTimerUpdated(float normalizedRemaining)
+    //{
+    //    // Kept for UnityEvent compatibility, but the live UI now pulls directly
+    //    // from BelayController every frame so it remains correct even if event
+    //    // ordering in the inspector is imperfect.
+    //    SetTimerValue(normalizedRemaining);
+    //}
 
-        if (timerText != null && isEventActive && belayController != null)
+    private void ConfigureSliders()
+    {
+        if (timerSlider != null)
         {
-            float seconds = normalizedRemaining; // normalized display fallback
-            timerText.text = $"Time: {(seconds * 100f):0}%";
+            timerSlider.minValue = 0f;
+            timerSlider.maxValue = 1f;
+            timerSlider.wholeNumbers = false;
         }
+
+        if (tensionSlider != null)
+        {
+            tensionSlider.minValue = 0f;
+            tensionSlider.maxValue = 1f;
+            tensionSlider.wholeNumbers = false;
+        }
+    }
+
+    private void UpdateTimerUIFromController()
+    {
+        if (belayController == null)
+            return;
+
+        float normalized = belayController.CurrentTimerRemainingNormalized;
+        float seconds = belayController.CurrentTimerRemainingSeconds;
+
+        SetTimerValue(normalized);
+
+        if (timerText != null)
+            timerText.text = $"{seconds:0.0}s";
+
+        if (timerSlider != null)
+            timerSlider.value = normalized;
     }
 
     private void UpdateDistanceUI()
@@ -168,7 +210,11 @@ public class BelayUIController : MonoBehaviour
         {
             float current = belayController.CurrentDistanceToRocky;
             float target = belayController.CurrentTargetDistance;
-            distanceText.text = $"Distance {current:0.00} / Target {target:0.00}";
+            float min = belayController.CurrentAcceptableMinDistance;
+            float max = belayController.CurrentAcceptableMaxDistance;
+
+            distanceText.text =
+                $"Distance {current:0.00} | Target {target:0.00} | Win Zone {min:0.00}-{max:0.00}";
         }
     }
 
@@ -178,14 +224,14 @@ public class BelayUIController : MonoBehaviour
             return;
 
         float currentDistance = belayController.CurrentDistanceToRocky;
-        float targetDistance = belayController.CurrentTargetDistance;
-        float delta = currentDistance - targetDistance;
+        float minAcceptable = belayController.CurrentAcceptableMinDistance;
+        float maxAcceptable = belayController.CurrentAcceptableMaxDistance;
 
-        if (Mathf.Abs(delta) <= belayController.tensionTolerance)
+        if (currentDistance >= minAcceptable && currentDistance <= maxAcceptable)
         {
-            tensionStatusText.text = "In range";
+            tensionStatusText.text = "Just Right!";
         }
-        else if (delta > 0f)
+        else if (currentDistance > maxAcceptable)
         {
             tensionStatusText.text = "Too far";
         }
@@ -197,6 +243,9 @@ public class BelayUIController : MonoBehaviour
 
     private void UpdateSweetSpotVisuals()
     {
+        if (belayController == null)
+            return;
+
         RectTransform area = sliderVisualArea;
 
         if (area == null && tensionSlider != null)
@@ -205,39 +254,108 @@ public class BelayUIController : MonoBehaviour
         if (area == null)
             return;
 
-        float width = area.rect.width;
-
         float targetNorm = belayController.TargetDistanceNormalized;
         float tolMinNorm = belayController.ToleranceMinNormalized;
         float tolMaxNorm = belayController.ToleranceMaxNormalized;
 
         if (targetMarker != null)
         {
-            SetAnchoredNormalizedX(targetMarker, width, targetNorm);
+            SetMarkerNormalized(targetMarker, targetNorm);
         }
 
         if (sweetSpotBand != null)
         {
-            float bandCenter = (tolMinNorm + tolMaxNorm) * 0.5f;
-            float bandWidthNorm = Mathf.Max(0.01f, tolMaxNorm - tolMinNorm);
-
-            Vector2 size = sweetSpotBand.sizeDelta;
-            size.x = width * bandWidthNorm;
-            sweetSpotBand.sizeDelta = size;
-
-            SetAnchoredNormalizedX(sweetSpotBand, width, bandCenter);
+            SetBandNormalized(sweetSpotBand, tolMinNorm, tolMaxNorm);
         }
     }
 
-    private void SetAnchoredNormalizedX(RectTransform rect, float width, float normalized)
+    private void SetMarkerNormalized(RectTransform rect, float normalized)
     {
         normalized = Mathf.Clamp01(normalized);
 
-        float x = Mathf.Lerp(-width * 0.5f, width * 0.5f, normalized);
+        bool isVertical = IsTensionSliderVertical();
+        float visualPos = RemapNormalizedForSliderDirection(normalized);
 
-        Vector2 pos = rect.anchoredPosition;
-        pos.x = x;
-        rect.anchoredPosition = pos;
+        if (isVertical)
+        {
+            rect.anchorMin = new Vector2(rect.anchorMin.x, visualPos);
+            rect.anchorMax = new Vector2(rect.anchorMax.x, visualPos);
+            rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, 0f);
+        }
+        else
+        {
+            rect.anchorMin = new Vector2(visualPos, rect.anchorMin.y);
+            rect.anchorMax = new Vector2(visualPos, rect.anchorMax.y);
+            rect.anchoredPosition = new Vector2(0f, rect.anchoredPosition.y);
+        }
+    }
+
+    private void SetBandNormalized(RectTransform rect, float minNorm, float maxNorm)
+    {
+        minNorm = Mathf.Clamp01(minNorm);
+        maxNorm = Mathf.Clamp01(maxNorm);
+
+        float visualMin = RemapNormalizedForSliderDirection(minNorm);
+        float visualMax = RemapNormalizedForSliderDirection(maxNorm);
+
+        if (visualMax < visualMin)
+        {
+            float temp = visualMin;
+            visualMin = visualMax;
+            visualMax = temp;
+        }
+
+        bool isVertical = IsTensionSliderVertical();
+
+        if (isVertical)
+        {
+            rect.anchorMin = new Vector2(rect.anchorMin.x, visualMin);
+            rect.anchorMax = new Vector2(rect.anchorMax.x, visualMax);
+            rect.offsetMin = new Vector2(rect.offsetMin.x, 0f);
+            rect.offsetMax = new Vector2(rect.offsetMax.x, 0f);
+        }
+        else
+        {
+            rect.anchorMin = new Vector2(visualMin, rect.anchorMin.y);
+            rect.anchorMax = new Vector2(visualMax, rect.anchorMax.y);
+            rect.offsetMin = new Vector2(0f, rect.offsetMin.y);
+            rect.offsetMax = new Vector2(0f, rect.offsetMax.y);
+        }
+    }
+
+    private bool IsTensionSliderVertical()
+    {
+        if (tensionSlider == null)
+            return false;
+
+        return tensionSlider.direction == Slider.Direction.BottomToTop ||
+               tensionSlider.direction == Slider.Direction.TopToBottom;
+    }
+
+    private float RemapNormalizedForSliderDirection(float normalized)
+    {
+        normalized = Mathf.Clamp01(normalized);
+
+        if (tensionSlider == null)
+            return normalized;
+
+        switch (tensionSlider.direction)
+        {
+            case Slider.Direction.LeftToRight:
+                return normalized;
+
+            case Slider.Direction.RightToLeft:
+                return 1f - normalized;
+
+            case Slider.Direction.BottomToTop:
+                return normalized;
+
+            case Slider.Direction.TopToBottom:
+                return 1f - normalized;
+
+            default:
+                return normalized;
+        }
     }
 
     private void SetTimerValue(float value)
@@ -247,8 +365,8 @@ public class BelayUIController : MonoBehaviour
         if (timerSlider != null)
             timerSlider.value = value;
 
-        //if (timerFillImage != null)
-        //    timerFillImage.fillAmount = value;
+        if (timerFillImage != null)
+            timerFillImage.fillAmount = value;
     }
 
     private void SetTensionValue(float value)
@@ -262,13 +380,24 @@ public class BelayUIController : MonoBehaviour
             tensionFillImage.fillAmount = value;
     }
 
-    private void SetResultText(string message, bool show)
+    private void SetResult(bool success, bool show)
     {
-        if (resultText == null)
+        if (!resultText || !resultBackground)
             return;
 
-        resultText.text = message;
+        if (success)
+        {
+            resultText.text = "Nice!";
+            resultBackground.color = Color.green;
+        }
+        else
+        {
+            resultText.text = "Oh no!";
+            resultBackground.color = Color.red;
+        }
+
         resultText.gameObject.SetActive(show);
+        resultBackground.gameObject.SetActive(show);
 
         if (show)
             resultMessageTimer = resultMessageDuration;
@@ -292,6 +421,9 @@ public class BelayUIController : MonoBehaviour
 
         if (resultText != null)
             resultText.gameObject.SetActive(false);
+
+        if (resultBackground != null)
+            resultBackground.gameObject.SetActive(false);
 
         if (targetMarker != null)
             targetMarker.gameObject.SetActive(false);
