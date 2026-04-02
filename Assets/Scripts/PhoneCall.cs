@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class PhoneCall : MonoBehaviour
 {
+    // DOESN'T WORK
     [SerializeField] GameObject acceptCall = null;
     [SerializeField] Button acceptCallButton = null;
     [SerializeField] GameObject endCall = null;
@@ -15,8 +16,8 @@ public class PhoneCall : MonoBehaviour
     
     void Start()
     {
-        dialogueBox.enabled = false;
-        nameBox.enabled = false;
+        // dialogueBox.enabled = false;
+        // nameBox.enabled = false;
 
         acceptCallButton.onClick.AddListener(delegate {
             OnClickAcceptCallButton();
@@ -32,7 +33,7 @@ public class PhoneCall : MonoBehaviour
     {
         Debug.Log("Click accept.");
         HideButtons();
-        dialogueScript.SetStartDialogueButtonClicked(true);
+        // dialogueScript.SetStartDialogueButtonClicked(true);
         dialogueBox.enabled = true;
         nameBox.enabled = true;
     }

@@ -25,7 +25,7 @@ public class DialogueScript : MonoBehaviour {
     private Color therapistColor = new Color(0.996f, 0.977f, 0.625f);// Pastel Yellow
     private Color defaultColor = new Color(0.047f, 0.254f, 0.336f); // Millenial Pink
 
-    [SerializeField] private GameObject startDialogueButton = null;
+    // [SerializeField] private GameObject startDialogueButton = null;
     
     [Header("Internal Dialogue")]
     [SerializeField] private GameObject internalBox = null;
@@ -56,13 +56,13 @@ public class DialogueScript : MonoBehaviour {
 
     private bool pausedForDistance = false;
     private bool holdUntilPeggyArrived = false;
-    private bool startDialogueButtonClicked = false;
+    // private bool startDialogueButtonClicked = false;
 
     void Update() {
-        if (startDialogueButton && !startDialogueButtonClicked) {
+        /* if (startDialogueButton && !startDialogueButtonClicked) {
             Cursor.lockState = CursorLockMode.None;
             return;
-        }
+        } */
 
         if (holdUntilPeggyArrived)
         {
@@ -114,11 +114,12 @@ public class DialogueScript : MonoBehaviour {
             }
         }
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
-            if (!startDialogueButton || 
+            StartStory();
+            /* if (!startDialogueButton || 
             (startDialogueButton && startDialogueButtonClicked))
             {
                 StartStory();
-            }
+            } */
         } else {
             Debug.Log("Test here");
             dialogueBox.SetActive(false);
@@ -176,6 +177,12 @@ public class DialogueScript : MonoBehaviour {
                 Debug.Log("Ending subway scene.");
                 EndOfDialogue();
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
+            } else if (text.Contains("Therapy Scene")) {
+                EndOfDialogue();
+                SceneManager.LoadScene("Therapy Scene");
+            } else if (text.Contains("RockyCall Scene")) {
+                EndOfDialogue();
+                SceneManager.LoadScene("RockyCall Scene");
             } else if (text.Contains("the end?")) {
                 EndOfDialogue();
                 SceneManager.LoadScene("EndScene");
@@ -432,8 +439,8 @@ public class DialogueScript : MonoBehaviour {
         innerVoice = internalVoice;
     }
 
-    public void SetStartDialogueButtonClicked(bool buttonClicked)
+    /* public void SetStartDialogueButtonClicked(bool buttonClicked)
     {
         startDialogueButtonClicked = buttonClicked;
-    }
+    } */
 }
