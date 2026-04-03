@@ -1,10 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Level manager for the FirstMetSceneMinigame fishing scene.
-/// Handles retry logic and scene transitions after the minigame ends.
-/// </summary>
+
 public class FishingMinigameLevelManager : MonoBehaviour
 {
     [Header("Scene Flow")]
@@ -29,9 +26,7 @@ public class FishingMinigameLevelManager : MonoBehaviour
         peggyWasCaught = false;
     }
 
-    /// <summary>
-    /// Called by FishingMinigameUI when the fishing round finishes.
-    /// </summary>
+
     public void OnFishingComplete(bool won)
     {
         peggyWasCaught = true;
@@ -43,7 +38,7 @@ public class FishingMinigameLevelManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(winScene))
         {
-            // Default: load next scene in build order
+            //  load next scene in build order
             int next = SceneManager.GetActiveScene().buildIndex + 1;
             if (next < SceneManager.sceneCountInBuildSettings)
                 SceneManager.LoadScene(next);

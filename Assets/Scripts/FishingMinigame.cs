@@ -2,17 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Stardew Valley-style fishing minigame where Rocky fishes Peggy out of a fountain.
-/// Attach to a root GameObject in the FirstMetSceneMinigame scene.
-/// 
-/// SETUP (all created via code at runtime by FishingMinigameUI):
-///   - A vertical fishing bar (the tall meter)
-///   - A green "catch zone" the player moves up/down by holding click/space
-///   - A "fish icon" (Peggy) that bounces around inside the bar
-///   - A progress bar that fills when Peggy is inside the catch zone
-///   - Win when progress is full, lose if progress empties completely
-/// </summary>
+
 public class FishingMinigame : MonoBehaviour
 {
     [Header("Bar Dimensions (normalised 0-1)")]
@@ -52,7 +42,7 @@ public class FishingMinigame : MonoBehaviour
     [Tooltip("Fish speed multiplier increase per second of play.")]
     public float difficultyRamp = 0f;
 
-    // ---- Runtime state (read by FishingMinigameUI) ----
+
     [HideInInspector] public float catchZonePosition; // 0 = bottom, 1 = top (centre of zone)
     [HideInInspector] public float fishPosition;      // 0 = bottom, 1 = top
     [HideInInspector] public float progress;          // 0 – 1
@@ -160,6 +150,6 @@ public class FishingMinigame : MonoBehaviour
             isWon = true;
             isActive = false;
         }
-        // No lose condition — player just keeps trying until they catch Peggy
+        // No lose condition  player just keeps trying until they catch Peggy
     }
 }
