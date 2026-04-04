@@ -10,7 +10,7 @@ public class PhoneCall : MonoBehaviour
     [SerializeField] GameObject endCall = null;
     [SerializeField] Button endCallButton = null;
     [Header("Dialogue Settings")]
-    [SerializeField] DialogueScript dialogueScript = null;
+    // [SerializeField] DialogueScript dialogueScript = null;
     [SerializeField] Image dialogueBox = null;
     [SerializeField] Image nameBox = null;
     
