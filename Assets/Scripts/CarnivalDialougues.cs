@@ -5,7 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-
+//  Don't think this is used anyway, should delete
 public class CarnivalDialogues : MonoBehaviour
 {
     public static event Action<Story> OnCreateStory;

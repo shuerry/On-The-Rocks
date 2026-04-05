@@ -38,4 +38,9 @@ public class LevelManager : MonoBehaviour
 
         sceneController.LoadScene(newSceneName);
     }
+
+    public virtual void HandleDialogueEvent(string eventName)
+    {
+        Debug.Log("Unhandled dialogue event in base LevelManager: " + eventName);
+    }
 }

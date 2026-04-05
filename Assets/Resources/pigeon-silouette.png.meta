@@ -1,0 +1,260 @@
+fileFormatVersion: 2
+guid: 0e3f25d15f3834d65914295a376bb4ef
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: pigeon-silouette_0
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 1621
+        width: 195
+        height: 287
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 478bcda89dcaa48c1a19c61583908dbd
+      internalID: 1988196320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pigeon-silouette_1
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 598
+        width: 768
+        height: 341
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4db6c03c7db147cd9878262c12752cc
+      internalID: 251996815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pigeon-silouette_2
+      rect:
+        serializedVersion: 2
+        x: 1518
+        y: 595
+        width: 265
+        height: 286
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d400bfcce48b4090a66c9b2798d16b0
+      internalID: -1879036897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: a2d33b253b0434c39810bbc0118700e3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      pigeon-silouette_0: 1988196320
+      pigeon-silouette_1: 251996815
+      pigeon-silouette_10: -1355760028
+      pigeon-silouette_11: -2002012743
+      pigeon-silouette_12: -65442293
+      pigeon-silouette_13: 1026529391
+      pigeon-silouette_14: -948915161
+      pigeon-silouette_15: -1083255540
+      pigeon-silouette_16: -215569561
+      pigeon-silouette_17: -686130709
+      pigeon-silouette_18: -1671291315
+      pigeon-silouette_19: -2021142551
+      pigeon-silouette_2: -1879036897
+      pigeon-silouette_20: 1635967478
+      pigeon-silouette_21: 1504448413
+      pigeon-silouette_22: -1764348385
+      pigeon-silouette_23: 1141189264
+      pigeon-silouette_24: -1127741538
+      pigeon-silouette_25: 1824933090
+      pigeon-silouette_26: -1760986972
+      pigeon-silouette_27: -905975902
+      pigeon-silouette_28: -1083356434
+      pigeon-silouette_29: -184177630
+      pigeon-silouette_3: -1466742107
+      pigeon-silouette_30: -1226239334
+      pigeon-silouette_31: -36487074
+      pigeon-silouette_32: -508092003
+      pigeon-silouette_33: 559857985
+      pigeon-silouette_34: 2027750631
+      pigeon-silouette_35: 15259025
+      pigeon-silouette_36: 670299349
+      pigeon-silouette_37: -2111815652
+      pigeon-silouette_38: -1559055521
+      pigeon-silouette_39: -1268321888
+      pigeon-silouette_4: -1633657064
+      pigeon-silouette_40: 2135743744
+      pigeon-silouette_41: -2032946078
+      pigeon-silouette_42: 1073059401
+      pigeon-silouette_43: 1301915032
+      pigeon-silouette_44: -743573496
+      pigeon-silouette_45: -956399428
+      pigeon-silouette_46: -1333615757
+      pigeon-silouette_47: -2141393965
+      pigeon-silouette_48: 1868547400
+      pigeon-silouette_49: 1543079774
+      pigeon-silouette_50: 1995611951
+      pigeon-silouette_51: 1826896587
+      pigeon-silouette_52: -1254412623
+      pigeon-silouette_53: -2017965436
+      pigeon-silouette_54: -1889629916
+      pigeon-silouette_55: 333875317
+      pigeon-silouette_56: -718401687
+      pigeon-silouette_59: -498415711
+      pigeon-silouette_6: 1935262211
+      pigeon-silouette_60: -1149060030
+      pigeon-silouette_61: -1704010003
+      pigeon-silouette_62: -916593794
+      pigeon-silouette_63: -147744210
+      pigeon-silouette_64: 1310141761
+      pigeon-silouette_65: 713053853
+      pigeon-silouette_66: -928289510
+      pigeon-silouette_7: -1336072436
+      pigeon-silouette_8: 939284885
+      pigeon-silouette_9: -1309800146
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

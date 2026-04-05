@@ -73,7 +73,6 @@ public class DialogueScript : MonoBehaviour {
 
         if (pausedForDistance) return;
 
-        // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked && (!MainMenu.useVoiceActing || (!pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying))) {
             justClicked = true;  // Prevent multiple clicks from advancing
             if (innerVoice)
@@ -95,6 +94,7 @@ public class DialogueScript : MonoBehaviour {
 
         if (cameraController == null)
             cameraController = FindFirstObjectByType<TherapyCameraController>();
+
         if (pigeon != null) {
             pigeon_audioSource = pigeon.GetComponent<AudioSource>();
             Sprite[] pigeonSprites = Resources.LoadAll<Sprite>("peggy_sprite_sheet");
@@ -104,6 +104,7 @@ public class DialogueScript : MonoBehaviour {
                 pigeonSpriteMap[s.name] = s;
             }
         }
+
         if (rat != null) {
             rat_audioSource = rat.GetComponent<AudioSource>();
             Sprite[] ratSprites = Resources.LoadAll<Sprite>("rocky_sprite_sheet");
@@ -113,6 +114,7 @@ public class DialogueScript : MonoBehaviour {
                 ratSpriteMap[s.name] = s;
             }
         }
+
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
             StartStory();
             /* if (!startDialogueButton || 
@@ -128,7 +130,6 @@ public class DialogueScript : MonoBehaviour {
         }
     }
 
-    // Creates a new Story object with the compiled story which we can then play!
     void StartStory () {
         justClicked = false;
         Debug.Log("Start Story");
@@ -141,51 +142,38 @@ public class DialogueScript : MonoBehaviour {
         } 
 
         dialogueBox.SetActive(true);
-        if (innerVoice)
-        {
-            internalBox.SetActive(true);
-            dialogueBoxImage.enabled = false;
-            dialogueText.enabled = false;
-        } else
-        {
-            nameBox.SetActive(true);
-            dialogueBoxImage.enabled = true;
-            dialogueText.enabled = true;
-        }
-        
-        // choicesBackground.SetActive(true);
+        nameBox.SetActive(true);
 
         RefreshView();
     }
     
     void RefreshView() {
-        // Remove all the UI on screen
         RemoveChildren();
 
-        // Read all the content until we can't continue anymore
         if (story.canContinue) {
-            // Continue gets the next line of the story
             string text = story.Continue();
-            text = text.Trim();  // Clean up whitespace
+            text = text.Trim();
 
+            // Existing conditions
             if (text.Contains("carnival_minigame")) {
                 Debug.Log("Minigame detected! Starting minigame...");
                 CarnivalLevelManager.gameStart = true;
                 EndOfDialogue();
                 return;
-            } else if (text.Contains("Therapy Scene Subway Ending")) {
+            } 
+            else if (text.Contains("Therapy Scene Subway Ending")) {
                 Debug.Log("Ending subway scene.");
                 EndOfDialogue();
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
-            } else if (text.Contains("Therapy Scene")) {
+                return;
+            } 
+            else if (text.Contains("Therapy Scene First Met Ending")) {
                 EndOfDialogue();
-                SceneManager.LoadScene("Therapy Scene");
-            } else if (text.Contains("RockyCall Scene")) {
-                EndOfDialogue();
-                SceneManager.LoadScene("RockyCall Scene");
-            } else if (text.Contains("the end?")) {
-                EndOfDialogue();
-                SceneManager.LoadScene("EndScene");
+                SceneManager.LoadScene("Therapy Scene First Met Ending");
+                return;
+            }
+            else if (text.Contains("the end?")) {
+                return;
             }
 
             CreateContentView(text);
@@ -195,7 +183,6 @@ public class DialogueScript : MonoBehaviour {
             return;
         }
 
-        // Display all the choices if there are any
         if (story.currentChoices.Count > 0) {
             HandleChoices();
         }
@@ -203,7 +190,6 @@ public class DialogueScript : MonoBehaviour {
 
     public void SetInkStory(TextAsset newStory) {
         inkJSONAsset = newStory;
-
         StartStory();
     }
 
@@ -221,16 +207,14 @@ public class DialogueScript : MonoBehaviour {
         internalBox.SetActive(false);
         choicesBackground.SetActive(true);
         
-        // Enable mouse cursor
-        Cursor.lockState = CursorLockMode.None; // Unlock the cursor from the center
-        Cursor.visible = true; // Make the cursor visible
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
 
         cameraController.LockAndCenter();
 
         for (int i = 0; i < story.currentChoices.Count; i++) {
             Choice choice = story.currentChoices[i];
             Button button = CreateChoiceView(choice.text.Trim(), i);
-            // Tell the button what to do when we press it
             button.onClick.AddListener(delegate {
                 OnClickChoiceButton(choice);
             });
@@ -250,7 +234,6 @@ public class DialogueScript : MonoBehaviour {
         }
     }
 
-    // Creates a textbox showing the line of text
     void CreateContentView(string text) {
         HandleTags(story.currentTags);
         if (innerVoice)
@@ -263,20 +246,21 @@ public class DialogueScript : MonoBehaviour {
         justClicked = false;
     }
 
-    // Creates a button showing the choice text
     Button CreateChoiceView(string text, int index) {
         Button choice = Instantiate(buttonPrefab) as Button;
         choice.transform.SetParent(choicesBackground.transform, false);
 
-        // Get the text from the button prefab
         TextMeshProUGUI choiceText = choice.GetComponentInChildren<TextMeshProUGUI>();
         if (choiceText != null) {
             choiceText.text = text;
         }
 
-        // Make the button expand to fit the text
         RectTransform buttonRectangleTransform = choice.GetComponent<RectTransform>();
-        buttonRectangleTransform.localPosition = new Vector3(buttonRectangleTransform.localPosition.x, buttonRectangleTransform.localPosition.y - (80 * index), buttonRectangleTransform.localPosition.z);
+        buttonRectangleTransform.localPosition = new Vector3(
+            buttonRectangleTransform.localPosition.x,
+            buttonRectangleTransform.localPosition.y - (80 * index),
+            buttonRectangleTransform.localPosition.z
+        );
     
         return choice;
     }
@@ -284,11 +268,13 @@ public class DialogueScript : MonoBehaviour {
     void HandleTags(List<string> tags) {
         if (tags != null) {
             foreach (string tag in tags) {
-                string[] splitTag = tag.Split(':');
+                string[] splitTag = tag.Split(':', 2);
                 if (splitTag.Length != 2) 
                 {
                     Debug.LogError("Tag could not be appropriately parsed: " + tag);
+                    continue;
                 }
+
                 string tagKey = splitTag[0].Trim();
                 string tagValue = splitTag[1].Trim();
 
@@ -334,7 +320,6 @@ public class DialogueScript : MonoBehaviour {
                         break;
                     case "va":
                         if (MainMenu.useVoiceActing) {
-                            // Debug.Log("playing audio file " + tagValue);
                             AudioClip voice_acting = Resources.Load<AudioClip>("VoiceOver/" + tagValue);
                             if (tagValue.Contains("Peggy")) {
                                 if (pigeon_audioSource != null) {
@@ -377,6 +362,12 @@ public class DialogueScript : MonoBehaviour {
                             holdUntilPeggyArrived = true;
                         }
                         break;
+
+                    // New optional events for first-met scene
+                    case "event":
+                        HandleEventTag(tagValue);
+                        break;
+
                     default:
                         break;
                 }
@@ -386,7 +377,26 @@ public class DialogueScript : MonoBehaviour {
         }
     }
 
-    // Destroys all the children of this gameobject (all the UI)
+    void HandleEventTag(string eventName)
+    {
+        switch (eventName)
+        {
+            case "hearts_rocky":
+                Debug.Log("Play hearts VFX around Rocky.");
+                // hook VFX here
+                break;
+
+            case "peggy_fall":
+                Debug.Log("Trigger Peggy fall effect.");
+                levelManager.HandleDialogueEvent("peggy_fall_fountain");
+                break;
+
+            default:
+                Debug.Log("Unhandled event tag: " + eventName);
+                break;
+        }
+    }
+
     void RemoveChildren() {
         int childCount = dialogueBox.transform.childCount;
         for (int i = childCount - 1; i >= 0; --i) {
@@ -444,3 +454,4 @@ public class DialogueScript : MonoBehaviour {
         startDialogueButtonClicked = buttonClicked;
     } */
 }
+
