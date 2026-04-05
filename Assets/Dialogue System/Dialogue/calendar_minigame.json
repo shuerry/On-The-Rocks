@@ -1,0 +1,1 @@
+﻿{"inkVersion":21,"root":[[{"->":"calendar_minigame"},["done",{"#f":5,"#n":"g-0"}],null],"done",{"calendar_minigame":[[["^\"Couple sessions are fifty minutes a week.\" ","#","^speaker:Therapist","/#","\n",["^\"If you're both willing to commit, let's find a time.\"","\n","end",{"#f":5,"#n":"g-1"}],{"#f":5,"#n":"g-0"}],null],{"#f":1}],"#f":1}],"listDefs":{}}

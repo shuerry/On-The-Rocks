@@ -43,4 +43,8 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Unhandled dialogue event in base LevelManager: " + eventName);
     }
+    public void GoToNextScene()
+    {
+        sceneController.LoadScene(nextLevel);
+    }
 }

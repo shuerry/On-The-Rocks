@@ -55,7 +55,8 @@
 - "For us? I’m just... stuck down here with nothing." #speaker:Peggy
 
 // Rocky (his voice shaking now, on the edge of tears as he tries to keep control): 
-- "Do you really think this is what I want? I hate being away from you, but I have no choice. My family needs me to work, to keep the restaurant going. And you think it’s easy for me to leave you behind every night? To feel like I’m constantly failing you?" #speaker:Rocky
+- "Do you really think this is what I want? I hate being away from you, but I have no choice." #speaker:Rocky
+- "My family needs me to work, to keep the restaurant going. And you think it’s easy for me to leave you behind every night? To feel like I’m constantly failing you?"
 
 // Peggy (trying to hold it together, her voice softening but full of hurt): 
 - "Then maybe it’s just not working, Rocky. Maybe we were never meant to be. Maybe we were just... an idea. I don’t know if I can keep doing this anymore." #speaker:Peggy

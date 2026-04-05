@@ -131,6 +131,8 @@ public class DialogueScript : MonoBehaviour {
     }
 
     void StartStory () {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         justClicked = false;
         Debug.Log("Start Story");
         story = new Story(inkJSONAsset.text);
@@ -158,12 +160,12 @@ public class DialogueScript : MonoBehaviour {
             if (text.Contains("carnival_minigame")) {
                 Debug.Log("Minigame detected! Starting minigame...");
                 CarnivalLevelManager.gameStart = true;
-                EndOfDialogue();
+                EndOfDialogue(false);
                 return;
             } 
             else if (text.Contains("Therapy Scene Subway Ending")) {
                 Debug.Log("Ending subway scene.");
-                EndOfDialogue();
+                EndOfDialogue(false);
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
                 return;
             } 
@@ -171,15 +173,24 @@ public class DialogueScript : MonoBehaviour {
                 EndOfDialogue();
                 SceneManager.LoadScene("Therapy Scene First Met Ending");
                 return;
-            }
-            else if (text.Contains("the end?")) {
-                return;
+            } else if (text.Contains("Therapy Scene")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("Therapy Scene");
+            } else if (text.Contains("RockyCall Scene")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("RockyCall Scene");
+            } else if (text.Contains("Calendar Minigame")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("Calendar Minigame");
+            } else if (text.Contains("the end?")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("EndScene");
             }
 
             CreateContentView(text);
         } else {
             Debug.Log("Story over.");
-            EndOfDialogue();
+            EndOfDialogue(true);
             return;
         }
 
@@ -193,12 +204,16 @@ public class DialogueScript : MonoBehaviour {
         StartStory();
     }
 
-    void EndOfDialogue()
+    void EndOfDialogue(bool showCursor)
     {
         dialogueBox.SetActive(false);
         nameBox.SetActive(false);
         internalBox.SetActive(false);
         choicesBackground.SetActive(false);
+        if (showCursor) {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
    } 
 
     void HandleChoices() {
