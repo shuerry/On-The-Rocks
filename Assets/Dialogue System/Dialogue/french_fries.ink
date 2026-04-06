@@ -7,6 +7,7 @@
 - "But is this… too basic? Too predictable? Like, 'Oh, of course the rat brings French fries.'” #speaker:Rocky
 // His stomach grumbles. He swears it’s louder than the carnival music.
 - "Okay, but counterpoint, who complains about French fries? No one. Ever." #speaker:Rocky
+- Press 'E' to pick up 'French fries'
 -> END
 
 // choice

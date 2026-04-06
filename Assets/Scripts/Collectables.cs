@@ -7,7 +7,6 @@ public class Collectables : MonoBehaviour
     public static List<GameObject> pickupItems = new List<GameObject>();
     public float pickupRange = 3f; // Set how close the player needs to be
     private Transform player;
-    public GameObject pickupPrompt;
     [SerializeField] private TextAsset pickupPromptJSON = null;
     private Inventory inventory;
     public GameObject itemButton;
@@ -19,10 +18,6 @@ public class Collectables : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player")?.transform;
-        if (pickupPrompt != null)
-        {
-            pickupPrompt.SetActive(false); // Hide prompt initially
-        }
         inventory = player.GetComponent<Inventory>();
     }
 
@@ -41,7 +36,6 @@ public class Collectables : MonoBehaviour
         if (distance <= pickupRange)
         {
             if (playingStory && !dialogueScript.story.canContinue) {
-                pickupPrompt.SetActive(true); // Show prompt
                 dialogueScript.SetInternalVoice(false);
             }
             
@@ -56,10 +50,6 @@ public class Collectables : MonoBehaviour
                 CollectItem();
             }
         }
-        else
-        {
-             pickupPrompt.SetActive(false); // Hide prompt
-        }
     }
 
     private void CollectItem()
@@ -72,7 +62,6 @@ public class Collectables : MonoBehaviour
                 pickupItems.Add(this.gameObject);
                 inventory.isFull[i] = true;
                 Instantiate(itemButton, inventory.slots[i].transform, false);
-                Destroy(pickupPrompt);
                 Destroy(gameObject); // Remove the item from the scene
                 Debug.Log("Item Collected: " + pickupItems);
                 if (gameObject.CompareTag("PigeonItem"))
