@@ -6,6 +6,7 @@
 - "Can’t go wrong with cotton candy. But is it… too safe? Too generic?” #speaker:Rocky
 - "I don’t want to look like I panicked and just grabbed the first thing I saw." #speaker:Rocky
 - "But then again… sharing food is kind of a thing, right?" #speaker:Rocky
+- Press 'E' to pick up 'Cotton candy'
 -> END
 
 /* 

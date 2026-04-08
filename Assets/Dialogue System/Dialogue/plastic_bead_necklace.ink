@@ -7,6 +7,7 @@
 - "Would she even want something like this? She’s not a kid… but she does kinda have a thing for—” #speaker:Rocky
 // He stops himself, suddenly feeling ridiculous.
 - "What am I even thinking? This isn’t life or death. It’s a carnival. Just pick something, Rocky." #speaker:Rocky
+- Press 'E' to pick up 'Bead necklace'
 -> END
 
 // choice

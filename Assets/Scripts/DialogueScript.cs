@@ -63,6 +63,9 @@ public class DialogueScript : MonoBehaviour {
             Cursor.lockState = CursorLockMode.None;
             return;
         } */
+        if (Input.GetMouseButtonDown(0)) {
+            Debug.Log($"Click detected. justClicked={justClicked}, paused={pausedForDistance}, hold={holdUntilPeggyArrived}, innerVoice={innerVoice}");
+        }
 
         if (holdUntilPeggyArrived)
         {
@@ -144,7 +147,17 @@ public class DialogueScript : MonoBehaviour {
         } 
 
         dialogueBox.SetActive(true);
-        nameBox.SetActive(true);
+        if (innerVoice)
+        {
+            internalBox.SetActive(true);
+            dialogueBoxImage.enabled = false;
+            dialogueText.enabled = false;
+        } else
+        {
+            nameBox.SetActive(true);
+            dialogueBoxImage.enabled = true;
+            dialogueText.enabled = true;
+        }
 
         RefreshView();
     }
@@ -170,7 +183,7 @@ public class DialogueScript : MonoBehaviour {
                 return;
             } 
             else if (text.Contains("Therapy Scene First Met Ending")) {
-                EndOfDialogue();
+                EndOfDialogue(false);
                 SceneManager.LoadScene("Therapy Scene First Met Ending");
                 return;
             } else if (text.Contains("Therapy Scene")) {
@@ -462,6 +475,7 @@ public class DialogueScript : MonoBehaviour {
 
     public void SetInternalVoice(bool internalVoice) {
         innerVoice = internalVoice;
+        if (innerVoice) pausedForDistance = false;
     }
 
     /* public void SetStartDialogueButtonClicked(bool buttonClicked)
