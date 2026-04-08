@@ -4954,6 +4954,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4447568c023913c439ff7e0689d6f231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testSwing: 0
   climbPoints:
   - {fileID: 1368902020}
   - {fileID: 1951552982}
