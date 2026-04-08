@@ -36,6 +36,7 @@ public class BelayUIController : MonoBehaviour
     public RectTransform sliderVisualArea;
 
     [Header("Feedback")]
+    public GameObject resultPanel;
     public TMP_Text resultText;
     public Image resultBackground;
     public float resultMessageDuration = 1.25f;
@@ -48,7 +49,7 @@ public class BelayUIController : MonoBehaviour
     {
         if (belayController == null)
         {
-            belayController = FindObjectOfType<BelayController>();
+            belayController = FindAnyObjectByType<BelayController>();
         }
 
         ConfigureSliders();
@@ -57,13 +58,12 @@ public class BelayUIController : MonoBehaviour
 
     private void Update()
     {
-        if (resultText != null && resultText.gameObject.activeSelf)
+        if (resultText != null && resultPanel.gameObject.activeSelf)
         {
             resultMessageTimer -= Time.deltaTime;
             if (resultMessageTimer <= 0f)
             {
-                resultText.gameObject.SetActive(false);
-                resultBackground.gameObject.SetActive(false);
+                resultPanel.SetActive(false);
             }
         }
 
@@ -155,14 +155,6 @@ public class BelayUIController : MonoBehaviour
         if (hideUIWhenInactive && root != null)
             root.SetActive(false);
     }
-
-    //public void HandleTimerUpdated(float normalizedRemaining)
-    //{
-    //    // Kept for UnityEvent compatibility, but the live UI now pulls directly
-    //    // from BelayController every frame so it remains correct even if event
-    //    // ordering in the inspector is imperfect.
-    //    SetTimerValue(normalizedRemaining);
-    //}
 
     private void ConfigureSliders()
     {
@@ -396,8 +388,7 @@ public class BelayUIController : MonoBehaviour
             resultBackground.color = Color.red;
         }
 
-        resultText.gameObject.SetActive(show);
-        resultBackground.gameObject.SetActive(show);
+        resultPanel.SetActive(show);
 
         if (show)
             resultMessageTimer = resultMessageDuration;
@@ -420,10 +411,13 @@ public class BelayUIController : MonoBehaviour
             distanceText.text = "";
 
         if (resultText != null)
-            resultText.gameObject.SetActive(false);
+            resultText.gameObject.SetActive(true);
 
         if (resultBackground != null)
-            resultBackground.gameObject.SetActive(false);
+            resultBackground.gameObject.SetActive(true);
+
+        if (resultPanel != null)
+            resultPanel.gameObject.SetActive(false);
 
         if (targetMarker != null)
             targetMarker.gameObject.SetActive(false);

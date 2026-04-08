@@ -4,18 +4,8 @@ using UnityEngine.Events;
 [RequireComponent(typeof(CharacterController))]
 public class BelayController : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public float moveSpeed = 10f;
-    public float jumpHeight = 10f;
+    [Header("Physics")]
     public float gravity = 9.81f;
-    public float airControl = 10f;
-
-    [Header("Platform Stickiness")]
-    public bool enablePlatformStickiness = true;
-    public float groundCheckDistance = 0.3f;
-
-    [Header("Audio")]
-    public AudioClip jumpSound;
 
     [Header("Belay / Rope")]
     public Transform rocky;
@@ -26,6 +16,29 @@ public class BelayController : MonoBehaviour
 
     [Tooltip("Extra padding added to the UI range around the start/target distances.")]
     public float uiDistancePadding = 1.5f;
+
+    [Header("Tension Pulling")]
+    [Tooltip("Key used to pull back on the rope during a tension event.")]
+    public KeyCode pullBackKey = KeyCode.S;
+
+    [Tooltip("Base rope force applied while pulling back / being pulled toward Rocky.")]
+    public float ropePullSpeed = 5f;
+
+    [Tooltip("How far the belayer can be displaced from the return point before pull-back slows to near zero.")]
+    public float maxPullBackFromCenter = 2.5f;
+
+    [Tooltip("Higher values make pull-back slow down more aggressively near the max pull distance.")]
+    public float pullSlowdownExponent = 1.5f;
+
+    [Header("Return To Center")]
+    [Tooltip("Point the belayer is moved back to after a tension event.")]
+    public Transform returnToCenterPoint;
+
+    [Tooltip("How fast the player is moved back to the return point after a tension event ends.")]
+    public float returnToCenterSpeed = 6f;
+
+    [Tooltip("Distance from the return point at which the auto-return stops.")]
+    public float returnToCenterStopDistance = 0.05f;
 
     [Header("UI Events")]
     [Tooltip("Invoked with 0..1 time remaining during a tension event.")]
@@ -41,15 +54,9 @@ public class BelayController : MonoBehaviour
     public UnityEvent OnTensionEventFailed;
 
     private CharacterController controller;
-    private AudioSource audioSource;
-
     private Vector3 moveDirection;
-    private Vector3 platformVelocity;
-    private Transform currentPlatform;
 
-    private float jumpIndex;
-    private float originalMoveSpeed;
-    private float originalJumpHeight;
+    private float originalGravity;
 
     // Active tension event state
     private bool tensionEventActive;
@@ -62,6 +69,9 @@ public class BelayController : MonoBehaviour
     // UI range for the current event
     private float uiMinDistance;
     private float uiMaxDistance;
+
+    // Recenter state
+    private bool returningToCenter;
 
     public bool IsTensionEventActive => tensionEventActive;
 
@@ -118,10 +128,7 @@ public class BelayController : MonoBehaviour
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
-        audioSource = GetComponent<AudioSource>();
-
-        originalMoveSpeed = moveSpeed;
-        originalJumpHeight = jumpHeight;
+        originalGravity = gravity;
     }
 
     private void Start()
@@ -144,72 +151,106 @@ public class BelayController : MonoBehaviour
 
     private void HandleMovement()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        Vector3 horizontalVelocity = Vector3.zero;
 
-        Vector3 flatInput = (transform.right * moveHorizontal + transform.forward * moveVertical).normalized;
-        flatInput *= moveSpeed;
+        if (tensionEventActive && rocky != null)
+        {
+            horizontalVelocity = GetTensionRopeVelocity();
+        }
+        else if (returningToCenter)
+        {
+            horizontalVelocity = GetReturnToCenterVelocity();
+        }
 
-        RaycastHit hit;
         bool grounded = controller.isGrounded;
-
-        if (grounded && enablePlatformStickiness)
-        {
-            Vector3 rayOrigin = transform.position + Vector3.up * 0.1f;
-            if (Physics.Raycast(rayOrigin, Vector3.down, out hit, groundCheckDistance))
-            {
-                if (hit.collider.attachedRigidbody != null)
-                {
-                    currentPlatform = hit.collider.transform;
-                    platformVelocity = hit.collider.attachedRigidbody.linearVelocity;
-                }
-                else
-                {
-                    currentPlatform = null;
-                    platformVelocity = Vector3.zero;
-                }
-            }
-        }
-        else
-        {
-            currentPlatform = null;
-            platformVelocity = Vector3.zero;
-        }
 
         if (grounded)
         {
-            moveDirection = flatInput;
-
-            if (Input.GetButtonDown("Jump"))
-            {
-                jumpIndex++;
-                Debug.Log("Jump " + jumpIndex);
-
-                if (jumpSound != null && audioSource != null)
-                    audioSource.PlayOneShot(jumpSound);
-
-                moveDirection.y = Mathf.Sqrt(2f * jumpHeight * gravity);
-            }
-            else
-            {
-                moveDirection.y = -1f;
-            }
+            moveDirection.x = horizontalVelocity.x;
+            moveDirection.z = horizontalVelocity.z;
+            moveDirection.y = -1f;
         }
         else
         {
-            Vector3 inAirInput = new Vector3(flatInput.x, moveDirection.y, flatInput.z);
-            moveDirection = Vector3.Lerp(moveDirection, inAirInput, airControl * Time.deltaTime);
+            moveDirection.x = horizontalVelocity.x;
+            moveDirection.z = horizontalVelocity.z;
         }
 
         moveDirection.y -= gravity * Time.deltaTime;
+        controller.Move(moveDirection * Time.deltaTime);
+    }
 
-        Vector3 finalMove = moveDirection * Time.deltaTime;
-        if (enablePlatformStickiness && grounded && currentPlatform != null)
+    private Vector3 GetTensionRopeVelocity()
+    {
+        Vector3 awayFromRocky = GetPlanarAwayFromRockyDirection();
+        if (awayFromRocky == Vector3.zero)
+            return Vector3.zero;
+
+        float currentForce = GetCurrentRopeForce();
+        bool isPullingBack = Input.GetKey(pullBackKey);
+
+        return isPullingBack
+            ? awayFromRocky * currentForce
+            : -awayFromRocky * currentForce;
+    }
+
+    private float GetCurrentRopeForce()
+    {
+        Vector3 planarOffsetFromCenter = GetPlanarFromCenter();
+        float distanceFromCenter = planarOffsetFromCenter.magnitude;
+
+        if (maxPullBackFromCenter <= 0.001f)
+            return ropePullSpeed;
+
+        float t = Mathf.Clamp01(distanceFromCenter / maxPullBackFromCenter);
+        float falloff = Mathf.Pow(1f - t, pullSlowdownExponent);
+        return ropePullSpeed * falloff;
+    }
+
+    private Vector3 GetReturnToCenterVelocity()
+    {
+        if (returnToCenterPoint == null)
         {
-            finalMove += platformVelocity * Time.deltaTime;
+            returningToCenter = false;
+            return Vector3.zero;
         }
 
-        controller.Move(finalMove);
+        Vector3 toCenter = returnToCenterPoint.position - transform.position;
+        toCenter.y = 0f;
+
+        float distance = toCenter.magnitude;
+        if (distance <= returnToCenterStopDistance)
+        {
+            returningToCenter = false;
+            return Vector3.zero;
+        }
+
+        float speed = Mathf.Min(returnToCenterSpeed, distance / Mathf.Max(Time.deltaTime, 0.0001f));
+        return toCenter.normalized * speed;
+    }
+
+    private Vector3 GetPlanarAwayFromRockyDirection()
+    {
+        if (rocky == null)
+            return Vector3.zero;
+
+        Vector3 dir = transform.position - rocky.position;
+        dir.y = 0f;
+
+        if (dir.sqrMagnitude <= 0.0001f)
+            return Vector3.zero;
+
+        return dir.normalized;
+    }
+
+    private Vector3 GetPlanarFromCenter()
+    {
+        if (returnToCenterPoint == null)
+            return Vector3.zero;
+
+        Vector3 offset = transform.position - returnToCenterPoint.position;
+        offset.y = 0f;
+        return offset;
     }
 
     private void UpdateTensionEvent()
@@ -249,7 +290,14 @@ public class BelayController : MonoBehaviour
             return;
         }
 
+        if (returnToCenterPoint == null)
+        {
+            Debug.LogWarning("BelayController: Return To Center Point not assigned.");
+        }
+
         tensionEventActive = true;
+        returningToCenter = false;
+
         tensionEventDuration = Mathf.Max(0.01f, duration);
         tensionEventTimer = tensionEventDuration;
 
@@ -274,12 +322,12 @@ public class BelayController : MonoBehaviour
         OnTensionEventStarted?.Invoke();
         OnTensionTimerUpdated?.Invoke(CurrentTimerRemainingNormalized);
 
-        Debug.Log(
-            $"Tension Event Started | Start: {tensionStartDistance:F2}, " +
-            $"Delta: {requiredDistanceDelta:F2}, Target: {targetDistance:F2}, " +
-            $"Acceptable: [{acceptableMin:F2}, {acceptableMax:F2}], " +
-            $"UI Range: [{uiMinDistance:F2}, {uiMaxDistance:F2}]"
-        );
+        //Debug.Log(
+        //    $"Tension Event Started | Start: {tensionStartDistance:F2}, " +
+        //    $"Delta: {requiredDistanceDelta:F2}, Target: {targetDistance:F2}, " +
+        //    $"Acceptable: [{acceptableMin:F2}, {acceptableMax:F2}], " +
+        //    $"UI Range: [{uiMinDistance:F2}, {uiMaxDistance:F2}]"
+        //);
     }
 
     private float NormalizeDistance(float distance)
@@ -293,10 +341,12 @@ public class BelayController : MonoBehaviour
     private void CompleteTensionEventSuccess()
     {
         tensionEventActive = false;
+        returningToCenter = true;
+
         OnTensionTimerUpdated?.Invoke(0f);
         OnTensionEventSucceeded?.Invoke();
 
-        Debug.Log("BelayController: Tension corrected successfully.");
+        //Debug.Log("BelayController: Tension corrected successfully.");
 
         if (rockyController != null)
         {
@@ -307,10 +357,12 @@ public class BelayController : MonoBehaviour
     private void FailTensionEvent()
     {
         tensionEventActive = false;
+        returningToCenter = true;
+
         OnTensionTimerUpdated?.Invoke(0f);
         OnTensionEventFailed?.Invoke();
 
-        Debug.Log("BelayController: Tension failed. Rocky falls.");
+        //Debug.Log("BelayController: Tension failed. Rocky falls.");
 
         if (rockyController != null)
         {
@@ -320,13 +372,12 @@ public class BelayController : MonoBehaviour
 
     public void Freeze()
     {
-        moveSpeed = 0f;
-        jumpHeight = 0f;
+        gravity = 0f;
+        moveDirection = Vector3.zero;
     }
 
     public void Unfreeze()
     {
-        moveSpeed = originalMoveSpeed;
-        jumpHeight = originalJumpHeight;
+        gravity = originalGravity;
     }
 }

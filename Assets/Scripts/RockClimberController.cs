@@ -10,8 +10,11 @@ public class RockClimberController : MonoBehaviour
         Climbing,
         WaitingForBelayCorrection,
         Falling,
-        Resetting
+        Resetting,
+        Finished
     }
+
+    public bool testSwing;
 
     [Header("Route")]
     [Tooltip("Rocky's climbing points in order.")]
@@ -25,7 +28,7 @@ public class RockClimberController : MonoBehaviour
     public float pauseAtPointDuration = 0.5f;
 
     [Header("Belay Events")]
-    [Tooltip("Chance that reaching a point triggers a tension/slack event.")]
+    [Tooltip("Chance that a climb segment triggers a tension/slack event.")]
     [Range(0f, 1f)]
     public float eventChancePerPoint = 0.5f;
 
@@ -42,6 +45,7 @@ public class RockClimberController : MonoBehaviour
 
     [Header("References")]
     public BelayController belayController;
+    public Animator animator;
 
     [Header("Events")]
     public UnityEvent OnRouteStarted;
@@ -57,6 +61,13 @@ public class RockClimberController : MonoBehaviour
     private ClimberState currentState = ClimberState.WaitingToStart;
     private Coroutine activeRoutine;
 
+    // True while a belay event is active during climbing.
+    private bool belayEventInProgress;
+    private bool hasDescended = false;
+
+    // True when Rocky has reached the final point but must wait for the active belay event to resolve.
+    private bool pendingRouteCompletion;
+
     public ClimberState CurrentState => currentState;
     public int CurrentPointIndex => currentPointIndex;
 
@@ -67,12 +78,28 @@ public class RockClimberController : MonoBehaviour
 
     private void Start()
     {
-        if (belayController == null)
+        if (!belayController)
         {
-            belayController = FindObjectOfType<BelayController>();
+            belayController = FindAnyObjectByType<BelayController>();
+        }
+
+        if (!animator)
+            animator = GetComponentInChildren<Animator>();
+
+        if (testSwing)
+        {
+            StartCoroutine(Test());
+            return;
         }
 
         BeginRoute();
+    }
+
+    IEnumerator Test()
+    {
+        transform.position = climbPoints[climbPoints.Length - 1].position;
+        yield return new WaitForSeconds(resetDelay);
+        StartCoroutine(Descend());
     }
 
     public void BeginRoute()
@@ -81,6 +108,8 @@ public class RockClimberController : MonoBehaviour
 
         transform.position = startPosition;
         currentPointIndex = 0;
+        belayEventInProgress = false;
+        pendingRouteCompletion = false;
         currentState = ClimberState.Climbing;
 
         OnRouteStarted?.Invoke();
@@ -106,7 +135,36 @@ public class RockClimberController : MonoBehaviour
                 continue;
             }
 
-            currentState = ClimberState.Climbing;
+            Vector3 segmentStart = transform.position;
+            float segmentLength = Vector3.Distance(segmentStart, target.position);
+
+            bool shouldTriggerBelayEventThisSegment =
+                !belayEventInProgress &&
+                Random.value <= eventChancePerPoint;
+
+            bool eventTriggeredThisSegment = false;
+
+            Vector3 toTarget = target.position - transform.position;
+            toTarget.y = 0f;
+
+            if (toTarget.sqrMagnitude > 0.0001f)
+            {
+                toTarget.Normalize();
+                float dot = Vector3.Dot(transform.right, toTarget);
+
+                if (dot > 0f)
+                {
+                    animator.SetTrigger("ClimbRight");
+                }
+                else if (dot < 0f)
+                {
+                    animator.SetTrigger("ClimbLeft");
+                }
+            }
+
+            currentState = belayEventInProgress
+                ? ClimberState.WaitingForBelayCorrection
+                : ClimberState.Climbing;
 
             while (Vector3.Distance(transform.position, target.position) > pointReachDistance)
             {
@@ -116,65 +174,116 @@ public class RockClimberController : MonoBehaviour
                     climbSpeed * Time.deltaTime
                 );
 
+                transform.rotation = Quaternion.Slerp(
+                    transform.rotation,
+                    target.rotation,
+                    5f * Time.deltaTime
+                );
+
+                if (shouldTriggerBelayEventThisSegment && !eventTriggeredThisSegment && !belayEventInProgress)
+                {
+                    StartBelayEvent();
+                    eventTriggeredThisSegment = true;
+                }
+
                 yield return null;
+
+                if (currentState == ClimberState.Falling || currentState == ClimberState.Resetting)
+                    yield break;
             }
 
             transform.position = target.position;
-            OnPointReached?.Invoke(currentPointIndex);
 
-            yield return new WaitForSeconds(pauseAtPointDuration);
+            int reachedPointIndex = currentPointIndex;
+            OnPointReached?.Invoke(reachedPointIndex);
 
-            bool shouldTriggerBelayEvent =
-                currentPointIndex < climbPoints.Length - 1 &&
-                Random.value <= eventChancePerPoint;
+            animator.SetTrigger("ClimbNeutral");
 
-            if (shouldTriggerBelayEvent)
+            // If Rocky reaches the point before the belay event ends,
+            // hold him here until the event is finished.
+            while (belayEventInProgress)
             {
-                currentState = ClimberState.WaitingForBelayCorrection;
-                OnBelayCheckStarted?.Invoke();
-
-                float delta = Random.Range(requiredDistanceDeltaRange.x, requiredDistanceDeltaRange.y);
-
-                if (belayController != null)
-                {
-                    belayController.StartTensionEvent(delta, tensionEventDuration);
-                }
-                else
-                {
-                    Debug.LogWarning("RockClimberController: No BelayController assigned.");
-                    yield return StartCoroutine(FallAndResetRoutine());
+                if (currentState == ClimberState.Falling || currentState == ClimberState.Resetting)
                     yield break;
-                }
 
-                // Pause Rocky here until BelayController reports result
-                yield break;
+                yield return null;
+            }
+
+            // After the belay event is over, always do the normal point pause.
+            if (pauseAtPointDuration > 0f)
+            {
+                yield return new WaitForSeconds(pauseAtPointDuration);
             }
 
             currentPointIndex++;
+
+            if (currentPointIndex >= climbPoints.Length)
+            {
+                break;
+            }
         }
 
-        Debug.Log("RockClimberController: Route completed.");
+        CompleteRoute();
+    }
+
+    private void StartBelayEvent()
+    {
+        if (belayController == null)
+        {
+            Debug.LogWarning("RockClimberController: No BelayController assigned.");
+            StopActiveRoutine();
+            activeRoutine = StartCoroutine(FallAndResetRoutine());
+            return;
+        }
+
+        belayEventInProgress = true;
+        currentState = ClimberState.WaitingForBelayCorrection;
+        OnBelayCheckStarted?.Invoke();
+
+        float delta = Random.Range(requiredDistanceDeltaRange.x, requiredDistanceDeltaRange.y);
+        belayController.StartTensionEvent(delta, tensionEventDuration);
+    }
+
+    private void CompleteRoute()
+    {
+        belayEventInProgress = false;
+        pendingRouteCompletion = true;
         currentState = ClimberState.WaitingToStart;
+        activeRoutine = null;
+
+        Debug.Log("RockClimberController: Route completed.");
+
+        if (!hasDescended)
+            StartCoroutine(Descend());
     }
 
     public void OnBelayRecovered()
     {
-        if (currentState != ClimberState.WaitingForBelayCorrection)
+        if (!belayEventInProgress)
             return;
 
+        belayEventInProgress = false;
         OnBelayCheckPassed?.Invoke();
 
-        currentPointIndex++;
-        StopActiveRoutine();
-        activeRoutine = StartCoroutine(ClimbRouteRoutine());
+        if (pendingRouteCompletion || currentPointIndex >= climbPoints.Length)
+        {
+            CompleteRoute();
+            return;
+        }
+
+        currentState = ClimberState.Climbing;
     }
 
     public void OnBelayFailed()
     {
-        if (currentState != ClimberState.WaitingForBelayCorrection)
+        if (!belayEventInProgress)
             return;
 
+        belayEventInProgress = false;
+        pendingRouteCompletion = false;
+
         OnBelayCheckFailed?.Invoke();
+
         StopActiveRoutine();
         activeRoutine = StartCoroutine(FallAndResetRoutine());
     }
@@ -184,6 +293,8 @@ public class RockClimberController : MonoBehaviour
         currentState = ClimberState.Falling;
         OnFallStarted?.Invoke();
 
+        animator.SetTrigger("Fall");
+
         while (transform.position.y > groundY)
         {
             Vector3 pos = transform.position;
@@ -192,15 +303,91 @@ public class RockClimberController : MonoBehaviour
                 pos.y = groundY;
 
             transform.position = pos;
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.identity,
+                5f * Time.deltaTime
+            );
+
             yield return null;
         }
+
+        animator.SetTrigger("Land");
+
+        yield return new WaitForSeconds(resetDelay);
+
+        animator.SetTrigger("ReturnToStart");
+
+        while (Vector3.Distance(transform.position, startPosition) > pointReachDistance)
+        {
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                startPosition,
+                climbSpeed * Time.deltaTime
+            );
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.identity,
+                5f * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        transform.position = startPosition;
 
         yield return new WaitForSeconds(resetDelay);
 
         currentState = ClimberState.Resetting;
         OnRouteReset?.Invoke();
 
+        animator.SetTrigger("ClimbNeutral");
+
+        yield return new WaitForSeconds(resetDelay);
+
         BeginRoute();
+    }
+
+    private IEnumerator Descend()
+    {
+        animator.SetTrigger("Descend");
+
+        float swingAmplitude = 1f;   // how far it swings left/right
+        float swingFrequency = 4f;     // how fast it swings
+
+        float startX = transform.position.x;
+
+        while (transform.position.y > groundY)
+        {
+            Vector3 pos = transform.position;
+
+            // vertical fall
+            pos.y -= (fallSpeed / 3f) * Time.deltaTime;
+            if (pos.y < groundY)
+                pos.y = groundY;
+
+            // side-to-side swing
+            float swing = Mathf.Sin(Time.time * swingFrequency) * swingAmplitude;
+            pos.x = startX + swing;
+
+            transform.position = pos;
+
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.identity,
+                5f * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        animator.SetTrigger("Happy");
+
+        currentState = ClimberState.Finished;
+
+        yield return new WaitForSeconds(resetDelay);
     }
 
     private void StopActiveRoutine()
