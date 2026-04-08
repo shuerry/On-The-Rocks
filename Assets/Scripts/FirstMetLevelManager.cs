@@ -5,7 +5,6 @@ public class FirstMetLevelManager : LevelManager
 {
     [Header("References")]
     [SerializeField] private DialogueScript dialogueScript;
-    [SerializeField] private FirstMetCameraController cameraController;
 
     [Header("Characters")]
     [SerializeField] private Transform peggyTransform;
@@ -13,20 +12,20 @@ public class FirstMetLevelManager : LevelManager
     [SerializeField] private SpriteRenderer peggySpriteRenderer;
 
     [Header("Scene Points")]
-    [SerializeField] private Transform benchPoint;
+    [SerializeField] private Transform peggyStartPoint;
     [SerializeField] private Transform fountainLandingPoint;
     [SerializeField] private Transform fountainStuckPoint;
     [SerializeField] private Transform rockyStartPoint;
-
-    [Header("Camera Points")]
-    [SerializeField] private Transform benchCameraPoint;
-    [SerializeField] private Transform fountainCameraPoint;
-    [SerializeField] private Vector3 peggyFollowOffset = new Vector3(0f, 1.5f, -10f);
 
     [Header("Fall Timing")]
     [SerializeField] private float launchDuration = 0.9f;
     [SerializeField] private float launchArcHeight = 2.5f;
     [SerializeField] private float stuckPauseDuration = 0.75f;
+
+    [Header("Camera Chaos")]
+    [SerializeField] private float shakeIntensity = 0.15f;
+    [SerializeField] private float totalSpinDegrees = 360f;
+    [SerializeField] private float wobbleAmount = 20f;
 
     [Header("Effects")]
     [SerializeField] private GameObject splashEffectPrefab;
@@ -61,31 +60,17 @@ public class FirstMetLevelManager : LevelManager
         isRunningSequence = true;
 
         if (dialogueScript != null)
-        {
             dialogueScript.PauseForDistance(true);
-        }
 
-        if (cameraController != null && benchCameraPoint != null)
-        {
-            cameraController.SnapToPoint(benchCameraPoint);
-        }
-
-        if (cameraController != null)
-        {
-            cameraController.ShakeCamera(0.18f, 0.12f);
-        }
-
+        // Kick impact
         if (sfxSource != null && kickImpactClip != null)
-        {
             sfxSource.PlayOneShot(kickImpactClip);
-        }
 
         yield return new WaitForSeconds(0.08f);
 
-        if (cameraController != null)
-        {
-            cameraController.FollowTargetForDuration(peggyTransform, peggyFollowOffset, launchDuration);
-        }
+        // Camera chaos runs in parallel with the launch
+        Transform cam = Camera.main.transform;
+        StartCoroutine(CameraChaosDuringLaunch(cam, launchDuration));
 
         yield return StartCoroutine(LaunchPeggyToFountain(
             peggyTransform,
@@ -95,16 +80,14 @@ public class FirstMetLevelManager : LevelManager
             launchArcHeight
         ));
 
+        // Splash on landing
         if (splashEffectPrefab != null)
-        {
             Instantiate(splashEffectPrefab, fountainLandingPoint.position, Quaternion.identity);
-        }
 
         if (sfxSource != null && splashClip != null)
-        {
             sfxSource.PlayOneShot(splashClip);
-        }
 
+        // Snap to stuck position
         if (peggyTransform != null && fountainStuckPoint != null)
         {
             peggyTransform.position = fountainStuckPoint.position;
@@ -112,19 +95,57 @@ public class FirstMetLevelManager : LevelManager
         }
 
         if (peggySpriteRenderer != null && peggyStuckSprite != null)
-        {
             peggySpriteRenderer.sprite = peggyStuckSprite;
-        }
 
-        if (cameraController != null && fountainCameraPoint != null)
-        {
-            cameraController.StopFollowing();
-            cameraController.MoveToPoint(fountainCameraPoint);
-        }
+        // Reset camera local transform after chaos
+        cam.localPosition = Vector3.zero;
+        cam.localRotation = Quaternion.identity;
 
         yield return new WaitForSeconds(stuckPauseDuration);
 
+        if (dialogueScript != null)
+            dialogueScript.PauseForDistance(false);
+
         isRunningSequence = false;
+    }
+
+    private IEnumerator CameraChaosDuringLaunch(Transform cam, float duration)
+    {
+        Vector3 originalLocalPos = cam.localPosition;
+        Quaternion originalLocalRot = cam.localRotation;
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            // Continuous spin on Z axis (roll) over the full flight
+            float spin = Mathf.Lerp(0f, totalSpinDegrees, t);
+
+            // Wobble on X/Y axes that peaks mid-flight and fades out
+            float wobbleIntensity = Mathf.Sin(t * Mathf.PI);
+            float wobbleX = Mathf.Sin(elapsed * 12f) * wobbleAmount * wobbleIntensity;
+            float wobbleY = Mathf.Cos(elapsed * 9f) * wobbleAmount * 0.5f * wobbleIntensity;
+
+            cam.localRotation = originalLocalRot * Quaternion.Euler(wobbleX, wobbleY, spin);
+
+            // Light position shake that fades out
+            float shake = shakeIntensity * wobbleIntensity;
+            Vector3 offset = new Vector3(
+                Mathf.Sin(elapsed * 15f) * shake,
+                Mathf.Cos(elapsed * 11f) * shake,
+                0f
+            );
+            cam.localPosition = originalLocalPos + offset;
+
+            yield return null;
+        }
+
+        // Clean reset
+        cam.localPosition = originalLocalPos;
+        cam.localRotation = originalLocalRot;
     }
 
     private IEnumerator LaunchPeggyToFountain(
@@ -156,62 +177,15 @@ public class FirstMetLevelManager : LevelManager
         target.position = end;
     }
 
-    // private IEnumerator PullPeggyOutOfFountainSequence()
-    // {
-    //     isRunningSequence = true;
-
-    //     if (cameraController != null)
-    //     {
-    //         cameraController.ShakeCamera(0.12f, 0.06f);
-    //     }
-
-    //     if (sfxSource != null && pullOutClip != null)
-    //     {
-    //         sfxSource.PlayOneShot(pullOutClip);
-    //     }
-
-    //     Vector3 start = peggyTransform.position;
-    //     Vector3 end = benchPoint != null ? benchPoint.position : start + new Vector3(1.5f, 0f, 0f);
-
-    //     float elapsed = 0f;
-
-    //     while (elapsed < pullOutDuration)
-    //     {
-    //         elapsed += Time.deltaTime;
-    //         float t = Mathf.Clamp01(elapsed / pullOutDuration);
-
-    //         peggyTransform.position = Vector3.Lerp(start, end, t);
-    //         yield return null;
-    //     }
-
-    //     peggyTransform.position = end;
-
-    //     if (peggySpriteRenderer != null && peggyPulledOutSprite != null)
-    //     {
-    //         peggySpriteRenderer.sprite = peggyPulledOutSprite;
-    //     }
-
-    //     if (cameraController != null && benchCameraPoint != null)
-    //     {
-    //         cameraController.MoveToPoint(benchCameraPoint);
-    //     }
-
-    //     yield return new WaitForSeconds(postRescuePause);
-
-    //     isRunningSequence = false;
-
-    //     LevelManager.SetScene("First Met Scene Post Rescue");
-    // }
-
     public void ResetSceneState()
     {
         StopAllCoroutines();
         isRunningSequence = false;
 
-        if (peggyTransform != null && benchPoint != null)
+        if (peggyTransform != null && peggyStartPoint != null)
         {
-            peggyTransform.position = benchPoint.position;
-            peggyTransform.rotation = benchPoint.rotation;
+            peggyTransform.position = peggyStartPoint.position;
+            peggyTransform.rotation = peggyStartPoint.rotation;
         }
 
         if (rockyTransform != null && rockyStartPoint != null)
@@ -220,14 +194,11 @@ public class FirstMetLevelManager : LevelManager
             rockyTransform.rotation = rockyStartPoint.rotation;
         }
 
-        if (cameraController != null && benchCameraPoint != null)
-        {
-            cameraController.SnapToPoint(benchCameraPoint);
-        }
+        Transform cam = Camera.main.transform;
+        cam.localPosition = Vector3.zero;
+        cam.localRotation = Quaternion.identity;
 
         if (dialogueScript != null)
-        {
             dialogueScript.PauseForDistance(false);
-        }
     }
 }

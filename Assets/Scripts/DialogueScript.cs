@@ -195,6 +195,9 @@ public class DialogueScript : MonoBehaviour {
             } else if (text.Contains("Calendar Minigame")) {
                 EndOfDialogue(false);
                 SceneManager.LoadScene("Calendar Minigame");
+            } else if (text.Contains("First Met Scene Minigame")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("FirstMetSceneMinigame");
             } else if (text.Contains("the end?")) {
                 EndOfDialogue(false);
                 SceneManager.LoadScene("EndScene");
@@ -390,12 +393,17 @@ public class DialogueScript : MonoBehaviour {
                             holdUntilPeggyArrived = true;
                         }
                         break;
-
-                    // New optional events for first-met scene
                     case "event":
                         HandleEventTag(tagValue);
                         break;
-
+                    case "inner_voice":
+                        if (tagValue == "true") {
+                            SetInternalVoice(tagValue == "true");
+                        } else
+                        {
+                            SetInternalVoice(false);
+                        }
+                        break;
                     default:
                         break;
                 }
@@ -475,7 +483,18 @@ public class DialogueScript : MonoBehaviour {
 
     public void SetInternalVoice(bool internalVoice) {
         innerVoice = internalVoice;
-        if (innerVoice) pausedForDistance = false;
+        if (innerVoice) {
+            pausedForDistance = false;
+            internalBox.SetActive(true);
+            dialogueBoxImage.enabled = false;
+            dialogueText.enabled = false;
+            nameBox.SetActive(false);
+        } else {
+            internalBox.SetActive(false);
+            dialogueBoxImage.enabled = true;
+            dialogueText.enabled = true;
+            nameBox.SetActive(true);
+        }
     }
 
     /* public void SetStartDialogueButtonClicked(bool buttonClicked)
