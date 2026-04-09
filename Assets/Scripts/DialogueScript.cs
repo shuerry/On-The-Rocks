@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using Ink.Runtime;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -14,12 +12,26 @@ public class DialogueScript : MonoBehaviour {
     [SerializeField] private TextAsset inkJSONAsset = null;
     public Story story;
 
+    [Header("Dialogue")]
     [SerializeField] private GameObject dialogueBox = null;
-
+    [SerializeField] private Image dialogueBoxImage = null;
     // UI Prefabs
     [SerializeField] private TextMeshProUGUI dialogueText = null;
     [SerializeField] private TextMeshProUGUI nameText = null;
     [SerializeField] private GameObject nameBox = null;
+    [SerializeField] private Image nameBoxImage = null;
+    private Color rockyColor = new Color(0.5f, 0.273f, 0.074f); // Russet
+    private Color peggyColor = new Color(0.434f, 0.559f, 0.684f); // Denim
+    private Color therapistColor = new Color(0.996f, 0.977f, 0.625f);// Pastel Yellow
+    private Color defaultColor = new Color(0.047f, 0.254f, 0.336f); // Millenial Pink
+
+    // [SerializeField] private GameObject startDialogueButton = null;
+    
+    [Header("Internal Dialogue")]
+    [SerializeField] private GameObject internalBox = null;
+    [SerializeField] private TextMeshProUGUI internalText = null;
+
+    [Header("Clipboard Choices")]
     [SerializeField] private Button buttonPrefab = null;
     [SerializeField] private GameObject choicesBackground = null;
     
@@ -37,14 +49,24 @@ public class DialogueScript : MonoBehaviour {
     [Header("Peggy Movement")]
     [SerializeField] private PeggyCarnivalMovements peggyMover = null;
     [SerializeField] private CarnivalWaypointMap waypointMap = null;
+    bool innerVoice = false;
 
     [Header("Camera")]
     [SerializeField] private TherapyCameraController cameraController = null;
 
     private bool pausedForDistance = false;
     private bool holdUntilPeggyArrived = false;
+    // private bool startDialogueButtonClicked = false;
 
     void Update() {
+        /* if (startDialogueButton && !startDialogueButtonClicked) {
+            Cursor.lockState = CursorLockMode.None;
+            return;
+        } */
+        if (Input.GetMouseButtonDown(0)) {
+            Debug.Log($"Click detected. justClicked={justClicked}, paused={pausedForDistance}, hold={holdUntilPeggyArrived}, innerVoice={innerVoice}");
+        }
+
         if (holdUntilPeggyArrived)
         {
             dialogueBox.SetActive(false);
@@ -57,6 +79,10 @@ public class DialogueScript : MonoBehaviour {
         // Only process the click if it hasn't been processed already
         if (Input.GetMouseButtonDown(0) && !justClicked && (!MainMenu.useVoiceActing || (!pigeon_audioSource.isPlaying && !rat_audioSource.isPlaying))) {
             justClicked = true;  // Prevent multiple clicks from advancing
+            if (innerVoice)
+            {
+                Debug.Log("inner voice? " + innerVoice);
+            }
             RefreshView();
         }
     }
@@ -92,14 +118,23 @@ public class DialogueScript : MonoBehaviour {
         }
         if (SceneManager.GetActiveScene().name != "Subway Scene") {
             StartStory();
+            /* if (!startDialogueButton || 
+            (startDialogueButton && startDialogueButtonClicked))
+            {
+                StartStory();
+            } */
         } else {
+            Debug.Log("Test here");
             dialogueBox.SetActive(false);
             nameBox.SetActive(false);
+            internalBox.SetActive(false);
         }
     }
 
     // Creates a new Story object with the compiled story which we can then play!
     void StartStory () {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         justClicked = false;
         Debug.Log("Start Story");
         story = new Story(inkJSONAsset.text);
@@ -111,8 +146,17 @@ public class DialogueScript : MonoBehaviour {
         } 
 
         dialogueBox.SetActive(true);
-        nameBox.SetActive(true);
-        // choicesBackground.SetActive(true);
+        if (innerVoice)
+        {
+            internalBox.SetActive(true);
+            dialogueBoxImage.enabled = false;
+            dialogueText.enabled = false;
+        } else
+        {
+            nameBox.SetActive(true);
+            dialogueBoxImage.enabled = true;
+            dialogueText.enabled = true;
+        }
 
         RefreshView();
     }
@@ -130,21 +174,36 @@ public class DialogueScript : MonoBehaviour {
             if (text.Contains("carnival_minigame")) {
                 Debug.Log("Minigame detected! Starting minigame...");
                 CarnivalLevelManager.gameStart = true;
-                EndOfDialogue();
+                EndOfDialogue(false);
                 return;
             } else if (text.Contains("Therapy Scene Subway Ending")) {
                 Debug.Log("Ending subway scene.");
-                EndOfDialogue();
+                EndOfDialogue(false);
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
+                return;
+            } 
+            else if (text.Contains("Therapy Scene First Met Ending")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("Therapy Scene First Met Ending");
+                return;
+            } else if (text.Contains("Therapy Scene")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("Therapy Scene");
+            } else if (text.Contains("RockyCall Scene")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("RockyCall Scene");
+            } else if (text.Contains("Calendar Minigame")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("Calendar Minigame");
             } else if (text.Contains("the end?")) {
-                EndOfDialogue();
+                EndOfDialogue(false);
                 SceneManager.LoadScene("EndScene");
             }
 
             CreateContentView(text);
         } else {
             Debug.Log("Story over.");
-            EndOfDialogue();
+            EndOfDialogue(true);
             return;
         }
 
@@ -160,16 +219,22 @@ public class DialogueScript : MonoBehaviour {
         StartStory();
     }
 
-    void EndOfDialogue()
+    void EndOfDialogue(bool showCursor)
     {
         dialogueBox.SetActive(false);
         nameBox.SetActive(false);
+        internalBox.SetActive(false);
         choicesBackground.SetActive(false);
+        if (showCursor) {
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+        }
    } 
 
     void HandleChoices() {
         dialogueBox.SetActive(false);
         nameBox.SetActive(false);
+        internalBox.SetActive(false);
         choicesBackground.SetActive(true);
         
         // Enable mouse cursor
@@ -204,7 +269,13 @@ public class DialogueScript : MonoBehaviour {
     // Creates a textbox showing the line of text
     void CreateContentView(string text) {
         HandleTags(story.currentTags);
-        dialogueText.text = text;
+        if (innerVoice)
+        {
+            internalText.text = text;
+        } else
+        {
+            dialogueText.text = text;
+        }
         justClicked = false;
     }
 
@@ -240,11 +311,28 @@ public class DialogueScript : MonoBehaviour {
                 switch (tagKey) {
                     case "speaker":
                         nameText.text = tagValue;
+                        switch (tagValue)
+                        {
+                            case "Peggy":
+                                nameBoxImage.color = peggyColor;
+                                break;
+                            case "Rocky":
+                                nameBoxImage.color = rockyColor;
+                                break;
+                            case "Therapist":
+                                nameBoxImage.color = therapistColor;
+                                break;
+                            default:
+                                nameBoxImage.color = defaultColor;
+                                break;
+                        }
                         break;
                     case "pigeon":
                         if (pigeon) {
-                            // Debug.Log("pigeoning " + tagValue);
+                            Debug.Log("pigeoning " + tagValue);
                             if (pigeonSpriteMap.TryGetValue(tagValue, out Sprite pigeon_sprite)) {
+                                if (pigeon.GetComponent<Animator>() != null)
+                                    pigeon.GetComponent<Animator>().enabled = false;
                                 pigeon.GetComponent<SpriteRenderer>().sprite = pigeon_sprite;
                             } else {
                                 Debug.LogWarning("Sprite not found in sheet: " + tagValue);
@@ -301,6 +389,7 @@ public class DialogueScript : MonoBehaviour {
                     case "hold":
                         if (tagValue == "peggy_arrived")
                         {
+                            pigeon.GetComponent<Animator>().enabled = true;
                             holdUntilPeggyArrived = true;
                         }
                         break;
@@ -361,4 +450,14 @@ public class DialogueScript : MonoBehaviour {
         }
     }
 
+
+    public void SetInternalVoice(bool internalVoice) {
+        innerVoice = internalVoice;
+        if (innerVoice) pausedForDistance = false;
+    }
+
+    /* public void SetStartDialogueButtonClicked(bool buttonClicked)
+    {
+        startDialogueButtonClicked = buttonClicked;
+    } */
 }

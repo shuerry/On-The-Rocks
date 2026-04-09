@@ -21,22 +21,28 @@
 // (He pauses, voice softening for a moment, but then continuing with an edge.) 
 - "you never understand. All you see is what I don’t do, not what I am doing." #speaker:Rocky
 // Peggy (shaking her head, frustration bubbling up): 
-- "You think I don’t see what you’re doing? I see it, Rocky. I see you working day and night while I’m stuck down here in the subway, trying to get through each day without losing my mind. I can’t even fly without hitting people’s legs!" #speaker:Peggy
+- "You think I don’t see what you’re doing? I see it, Rocky." #speaker:Peggy
+- "I see you working day and night while I’m stuck down here in the subway, trying to get through each day without losing my mind. I can’t even fly without hitting people’s legs!" #speaker:Peggy
 
 // Rocky (his voice raising a little, clearly frustrated with what he perceives as her misunderstanding): : (RockyP5) 
-- "You think I like this? You think it’s easy for me to work my tail off just to keep the restaurant open for my family and the people we feed down here?" You know that the subway is near the Underground restaurant" #speaker:Rocky #rat:RockyP5
+- "You think I like this? You think it’s easy for me to work my tail off just to keep the restaurant open for my family and the people we feed down here?" #speaker:Rocky #rat:RockyP5
+- "You know that the subway is near the Underground restaurant." #speaker:Rocky
 // (His voice cracks with an edge of bitterness.) 
-- "I’m doing this because my people need it. The Topside pigeons don’t know what it’s like down here, Peggy. You don’t get it. You come from luxury, from a place where everything is handed to you. You don’t see how hard we’re struggling down here." #speaker:Rocky
+- "I’m doing this because my people need it. The Topside pigeons don’t know what it’s like down here, Peggy." #speaker:Rocky
+- "You don’t get it. You come from luxury, from a place where everything is handed to you. You don’t see how hard we’re struggling down here." #speaker:Rocky
 
 // Peggy (shocked by his words, her wings shaking with a mix of hurt and anger): 
-- "Is that what you think? That I don’t know struggle? Just because I don’t live in the Underground doesn’t mean I don’t have my own problems. But I came here for you, Rocky. I left that life in Manhattan behind to be with you, and now you’re saying it’s all because I’m some spoiled pigeon from the topside?" #speaker:Peggy
+- "Is that what you think? That I don’t know struggle? Just because I don’t live in the Underground doesn’t mean I don’t have my own problems." #speaker:Peggy
+- "But I came here for you, Rocky. I left that life in Manhattan behind to be with you, and now you’re saying it’s all because I’m some spoiled pigeon from the topside?" #speaker:Peggy
 // (Her voice cracks, her frustration turning into hurt.) 
 
 // Peggy (standing up as well, wings outstretched, her eyes filled with frustration): (Rocky P1) 
-- "It’s not about what you do for work, Rocky! It’s about you never being here. You’re always at that restaurant, cooking for people who don’t even notice you. I don’t want to be part of that life! I wanted something more. Something better." #speaker:Peggy #rat:RockyP1
+- "It’s not about what you do for work, Rocky! It’s about you never being here." #speaker:Peggy #rat:RockyP1
+- "You’re always at that restaurant, cooking for people who don’t even notice you. I don’t want to be part of that life! I wanted something more. Something better." #speaker:Peggy
 
 // Rocky (voice cracking with a mix of anger and hurt, his tail flicking violently behind him): (RockyP5) 
-- "Well, maybe I can’t give you better, Peggy. Maybe I’m not the high-flying pigeon you thought I was. But I’m doing what I can to make sure my family survives. My family, Peggy! I’m not just some guy trying to get by, I’m doing this to make sure we all have food to eat! And you... you think it’s not enough." #speaker:Rocky #rat:RockyP5
+- "Well, maybe I can’t give you better, Peggy. Maybe I’m not the high-flying pigeon you thought I was. But I’m doing what I can to make sure my family survives. My family, Peggy!" #speaker:Rocky #rat:RockyP5
+- "I’m not just some guy trying to get by, I’m doing this to make sure we all have food to eat! And you... you think it’s not enough." #speaker:Rocky
 
 // Peggy (eyes welling with tears, her voice shaking but loud): (Rocky P1) 
 - "You think I don’t care about you? I just want you to be here with me. To spend time with me. I miss you. And every day I’m here alone, I think maybe my parents were right. Maybe dating a rat was a bad idea." #speaker:Peggy #rat:RockyP1
@@ -49,7 +55,8 @@
 - "For us? I’m just... stuck down here with nothing." #speaker:Peggy
 
 // Rocky (his voice shaking now, on the edge of tears as he tries to keep control): 
-- "Do you really think this is what I want? I hate being away from you, but I have no choice. My family needs me. They need me to work, to keep the restaurant going. And you think it’s easy for me to leave you behind every night? You think it’s easy to feel like I’m constantly failing you?" #speaker:Rocky
+- "Do you really think this is what I want? I hate being away from you, but I have no choice." #speaker:Rocky
+- "My family needs me to work, to keep the restaurant going. And you think it’s easy for me to leave you behind every night? To feel like I’m constantly failing you?"
 
 // Peggy (trying to hold it together, her voice softening but full of hurt): 
 - "Then maybe it’s just not working, Rocky. Maybe we were never meant to be. Maybe we were just... an idea. I don’t know if I can keep doing this anymore." #speaker:Peggy

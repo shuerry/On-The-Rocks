@@ -38,4 +38,9 @@ public class LevelManager : MonoBehaviour
 
         sceneController.LoadScene(newSceneName);
     }
+
+    public void GoToNextScene()
+    {
+        sceneController.LoadScene(nextLevel);
+    }
 }
