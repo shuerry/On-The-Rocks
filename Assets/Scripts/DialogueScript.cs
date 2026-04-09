@@ -182,9 +182,9 @@ public class DialogueScript : MonoBehaviour {
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
                 return;
             } 
-            else if (text.Contains("Therapy Scene First Met Ending")) {
+            else if (text.Contains("Therapy Scene FirstMet Ending")) {
                 EndOfDialogue(false);
-                SceneManager.LoadScene("Therapy Scene First Met Ending");
+                SceneManager.LoadScene("Therapy Scene FirstMet Ending");
                 return;
             } else if (text.Contains("Therapy Scene")) {
                 EndOfDialogue(false);
@@ -426,7 +426,9 @@ public class DialogueScript : MonoBehaviour {
                 Debug.Log("Trigger Peggy fall effect.");
                 levelManager.HandleDialogueEvent("peggy_fall_fountain");
                 break;
-
+            case "rocky_to_fountain":
+                levelManager.HandleDialogueEvent("rocky_to_fountain");
+                break;
             default:
                 Debug.Log("Unhandled event tag: " + eventName);
                 break;

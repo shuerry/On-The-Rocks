@@ -2,18 +2,13 @@
 -> scene2_rescue_minigame
 
 === scene2_rescue_minigame ===
-"I thought she was an angel."
-# speaker:ROCKY BOLD BLOCK
-# rat:ROCKY_STAND_ALERT
+"Hey! Are you alright?!"#speaker:Rocky
 
-"Dropped right into the worst place possible."
-# speaker:ROCKY BOLD BLOCK
+"Rocky. Don’t." #speaker:Bulky
 
-"Hey! Are you alright?!"
-# speaker:Rocky
+"Someone fell into the fountain!" #speaker:Rocky
 
-"I couldn't just leave her there."
-# speaker:ROCKY BOLD BLOCK
+"I can't just leave her there." #speaker:Rocky 
 
-- "First Met Scene Post Rescue"
+#event:rocky_to_fountain
 -> END
