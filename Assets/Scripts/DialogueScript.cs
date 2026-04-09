@@ -63,10 +63,6 @@ public class DialogueScript : MonoBehaviour {
             Cursor.lockState = CursorLockMode.None;
             return;
         } */
-        if (Input.GetMouseButtonDown(0)) {
-            Debug.Log($"Click detected. justClicked={justClicked}, paused={pausedForDistance}, hold={holdUntilPeggyArrived}, innerVoice={innerVoice}");
-        }
-
         if (holdUntilPeggyArrived)
         {
             dialogueBox.SetActive(false);
@@ -189,6 +185,12 @@ public class DialogueScript : MonoBehaviour {
             } else if (text.Contains("Therapy Scene")) {
                 EndOfDialogue(false);
                 SceneManager.LoadScene("Therapy Scene");
+            } else if (text.Contains("Carnival Scene")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("Carnival Scene");
+            } else if (text.Contains("FirstMet Scene")) {
+                EndOfDialogue(false);
+                SceneManager.LoadScene("FirstMetScene");
             } else if (text.Contains("RockyCall Scene")) {
                 EndOfDialogue(false);
                 SceneManager.LoadScene("RockyCall Scene");
@@ -417,11 +419,10 @@ public class DialogueScript : MonoBehaviour {
     {
         switch (eventName)
         {
-            case "hearts_rocky":
-                Debug.Log("Play hearts VFX around Rocky.");
-                // hook VFX here
+            case "look_at_rocky":
+                Debug.Log("Look at Rocky.");
+                levelManager.HandleDialogueEvent("look_at_rocky");
                 break;
-
             case "peggy_fall":
                 Debug.Log("Trigger Peggy fall effect.");
                 levelManager.HandleDialogueEvent("peggy_fall_fountain");

@@ -16,7 +16,7 @@
 Rocky and his brother rummage through scraps.
 Bottle caps clink.
 
-"What is that... a rat?" #speaker:Peggy #event:hearts_rocky
+"What is that... a rat?" #speaker:Peggy #event:look_at_rocky
 
 "Peggy." #speaker:Peggy's Family
 

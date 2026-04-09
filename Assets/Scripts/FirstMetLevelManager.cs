@@ -22,6 +22,11 @@ public class FirstMetLevelManager : LevelManager
     [SerializeField] private float launchArcHeight = 2.5f;
     [SerializeField] private float stuckPauseDuration = 0.75f;
 
+    [Header("Camera Look")]
+    [SerializeField] private float lookAtDuration = 0.6f;
+    [SerializeField] private float zoomDistance = 3f;
+    [SerializeField] private MouseLook mouseLook;
+
     [Header("Camera Chaos")]
     [SerializeField] private float shakeIntensity = 0.15f;
     [SerializeField] private float totalSpinDegrees = 360f;
@@ -37,6 +42,15 @@ public class FirstMetLevelManager : LevelManager
     [SerializeField] private Sprite peggyStuckSprite;
 
     private bool isRunningSequence = false;
+    private Vector3 originalCamLocalPos;
+    private Quaternion originalCamLocalRot;
+
+    void Awake()
+    {
+        Transform cam = Camera.main.transform;
+        originalCamLocalPos = cam.localPosition;
+        originalCamLocalRot = cam.localRotation;
+    }
 
     public override void HandleDialogueEvent(string eventName)
     {
@@ -44,15 +58,57 @@ public class FirstMetLevelManager : LevelManager
         {
             case "peggy_fall_fountain":
                 if (!isRunningSequence)
-                {
                     StartCoroutine(PeggyFallIntoFountainSequence());
-                }
                 break;
-
+            case "look_at_rocky":
+                if (!isRunningSequence)
+                    StartCoroutine(LookAtRockySequence());
+                break;
             default:
                 Debug.Log("Unhandled FirstMetLevelManager event: " + eventName);
                 break;
         }
+    }
+
+    private IEnumerator LookAtRockySequence()
+    {
+        isRunningSequence = true;
+
+        if (dialogueScript != null)
+            dialogueScript.PauseForDistance(true);
+
+        if (mouseLook != null)
+            mouseLook.enabled = false;
+
+        Transform cam = Camera.main.transform;
+        Quaternion startLocal = cam.localRotation;
+        Vector3 startLocalPos = cam.localPosition;
+
+        Vector3 direction = (rockyTransform.position - cam.position).normalized;
+        Quaternion targetWorld = Quaternion.LookRotation(direction);
+        Quaternion targetLocal = Quaternion.Inverse(cam.parent.rotation) * targetWorld;
+
+        // Zoom target: zoomDistance away from Rocky, in local space
+        Vector3 targetWorldPos = rockyTransform.position - direction * zoomDistance;
+        Vector3 targetLocalPos = cam.parent.InverseTransformPoint(targetWorldPos);
+
+        float elapsed = 0f;
+        while (elapsed < lookAtDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / lookAtDuration);
+            cam.localRotation = Quaternion.Slerp(startLocal, targetLocal, t);
+            cam.localPosition = Vector3.Lerp(startLocalPos, targetLocalPos, t);
+            yield return null;
+        }
+
+        cam.localRotation = targetLocal;
+        cam.localPosition = targetLocalPos;
+
+        if (dialogueScript != null)
+            dialogueScript.PauseForDistance(false);
+
+        isRunningSequence = false;
     }
 
     private IEnumerator PeggyFallIntoFountainSequence()
@@ -62,14 +118,16 @@ public class FirstMetLevelManager : LevelManager
         if (dialogueScript != null)
             dialogueScript.PauseForDistance(true);
 
-        // Kick impact
         if (sfxSource != null && kickImpactClip != null)
             sfxSource.PlayOneShot(kickImpactClip);
 
         yield return new WaitForSeconds(0.08f);
 
-        // Camera chaos runs in parallel with the launch
+        // Reset camera back to original position before chaos
         Transform cam = Camera.main.transform;
+        cam.localPosition = originalCamLocalPos;
+        cam.localRotation = originalCamLocalRot;
+
         StartCoroutine(CameraChaosDuringLaunch(cam, launchDuration));
 
         yield return StartCoroutine(LaunchPeggyToFountain(
@@ -80,14 +138,12 @@ public class FirstMetLevelManager : LevelManager
             launchArcHeight
         ));
 
-        // Splash on landing
         if (splashEffectPrefab != null)
             Instantiate(splashEffectPrefab, fountainLandingPoint.position, Quaternion.identity);
 
         if (sfxSource != null && splashClip != null)
             sfxSource.PlayOneShot(splashClip);
 
-        // Snap to stuck position
         if (peggyTransform != null && fountainStuckPoint != null)
         {
             peggyTransform.position = fountainStuckPoint.position;
@@ -97,9 +153,9 @@ public class FirstMetLevelManager : LevelManager
         if (peggySpriteRenderer != null && peggyStuckSprite != null)
             peggySpriteRenderer.sprite = peggyStuckSprite;
 
-        // Reset camera local transform after chaos
-        cam.localPosition = Vector3.zero;
-        cam.localRotation = Quaternion.identity;
+        // Reset camera after chaos
+        cam.localPosition = originalCamLocalPos;
+        cam.localRotation = originalCamLocalRot;
 
         yield return new WaitForSeconds(stuckPauseDuration);
 
@@ -121,17 +177,14 @@ public class FirstMetLevelManager : LevelManager
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / duration);
 
-            // Continuous spin on Z axis (roll) over the full flight
             float spin = Mathf.Lerp(0f, totalSpinDegrees, t);
 
-            // Wobble on X/Y axes that peaks mid-flight and fades out
             float wobbleIntensity = Mathf.Sin(t * Mathf.PI);
             float wobbleX = Mathf.Sin(elapsed * 12f) * wobbleAmount * wobbleIntensity;
             float wobbleY = Mathf.Cos(elapsed * 9f) * wobbleAmount * 0.5f * wobbleIntensity;
 
             cam.localRotation = originalLocalRot * Quaternion.Euler(wobbleX, wobbleY, spin);
 
-            // Light position shake that fades out
             float shake = shakeIntensity * wobbleIntensity;
             Vector3 offset = new Vector3(
                 Mathf.Sin(elapsed * 15f) * shake,
@@ -143,7 +196,6 @@ public class FirstMetLevelManager : LevelManager
             yield return null;
         }
 
-        // Clean reset
         cam.localPosition = originalLocalPos;
         cam.localRotation = originalLocalRot;
     }
@@ -195,8 +247,8 @@ public class FirstMetLevelManager : LevelManager
         }
 
         Transform cam = Camera.main.transform;
-        cam.localPosition = Vector3.zero;
-        cam.localRotation = Quaternion.identity;
+        cam.localPosition = originalCamLocalPos;
+        cam.localRotation = originalCamLocalRot;
 
         if (dialogueScript != null)
             dialogueScript.PauseForDistance(false);

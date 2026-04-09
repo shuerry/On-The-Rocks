@@ -6,7 +6,7 @@
 
 "Rocky. Don’t." #speaker:Bulky
 
-"Someone fell into the fountain!" #speaker:Rocky
+"A pigeon got kicked into the fountain!" #speaker:Rocky
 
 "I can't just leave her there." #speaker:Rocky 
 
