@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
 [RequireComponent(typeof(FishingMinigame))]
 public class FishingMinigameUI : MonoBehaviour
 {
@@ -115,7 +114,7 @@ public class FishingMinigameUI : MonoBehaviour
 
     void BuildUI()
     {
-        // Canvas
+        //  Canvas 
         var go = new GameObject("FishingMinigameCanvas");
         go.transform.SetParent(transform);
         var canvas = go.AddComponent<Canvas>();
@@ -128,12 +127,12 @@ public class FishingMinigameUI : MonoBehaviour
         Transform root = go.transform;
         canvasRoot = go.GetComponent<RectTransform>();
 
-        // Overlay
+    
         var overlay = Img(root, "Overlay", Vector2.zero, new Vector2(1920, 1080),
             new Color(0f, 0.04f, 0.1f, 0.45f));
         overlayGO = overlay.gameObject;
 
-        // Rocky (left side)
+        //  Rocky (left side) 
         if (rockySprite != null)
         {
             var ri = Img(root, "Rocky",
@@ -144,12 +143,12 @@ public class FishingMinigameUI : MonoBehaviour
             rockyRect = ri.rectTransform;
         }
 
-        // Stick Fishing Rod (single piece, pivot at base)
+        //  Stick Fishing Rod (single piece, pivot at base) 
         float rodAngle = -30f;
         float startX = -BAR_X - 50f + ROCKY_SZ * 0.38f; // near Rocky's right hand
         float startY = -10f - 10f; // slightly below Rocky's center
 
-        // Main stick: pivot at the bottom so it rotates from Rocky's hand
+        // Main stick — pivot at the bottom so it rotates from Rocky's hand
         var stick = Img(root, "Stick", new Vector2(startX, startY),
             new Vector2(STICK_W, STICK_LEN), stickBase);
         stickRect = stick.rectTransform;
@@ -175,29 +174,29 @@ public class FishingMinigameUI : MonoBehaviour
             new Vector2(6f, 6f), stickDark);
         knotRect = knot.rectTransform;
 
-        // Fishing Line (from knot to catch zone)
+        //  Fishing Line (from knot to catch zone) 
         var line = Img(root, "Line", new Vector2(BAR_X * 0.45f, 30f),
             new Vector2(LINE_W, 200f), lineCol);
         fishingLineRect = line.rectTransform;
 
-        // Hook (small L-shape at end of line)
+        //  Hook (small L-shape at end of line) 
         var hook = Img(root, "Hook", Vector2.zero,
             new Vector2(HOOK_W, HOOK_H), hookCol);
         hookRect = hook.rectTransform;
 
-        // Bar border (outer glow)
+        //  Bar border (outer glow) 
         barBorderImage = Img(root, "BarBorder",
             new Vector2(BAR_X, 0f),
             new Vector2(BAR_W + BORDER * 2, BAR_H + BORDER * 2),
             barBorderColor);
 
-        // Inner subtle glow ring
+        //  Inner subtle glow ring
         var glow = Img(root, "BarGlow", new Vector2(BAR_X, 0f),
             new Vector2(BAR_W + BORDER * 4, BAR_H + BORDER * 4),
             new Color(barBorderColor.r, barBorderColor.g, barBorderColor.b, 0.08f));
         barGlowGO = glow.gameObject;
 
-        // Bar background (layered water depth)
+        //  Bar background (layered water depth)
         var barBg = Img(root, "BarBg", new Vector2(BAR_X, 0f),
             new Vector2(BAR_W, BAR_H), waterDeep);
         barRect = barBg.rectTransform;
@@ -217,7 +216,7 @@ public class FishingMinigameUI : MonoBehaviour
             waterBands[i].rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
         }
 
-        //  Bubbles 
+        //  Bubbles
         bubbles = new Image[BUBBLE_N];
         bubbleRects = new RectTransform[BUBBLE_N];
         bubbleSpeeds = new float[BUBBLE_N];
@@ -237,7 +236,7 @@ public class FishingMinigameUI : MonoBehaviour
             bubbleStartX[i] = bx;
         }
 
-        // Catch Zone
+        //  Catch Zone 
         float czH = BAR_H * game.catchZoneSize;
         catchZoneImage = Img(barRect, "CatchZone", Vector2.zero,
             new Vector2(BAR_W - 6f, czH), catchZoneColor);
@@ -260,7 +259,7 @@ public class FishingMinigameUI : MonoBehaviour
             new Vector2(BAR_W - 14f, czH - 8f),
             new Color(0.3f, 1f, 0.5f, 0.08f));
 
-        // Fish (Peggy) icon
+        //  Fish (Peggy) icon
         var fish = Img(barRect, "Fish", Vector2.zero,
             new Vector2(FISH_SZ, FISH_SZ), Color.white);
         fishIconRect = fish.rectTransform;
@@ -273,7 +272,7 @@ public class FishingMinigameUI : MonoBehaviour
             fish.preserveAspect = true;
         }
 
-        // Progress Bar
+        //  Progress Bar
         float px = BAR_X - BAR_W * 0.5f - PROG_GAP - PROG_W * 0.5f;
         var pBorder = Img(root, "PBorder", new Vector2(px, 0f),
             new Vector2(PROG_W + 4f, BAR_H + 4f),
@@ -298,7 +297,7 @@ public class FishingMinigameUI : MonoBehaviour
 
 
 
-        // Sparkle particles (around progress bar when near win)
+        //  Sparkle particles (around progress bar when near win) 
         sparkles = new Image[SPARKLE_N];
         sparkleRects = new RectTransform[SPARKLE_N];
         sparkleSpeeds = new float[SPARKLE_N];
@@ -312,12 +311,12 @@ public class FishingMinigameUI : MonoBehaviour
             sparkleSpeeds[i] = Random.Range(30f, 60f);
         }
 
-        // Win flash (hidden)
+        //  Win flash (hidden) 
         winFlash = Img(root, "WinFlash", Vector2.zero,
             new Vector2(1920, 1080), new Color(1f, 1f, 0.8f, 0f));
         winFlash.raycastTarget = false;
 
-        // Splash drops (burst upward on win, hidden)
+        //  Splash drops (burst upward on win, hidden) 
         splashDrops = new Image[SPLASH_N];
         splashDropRects = new RectTransform[SPLASH_N];
         splashVelY = new float[SPLASH_N];
@@ -329,7 +328,7 @@ public class FishingMinigameUI : MonoBehaviour
             splashDropRects[i] = sd.rectTransform;
         }
 
-        // Floating hearts (win celebration, hidden)
+        //  Floating hearts (win celebration, hidden) 
         heartSprite = MakeHeartSprite(32);
         hearts = new Image[HEART_N];
         heartRects = new RectTransform[HEART_N];
@@ -345,7 +344,7 @@ public class FishingMinigameUI : MonoBehaviour
             heartSpeeds[i] = Random.Range(40f, 75f);
         }
 
-        // Peggy result icon (hidden)
+        //  Peggy result icon (hidden)
         if (peggySprite != null)
         {
             peggyResultIcon = Img(root, "PeggyWin",
@@ -356,8 +355,6 @@ public class FishingMinigameUI : MonoBehaviour
             peggyResultIcon.gameObject.SetActive(false);
         }
     }
-
-    //  UPDATE
 
     void Update()
     {
@@ -409,8 +406,7 @@ public class FishingMinigameUI : MonoBehaviour
             HandleResult();
     }
 
-    //  ANIMATIONS
-
+  
     void AnimateStickIdle()
     {
         if (stickRect == null) return;
@@ -491,14 +487,13 @@ public class FishingMinigameUI : MonoBehaviour
         }
     }
 
-    //  GAMEPLAY VISUALS
 
     void UpdateGameplay()
     {
         float dt = Time.deltaTime;
         bool holding = Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space);
 
-        // Catch zone
+        //  Catch zone 
         float czY = game.catchZonePosition * BAR_H;
         catchZoneRect.anchoredPosition = new Vector2(0f, czY);
         catchZoneRect.sizeDelta = new Vector2(BAR_W - 6f, BAR_H * game.catchZoneSize);
@@ -509,7 +504,7 @@ public class FishingMinigameUI : MonoBehaviour
         Color targetCZ = fishInZone ? catchZoneActiveColor : catchZoneColor;
         catchZoneImage.color = Color.Lerp(catchZoneImage.color, targetCZ, dt * 12f);
 
-        // Bar border
+        //  Bar border 
         if (fishInZone)
         {
             float glow = 0.55f + 0.45f * Mathf.Sin(timer * 7f);
@@ -518,7 +513,7 @@ public class FishingMinigameUI : MonoBehaviour
         else
             barBorderImage.color = Color.Lerp(barBorderImage.color, barBorderColor, dt * 5f);
 
-        // Peggy
+        //  Peggy
         float fishY = game.fishPosition * BAR_H;
         fishIconRect.anchoredPosition = new Vector2(0f, fishY);
         float wobble = Mathf.Sin(timer * 3.5f) * 6f;
@@ -527,17 +522,17 @@ public class FishingMinigameUI : MonoBehaviour
         float cs = fishIconRect.localScale.x;
         fishIconRect.localScale = Vector3.one * Mathf.Lerp(cs, ts, dt * 8f);
 
-        // Progress
+        //  Progress 
         float fillH = game.progress * (BAR_H - 4f);
         progressFillRect.sizeDelta = new Vector2(PROG_W - 4f, fillH);
         Color progTarget = game.progress >= 0.85f ? progFullColor :
                            game.progress < 0.25f ? progDangerColor : progFillColor;
         progressFillImage.color = Color.Lerp(progressFillImage.color, progTarget, dt * 5f);
 
-        // Stick rod reacts
+        //  Stick rod reacts 
         AnimateStickGameplay(holding);
 
-        // Fishing line + hook
+        //  Fishing line + hook
         if (fishingLineRect != null)
         {
             // Line from rod tip to hook near catch zone
@@ -567,7 +562,7 @@ public class FishingMinigameUI : MonoBehaviour
             hookRect.localRotation = Quaternion.Euler(0, 0, hookWobble);
         }
 
-        // Rocky reacts
+        //  Rocky reacts
         if (rockyRect != null)
         {
             float bounce = fishInZone ? Mathf.Sin(timer * 5f) * 7f : 0f;
@@ -577,7 +572,6 @@ public class FishingMinigameUI : MonoBehaviour
         }
     }
 
-    //  WIN STATE
 
     void HandleResult()
     {
@@ -683,7 +677,7 @@ public class FishingMinigameUI : MonoBehaviour
         }
     }
 
-    //  FACTORY
+  
 
     Image Img(Transform parent, string name, Vector2 pos, Vector2 size, Color color)
     {
@@ -696,7 +690,6 @@ public class FishingMinigameUI : MonoBehaviour
         rt.sizeDelta = size;
         return img;
     }
-
 
     static Sprite MakeHeartSprite(int sz)
     {

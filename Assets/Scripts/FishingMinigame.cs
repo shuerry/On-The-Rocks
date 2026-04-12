@@ -42,7 +42,7 @@ public class FishingMinigame : MonoBehaviour
     [Tooltip("Fish speed multiplier increase per second of play.")]
     public float difficultyRamp = 0f;
 
-
+    // ---- Runtime state (read by FishingMinigameUI) ----
     [HideInInspector] public float catchZonePosition; // 0 = bottom, 1 = top (centre of zone)
     [HideInInspector] public float fishPosition;      // 0 = bottom, 1 = top
     [HideInInspector] public float progress;          // 0 – 1
@@ -150,6 +150,6 @@ public class FishingMinigame : MonoBehaviour
             isWon = true;
             isActive = false;
         }
-        // No lose condition  player just keeps trying until they catch Peggy
+        // No lose condition — player just keeps trying until they catch Peggy
     }
 }
