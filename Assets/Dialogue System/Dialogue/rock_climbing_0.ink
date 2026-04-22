@@ -9,4 +9,5 @@
 - "You should be." #speaker:Peggy
 - "No, I know you'll pay attention. You always notice things before I do." #speaker:Rocky
 - "And even if I fall, we'll try again. I know we can make it to the top."
+- "start rock climbing"
 -> END

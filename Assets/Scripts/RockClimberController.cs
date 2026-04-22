@@ -46,6 +46,10 @@ public class RockClimberController : MonoBehaviour
     [Header("References")]
     public BelayController belayController;
     public Animator animator;
+    [SerializeField] public DialogueScript ds;
+    [SerializeField] private TextAsset endingNarrativeJson = null;
+    [SerializeField] public GameObject resultMessage;
+    [SerializeField] private GameObject belayEventPanel;
 
     [Header("Events")]
     public UnityEvent OnRouteStarted;
@@ -92,7 +96,7 @@ public class RockClimberController : MonoBehaviour
             return;
         }
 
-        BeginRoute();
+        // BeginRoute();
     }
 
     IEnumerator Test()
@@ -104,6 +108,9 @@ public class RockClimberController : MonoBehaviour
 
     public void BeginRoute()
     {
+        resultMessage.SetActive(true);
+        belayEventPanel.SetActive(true);
+        
         StopActiveRoutine();
 
         transform.position = startPosition;
@@ -255,6 +262,8 @@ public class RockClimberController : MonoBehaviour
 
         if (!hasDescended)
             StartCoroutine(Descend());
+        
+        ds.SetInkStory(endingNarrativeJson);
     }
 
     public void OnBelayRecovered()

@@ -174,40 +174,52 @@ public class DialogueScript : MonoBehaviour {
             } 
             else if (text.Contains("Therapy Scene Subway Ending")) {
                 Debug.Log("Ending subway scene.");
-                EndOfDialogue(false);
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
+                EndOfDialogue(false);
                 return;
             } 
             else if (text.Contains("Therapy Scene FirstMet Ending")) {
-                EndOfDialogue(false);
                 SceneManager.LoadScene("Therapy Scene FirstMet Ending");
+                EndOfDialogue(false);
                 return;
             } else if (text.Contains("Therapy Scene")) {
-                EndOfDialogue(false);
                 SceneManager.LoadScene("Therapy Scene");
+                EndOfDialogue(false);
             } else if (text.Contains("Carnival Scene")) {
-                EndOfDialogue(false);
                 SceneManager.LoadScene("Carnival Scene");
+                EndOfDialogue(false);
             } else if (text.Contains("FirstMet Scene")) {
-                EndOfDialogue(false);
                 SceneManager.LoadScene("FirstMetScene");
+                EndOfDialogue(false);
             } else if (text.Contains("RockyCall Scene")) {
-                EndOfDialogue(false);
                 SceneManager.LoadScene("RockyCall Scene");
+                EndOfDialogue(false);
             } else if (text.Contains("Calendar Minigame")) {
-                EndOfDialogue(false);
                 SceneManager.LoadScene("Calendar Minigame");
+                EndOfDialogue(false);
             } else if (text.Contains("First Met Scene Minigame")) {
-                EndOfDialogue(false);
                 SceneManager.LoadScene("FirstMetSceneMinigame");
-            } else if (text.Contains("RockClimbingScene"))
-            {
-                Debug.Log("trying to go to rock climbing scene>");
-                EndOfDialogue(true);
-                SceneManager.LoadScene("RockClimbingScene");
-            } else if (text.Contains("the end?")) {
                 EndOfDialogue(false);
+            } else if (text.Contains("RockClimbingScene")) {
+                SceneManager.LoadScene("RockClimbingScene");
+                EndOfDialogue(false);
+            } else if (text.Contains("start rock climbing"))
+            {
+                Debug.Log("Rock cliimbing minigame");
+                RockClimberController rockClimber = FindAnyObjectByType<RockClimberController>();
+                if (!rockClimber)
+                {
+                    Debug.Log("ERROR. Could not find RockClimberController");
+                } else
+                {
+                    Debug.Log("begin route?");
+                    rockClimber.BeginRoute();
+                }
+                EndOfDialogue(false);
+            } else if (text.Contains("the end?")) {
+                Debug.Log("End Scene");
                 SceneManager.LoadScene("EndScene");
+                EndOfDialogue(false);
             }
 
             CreateContentView(text);
@@ -257,13 +269,10 @@ public class DialogueScript : MonoBehaviour {
                 OnClickChoiceButton(choice);
             });
         }
-
-        Debug.Log("handle choices");
     }
 
     // When we click the choice button, tell the story to choose that choice!
     void OnClickChoiceButton(Choice choice) {
-        Debug.Log("on click choice");
         story.ChooseChoiceIndex(choice.index);
         if (story.canContinue) {
             //cameraController.UnlockCamera();
