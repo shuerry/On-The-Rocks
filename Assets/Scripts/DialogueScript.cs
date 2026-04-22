@@ -200,6 +200,11 @@ public class DialogueScript : MonoBehaviour {
             } else if (text.Contains("First Met Scene Minigame")) {
                 EndOfDialogue(false);
                 SceneManager.LoadScene("FirstMetSceneMinigame");
+            } else if (text.Contains("RockClimbingScene"))
+            {
+                Debug.Log("trying to go to rock climbing scene>");
+                EndOfDialogue(true);
+                SceneManager.LoadScene("RockClimbingScene");
             } else if (text.Contains("the end?")) {
                 EndOfDialogue(false);
                 SceneManager.LoadScene("EndScene");
@@ -252,10 +257,13 @@ public class DialogueScript : MonoBehaviour {
                 OnClickChoiceButton(choice);
             });
         }
+
+        Debug.Log("handle choices");
     }
 
     // When we click the choice button, tell the story to choose that choice!
     void OnClickChoiceButton(Choice choice) {
+        Debug.Log("on click choice");
         story.ChooseChoiceIndex(choice.index);
         if (story.canContinue) {
             //cameraController.UnlockCamera();
@@ -332,7 +340,7 @@ public class DialogueScript : MonoBehaviour {
                         break;
                     case "pigeon":
                         if (pigeon) {
-                            Debug.Log("pigeoning " + tagValue);
+                            // Debug.Log("pigeoning " + tagValue);
                             if (pigeonSpriteMap.TryGetValue(tagValue, out Sprite pigeon_sprite)) {
                                 if (pigeon.GetComponent<Animator>() != null)
                                     pigeon.GetComponent<Animator>().enabled = false;
