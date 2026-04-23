@@ -186,6 +186,9 @@ public class DialogueScript : MonoBehaviour {
                 SceneManager.LoadScene("Therapy Scene WordCloud Ending");
                 EndOfDialogue(false);
                 return;
+            } else if (text.Contains("Therapy Scene Post Rock Climbing")) {
+                SceneManager.LoadScene("Therapy Scene Post Rock Climbing");
+                EndOfDialogue(false);
             } else if (text.Contains("Therapy Scene")) {
                 SceneManager.LoadScene("Therapy Scene");
                 EndOfDialogue(false);
@@ -209,10 +212,6 @@ public class DialogueScript : MonoBehaviour {
                 EndOfDialogue(false);
             } else if (text.Contains("RockClimbingScene")) {
                 SceneManager.LoadScene("RockClimbingScene");
-                EndOfDialogue(false);
-            } 
-            else if (text.Contains("Therapy Scene Post Rock Climbing")) {
-                SceneManager.LoadScene("Therapy Scene Post Rock Climbing");
                 EndOfDialogue(false);
             }
             else if (text.Contains("start rock climbing"))
