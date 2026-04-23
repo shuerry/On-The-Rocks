@@ -5419,15 +5419,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5188910a3a341e644af562e2782f5bd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevel: Therapy Scene
-  sceneController: {fileID: 0}
+  nextLevel: FirstMetScenePostRescue
+  sceneController: {fileID: 2129148938}
   dialogueScript: {fileID: 1591680634}
   fishingMinigame: {fileID: 951354956}
   fishingMinigameUI: {fileID: 951354955}
   rockyTransform: {fileID: 574815812}
   rockyController: {fileID: 574815815}
   fountainPoint: {fileID: 1343114318}
-  arrivalDistance: 1
+  arrivalDistance: 1.5
   postFishingDialogue: {fileID: 4900000, guid: 0ca67c1e40cad4b4781f28b7addecf29, type: 3}
 --- !u!114 &951354955
 MonoBehaviour:

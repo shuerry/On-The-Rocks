@@ -210,7 +210,12 @@ public class DialogueScript : MonoBehaviour {
             } else if (text.Contains("RockClimbingScene")) {
                 SceneManager.LoadScene("RockClimbingScene");
                 EndOfDialogue(false);
-            } else if (text.Contains("start rock climbing"))
+            } 
+            else if (text.Contains("Therapy Scene Post Rock Climbing")) {
+                SceneManager.LoadScene("Therapy Scene Post Rock Climbing");
+                EndOfDialogue(false);
+            }
+            else if (text.Contains("start rock climbing"))
             {
                 Debug.Log("Rock cliimbing minigame");
                 RockClimberController rockClimber = FindAnyObjectByType<RockClimberController>();
