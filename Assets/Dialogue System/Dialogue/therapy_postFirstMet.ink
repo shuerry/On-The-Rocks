@@ -23,6 +23,5 @@
 - "It's quiet. Inside." #speaker:Peggy #pigeon:PeggyP3
 - "She's not bracing. And I'm not proving." #speaker:Rocky #rat:RockyP6
 
-//Word cloud Minigame?
-"Therapy Scene"
-- the end?
+- "Therapy Word MiniGame"
+-> END
