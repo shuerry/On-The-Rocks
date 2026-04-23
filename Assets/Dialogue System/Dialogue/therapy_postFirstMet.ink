@@ -1,10 +1,10 @@
 ﻿// Therapist's Office: Returning to the Present
 
 - "When you think about that beginning, there’s warmth there." #speaker:Therapist #pigeon:PeggyP1 #rat:RockyP1
-- "So what feels different now" #speaker:Therapist
+- "So what feels different now?" #speaker:Therapist
 
 - "I feel alone." #speaker:Peggy #pigeon:PeggyP3
-- "He’s always working" #speaker:Peggy
+- "He’s always working." #speaker:Peggy
 - "And the subway… I don’t feel safe there." #speaker:Peggy
 
 - "I work because that’s how I love." #speaker:Rocky #pigeon:PeggyP1 #rat:RockyP7
