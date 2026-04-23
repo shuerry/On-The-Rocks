@@ -36,11 +36,11 @@ public class Collectables : MonoBehaviour
         if (distance <= pickupRange)
         {
             if (playingStory && !dialogueScript.story.canContinue) {
-                dialogueScript.SetInternalVoice(false);
+                dialogueScript.SetInternalVoice(false, false);
             }
             
             if (!playingStory) {
-                dialogueScript.SetInternalVoice(true);
+                dialogueScript.SetInternalVoice(true, false);
                 dialogueScript.SetInkStory(pickupPromptJSON);
                 playingStory = true;
             }

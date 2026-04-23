@@ -80,7 +80,7 @@
 - "But you don't always feel that when it matters."
 - "So what? Just trust each other more?" #speaker:Rocky
 - "It's less about saying it and more about experiencing it." #speaker:Therapist
-- "Sometimes, it helps to put yourselves in a situation where you ahve to rely on each other in real time."
+- "Sometimes, it helps to put yourselves in a situation where you have to rely on each other in real time."
 - "That sounds like effort." #speaker:Peggy
 - "It usually is." #speaker:Therapist
 - "For example: rock climbing. It's an activity where one person is climbing and the other person is responsible for supporting them."

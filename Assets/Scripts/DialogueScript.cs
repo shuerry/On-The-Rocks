@@ -428,10 +428,10 @@ public class DialogueScript : MonoBehaviour {
                         break;
                     case "inner_voice":
                         if (tagValue == "true") {
-                            SetInternalVoice(tagValue == "true");
+                            SetInternalVoice(tagValue == "true", true);
                         } else
                         {
-                            SetInternalVoice(false);
+                            SetInternalVoice(false, true);
                         }
                         break;
                     default:
@@ -512,7 +512,7 @@ public class DialogueScript : MonoBehaviour {
     }
 
 
-    public void SetInternalVoice(bool internalVoice) {
+    public void SetInternalVoice(bool internalVoice, bool showDialogue) {
         innerVoice = internalVoice;
         if (innerVoice) {
             pausedForDistance = false;
@@ -522,9 +522,12 @@ public class DialogueScript : MonoBehaviour {
             nameBox.SetActive(false);
         } else {
             internalBox.SetActive(false);
-            dialogueBoxImage.enabled = true;
-            dialogueText.enabled = true;
-            nameBox.SetActive(true);
+            if (showDialogue)
+            {
+                dialogueBoxImage.enabled = true;
+                dialogueText.enabled = true;   
+                nameBox.SetActive(true);
+            }
         }
     }
 
