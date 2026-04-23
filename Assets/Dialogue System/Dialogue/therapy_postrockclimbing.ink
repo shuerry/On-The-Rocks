@@ -1,0 +1,7 @@
+- "Welcome back, Peggy and Rocky. Is there anything you want to start off with?" #speaker:Therapist #pigeon:PeggyP1 #rat:RockyP1
+- "Well... we tried rock climbing." #speaker:Peggy
+- "I think it went well. I had fun." #speaker:Rocky #rat:RockyP4
+- "Rocky made it to the top. It was nice to do something together." #speaker:Peggy
+- "I'm glad you guys are making an effort to reconnect!" #speaker:Therapist
+- "It seems like this will be a fun hobby for you two to invest in and will help you understand each other." 
+- "But ultimately, the question remains: do you think you can keep building this relationship, or do you feel it might be time to go your separate ways?" #speaker:Therapist #pigeon:PeggyP4 #rat:RockyP4

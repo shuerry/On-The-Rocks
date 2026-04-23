@@ -533,6 +533,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 57201160}
   m_Mesh: {fileID: -4500060790538980634, guid: 3a783ceec3ff54071aaad107b310d6fc, type: 3}
+--- !u!114 &67006785 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5987579255787000763, guid: 969219cd3f122495aa75ea5d36e00d4b, type: 3}
+  m_PrefabInstance: {fileID: 1756972977}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &80341741
 GameObject:
   m_ObjectHideFlags: 0
@@ -6982,6 +6993,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1299055040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2166375483951024054, guid: 969219cd3f122495aa75ea5d36e00d4b, type: 3}
+  m_PrefabInstance: {fileID: 1756972977}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1309458087
 GameObject:
   m_ObjectHideFlags: 0
@@ -8096,7 +8112,7 @@ PrefabInstance:
     - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: internalBox
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1299055040}
     - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: waypointMap
       value: 
@@ -8108,7 +8124,7 @@ PrefabInstance:
     - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: internalText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 67006785}
     - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: levelManager
       value: 
