@@ -9,9 +9,9 @@ using UnityEngine.UI;
 public class TherapyWordMiniGameController : MonoBehaviour
 {
     private const string MinigameSceneName = "Therapy Word MiniGame";
+    private const string CompletionSceneName = "Therapy Scene WordCloud Ending";
     private static readonly Vector2 WordButtonSize = new Vector2(220f, 64f);
 
-    [SerializeField] private string nextSceneOnComplete = "Therapy Scene Subway Ending";
     [SerializeField] private int requiredSelections = 3;
     [SerializeField] private int minSliderValue = 1;
     [SerializeField] private int maxSliderValue = 10;
@@ -61,22 +61,28 @@ public class TherapyWordMiniGameController : MonoBehaviour
     private static Dictionary<string, int> lastRatings = new Dictionary<string, int>();
 
     private Canvas rootCanvas;
+    private LevelManager levelManager;
     private RectTransform wordsPanel;
     private RectTransform ratingPanel;
     private Button confirmSelectionButton;
     private Button submitRatingsButton;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-    private static void BootstrapForScene()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    private static void RegisterSceneHook()
     {
-        if (SceneManager.GetActiveScene().name != MinigameSceneName)
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private static void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != MinigameSceneName)
             return;
 
         if (FindFirstObjectByType<TherapyWordMiniGameController>() != null)
             return;
 
         GameObject host = new GameObject("TherapyWordMiniGameController");
-        DontDestroyOnLoad(host);
         host.AddComponent<TherapyWordMiniGameController>();
     }
 
@@ -90,6 +96,8 @@ public class TherapyWordMiniGameController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+
+        levelManager = FindFirstObjectByType<LevelManager>();
 
         EnsureEventSystem();
         EnsureCanvas();
@@ -320,7 +328,16 @@ public class TherapyWordMiniGameController : MonoBehaviour
         lastSelectedWords = new List<string>(selectedWords);
         lastRatings = new Dictionary<string, int>(ratings);
 
-        SceneManager.LoadScene(nextSceneOnComplete);
+        if (levelManager == null)
+            levelManager = FindFirstObjectByType<LevelManager>();
+
+        if (levelManager != null)
+        {
+            levelManager.SetScene($"\"{CompletionSceneName}\"");
+            return;
+        }
+
+        Debug.LogError($"No LevelManager found. Cannot transition to scene '{CompletionSceneName}'.");
     }
 
     private static RectTransform CreatePanel(string name, RectTransform parent, Color bgColor)

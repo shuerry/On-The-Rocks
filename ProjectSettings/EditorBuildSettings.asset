@@ -33,6 +33,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Therapy Scene FirstMet Ending.unity
     guid: 72b651ed027b54342923b2a435d3cd87
   - enabled: 1
+    path: Assets/Scenes/Therapy Word MiniGame.unity
+    guid: 023589b59549f6f4ea47913069f1eaaf
+  - enabled: 1
+    path: Assets/Scenes/Therapy Scene WordCloud Ending.unity
+    guid: a8cd8e86a2d5747ad89ae3f606b3fe0d
+  - enabled: 1
     path: Assets/Scenes/Therapy Scene.unity
     guid: b0a4873df7eaf4c059b5c34c2d0cc982
   - enabled: 1
@@ -44,7 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Subway Scene.unity
     guid: 712ebbcec289b4c5591fe3c2c3b7ce5b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Therapy Scene Broken.unity
     guid: e9ad8db4814b247bdada22b125e7d472
   - enabled: 1
