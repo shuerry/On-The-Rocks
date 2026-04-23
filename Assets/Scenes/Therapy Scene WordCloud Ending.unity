@@ -2794,7 +2794,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09180d6879d2a4d788db937a77ce47ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevel: Therapy Word MiniGame
+  nextLevel: Therapy Scene
   sceneController: {fileID: 68971353}
 --- !u!1 &1194833436
 GameObject:
@@ -7519,7 +7519,7 @@ PrefabInstance:
     - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: inkJSONAsset
       value: 
-      objectReference: {fileID: 4900000, guid: 4118b56a092f74a4ca8419d7d22725b2, type: 3}
+      objectReference: {fileID: 4900000, guid: c982f93c3082d2e468eb378f7bec5ca4, type: 3}
     - target: {fileID: 2943474766174875130, guid: d40db1e5e9af44cc79ecf357e3b68bee, type: 3}
       propertyPath: internalText
       value: 
