@@ -71,7 +71,8 @@ public class FishingMinigameLevelManager : LevelManager
         fishingMinigame.enabled = true;
         fishingMinigameUI.enabled = true;
 
-        Cursor.lockState = CursorLockMode.None;
+        // Confine the cursor to the game view so players can use the mouse to control the minigame
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
 
         Debug.Log("Fishing minigame started!");
@@ -83,6 +84,10 @@ public class FishingMinigameLevelManager : LevelManager
         minigameFinished = true;
 
         Debug.Log(won ? "Peggy caught!" : "Fishing ended.");
+        // Restore cursor before leaving the minigame
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         SceneManager.LoadScene("FirstMetScenePostRescue");
     }
 }

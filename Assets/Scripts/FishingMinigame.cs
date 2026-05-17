@@ -64,11 +64,23 @@ public class FishingMinigame : MonoBehaviour
         fishPosition = Random.Range(0.3f, 0.7f);
         fishTarget = Random.Range(0f, 1f);
         fishTimer = fishDirectionChangeInterval;
-        progress = 0.35f; // start partially filled so it doesn't feel hopeless
+        progress = 0.25f; // start a bit lower so player must work for the catch
         isComplete = false;
         isWon = false;
         isActive = true;
         playTime = 0f;
+        // Tune difficulty: make the catch zone no larger than default, reduce progress gain,
+        // require a bit more progress to win, and make the fish slightly faster.
+        catchZoneSize = Mathf.Min(catchZoneSize, 0.55f);
+        progressGainRate *= 0.9f;
+        progressToWin = Mathf.Clamp(progressToWin * 1.15f, 0f, 1f);
+        fishSpeed *= 1.15f;
+        // Ensure a small difficulty ramp so fish speeds up slowly over time
+        difficultyRamp = Mathf.Max(difficultyRamp, 0.02f);
+
+        // Confine the cursor so players can use the mouse to control the zone
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
     }
 
     void Update()
@@ -86,18 +98,32 @@ public class FishingMinigame : MonoBehaviour
 
     void UpdateCatchZone(float dt)
     {
-        bool holding = Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space);
+        // Allow direct cursor control: if a mouse is present, map vertical mouse position
+        // to the catch zone center (simple and accessible). Otherwise fall back to
+        // the original hold-to-rise mechanic (mouse button or space).
+        float halfZone = catchZoneSize * 0.5f;
 
-        if (holding)
-            catchZoneVelocity += catchZoneRiseSpeed * dt;
+        if (Input.mousePresent)
+        {
+            float mouseYNorm = Mathf.Clamp01(Input.mousePosition.y / (float)Screen.height);
+            catchZonePosition = Mathf.Clamp(mouseYNorm, halfZone, 1f - halfZone);
+            // also zero velocity so physics don't fight the direct control
+            catchZoneVelocity = 0f;
+        }
         else
-            catchZoneVelocity -= catchZoneGravity * dt;
+        {
+            bool holding = Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space);
 
-        catchZoneVelocity = Mathf.Clamp(catchZoneVelocity, -catchZoneMaxVelocity, catchZoneMaxVelocity);
-        catchZonePosition += catchZoneVelocity * dt;
+            if (holding)
+                catchZoneVelocity += catchZoneRiseSpeed * dt;
+            else
+                catchZoneVelocity -= catchZoneGravity * dt;
+
+            catchZoneVelocity = Mathf.Clamp(catchZoneVelocity, -catchZoneMaxVelocity, catchZoneMaxVelocity);
+            catchZonePosition += catchZoneVelocity * dt;
+        }
 
         // Bounce off top/bottom
-        float halfZone = catchZoneSize * 0.5f;
         if (catchZonePosition - halfZone < 0f)
         {
             catchZonePosition = halfZone;
@@ -149,6 +175,9 @@ public class FishingMinigame : MonoBehaviour
             isComplete = true;
             isWon = true;
             isActive = false;
+            // restore cursor to free state so UI/scene transitions can take over
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
         // No lose condition — player just keeps trying until they catch Peggy
     }

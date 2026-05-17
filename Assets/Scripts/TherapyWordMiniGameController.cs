@@ -66,6 +66,8 @@ public class TherapyWordMiniGameController : MonoBehaviour
     private RectTransform ratingPanel;
     private Button confirmSelectionButton;
     private Button submitRatingsButton;
+    private readonly List<MouseLook> previouslyEnabledMouseLooks = new List<MouseLook>();
+    private readonly List<TherapyCameraController> previouslyEnabledCameraControllers = new List<TherapyCameraController>();
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void RegisterSceneHook()
@@ -94,8 +96,29 @@ public class TherapyWordMiniGameController : MonoBehaviour
             return;
         }
 
-        Cursor.lockState = CursorLockMode.None;
+        // Confine the cursor so the player can comfortably use the mouse to pick words
+        Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
+
+        // Disable any MouseLook components so the cursor only interacts with UI
+        foreach (var ml in FindObjectsByType<MouseLook>(FindObjectsSortMode.None))
+        {
+            if (ml != null && ml.enabled)
+            {
+                ml.enabled = false;
+                previouslyEnabledMouseLooks.Add(ml);
+            }
+        }
+
+        // Also disable TherapyCameraController instances that read mouse input
+        foreach (var tc in FindObjectsByType<TherapyCameraController>(FindObjectsSortMode.None))
+        {
+            if (tc != null && tc.enabled)
+            {
+                tc.enabled = false;
+                previouslyEnabledCameraControllers.Add(tc);
+            }
+        }
 
         levelManager = FindFirstObjectByType<LevelManager>();
 
@@ -231,7 +254,24 @@ public class TherapyWordMiniGameController : MonoBehaviour
 
         Image image = button.GetComponent<Image>();
         bool nowSelected = selectedWords.Contains(word);
-        image.color = nowSelected ? new Color(0.36f, 0.69f, 0.53f, 0.95f) : new Color(0.1f, 0.29f, 0.33f, 0.9f);
+        if (nowSelected)
+        {
+            image.color = new Color(0.95f, 0.6f, 0.15f, 1f); // warm highlight
+            // enlarge slightly
+            button.transform.localScale = Vector3.one * 1.06f;
+            // add an outline for strong contrast
+            var outline = button.GetComponent<Outline>();
+            if (outline == null) outline = button.gameObject.AddComponent<Outline>();
+            outline.effectColor = new Color(0.1f, 0.06f, 0.02f, 0.75f);
+            outline.effectDistance = new Vector2(3f, -3f);
+        }
+        else
+        {
+            image.color = new Color(0.1f, 0.29f, 0.33f, 0.9f);
+            button.transform.localScale = Vector3.one;
+            var existing = button.GetComponent<Outline>();
+            if (existing != null) Destroy(existing);
+        }
 
         counterText.text = $"Selected: {selectedWords.Count} / {requiredSelections}";
         confirmSelectionButton.interactable = selectedWords.Count == requiredSelections;
@@ -333,6 +373,19 @@ public class TherapyWordMiniGameController : MonoBehaviour
 
         if (levelManager != null)
         {
+            // re-enable any MouseLook components we disabled
+            foreach (var ml in previouslyEnabledMouseLooks)
+                if (ml != null) ml.enabled = true;
+            previouslyEnabledMouseLooks.Clear();
+            // re-enable therapy camera controllers we disabled
+            foreach (var tc in previouslyEnabledCameraControllers)
+                if (tc != null) tc.enabled = true;
+            previouslyEnabledCameraControllers.Clear();
+
+            // restore cursor before transitioning away
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             levelManager.SetScene($"\"{CompletionSceneName}\"");
             return;
         }
