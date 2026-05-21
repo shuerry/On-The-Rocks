@@ -5,10 +5,10 @@
 
 - "I feel alone." #speaker:Peggy #pigeon:PeggyP3
 - "He’s always working." #speaker:Peggy
-- "And the subway… I don’t feel safe there." #speaker:Peggy
+- "And the subway… I don’t feel safe there without him." #speaker:Peggy
 
 - "I work because that’s how I love." #speaker:Rocky #pigeon:PeggyP1 #rat:RockyP7
-- "And lately it feels like that doesn’t count." #speaker:Rocky
+- "And lately it feels like that doesn’t matter." #speaker:Rocky
 
 - "So Peggy feels alone and unsafe." #speaker:Therapist
 - "And Rocky feels unappreciated." #speaker:Therapist

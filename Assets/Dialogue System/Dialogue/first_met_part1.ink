@@ -13,8 +13,8 @@
 "Uh-huh. Sure."#speaker:Peggy #pigeon:PeggyP2 #inner_voice:false
 
 // Peggy glances toward the trash cans.
-Rocky and his brother rummage through scraps.
-Bottle caps clink.
+Rocky and his brother were rummaing through scraps.
+Bottle caps clinked.
 
 "What is that... a rat?" #speaker:Peggy #event:look_at_rocky
 
