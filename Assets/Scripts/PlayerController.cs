@@ -9,13 +9,14 @@ public class PlayerController : MonoBehaviour
     public float jumpHeight = 10f;
     public float gravity = 9.81f;
     public float airControl = 10f;
+    public bool doubleJump = false;
 
     [Header("Platform Stickiness")]
     public bool enablePlatformStickiness = true;
     public float groundCheckDistance = 0.3f;
 
     [Header("Audio")]
-    public AudioClip jumpSound;
+    public AudioClip[] jumpSound;
 
     private CharacterController controller;
     private AudioSource audioSource;
@@ -25,7 +26,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 platformVelocity;
     private Transform currentPlatform;
 
-    private float jumpIndex;
+    private bool doubleJumpAvailable;
     private float originalMoveSpeed;
     private float originalJumpHeight;
 
@@ -39,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         originalMoveSpeed = moveSpeed;
         originalJumpHeight = jumpHeight;
+        doubleJumpAvailable = doubleJump;
     }
 
 
@@ -83,13 +85,12 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection = flatInput;
 
+            // Reset double jump when touching the ground
+            doubleJumpAvailable = doubleJump;
+
             if (Input.GetButtonDown("Jump"))
             {
-                jumpIndex++;
-                Debug.Log("Jump " + jumpIndex);
-
-                if (jumpSound && audioSource)
-                    audioSource.PlayOneShot(jumpSound);
+                PlayJumpSound();
 
                 moveDirection.y = Mathf.Sqrt(2 * jumpHeight * gravity);
             }
@@ -102,6 +103,15 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 inAirInput = new Vector3(flatInput.x, moveDirection.y, flatInput.z);
             moveDirection = Vector3.Lerp(moveDirection, inAirInput, airControl * Time.deltaTime);
+
+            // Double jump
+            if (doubleJump && doubleJumpAvailable && Input.GetButtonDown("Jump"))
+            {
+                PlayJumpSound();
+
+                moveDirection.y = Mathf.Sqrt(2 * jumpHeight * gravity);
+                doubleJumpAvailable = false;
+            }
         }
 
         // --- Gravity ---
@@ -116,6 +126,26 @@ public class PlayerController : MonoBehaviour
 
         // --- Move character ---
         controller.Move(finalMove);
+    }
+
+    private void PlayJumpSound()
+    {
+        if (jumpSound.Length > 0)
+        {
+            AudioClip jumpClip;
+            if (jumpSound.Length > 1)
+            {
+                int rand = Random.Range(0, jumpSound.Length - 1);
+                jumpClip = jumpSound[rand];
+            }
+            else
+            {
+                jumpClip = jumpSound[0];
+            }
+
+            if (jumpClip && audioSource)
+                audioSource.PlayOneShot(jumpClip);
+        }
     }
 
     public void Freeze()
