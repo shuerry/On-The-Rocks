@@ -45,6 +45,7 @@ public class RockClimberController : MonoBehaviour
 
     [Header("References")]
     public BelayController belayController;
+    public BelayUIController belayUIController;
     public Animator animator;
     [SerializeField] public DialogueScript ds;
     [SerializeField] private TextAsset endingNarrativeJson = null;
@@ -85,6 +86,11 @@ public class RockClimberController : MonoBehaviour
         if (!belayController)
         {
             belayController = FindAnyObjectByType<BelayController>();
+        }
+
+        if (!belayUIController)
+        {
+            belayUIController = FindAnyObjectByType<BelayUIController>();
         }
 
         if (!animator)
@@ -255,8 +261,9 @@ public class RockClimberController : MonoBehaviour
     {
         belayEventInProgress = false;
         pendingRouteCompletion = true;
-        currentState = ClimberState.WaitingToStart;
+        currentState = ClimberState.Finished;
         activeRoutine = null;
+        belayUIController.ToggleHintPanel(false);
 
         Debug.Log("RockClimberController: Route completed.");
 
@@ -394,9 +401,15 @@ public class RockClimberController : MonoBehaviour
 
         animator.SetTrigger("Happy");
 
-        currentState = ClimberState.Finished;
+        TherapyCameraController clampedCam = FindAnyObjectByType<TherapyCameraController>();
+        clampedCam.enabled = true;
+        LockCameraToSubject lockCam = FindAnyObjectByType<LockCameraToSubject>();
+        lockCam.enabled = false;
+        FacePlayer facePlayer = FindAnyObjectByType<FacePlayer>();
+        facePlayer.enabled = true;
 
         yield return new WaitForSeconds(resetDelay);
+
     }
 
     private void StopActiveRoutine()
@@ -406,5 +419,11 @@ public class RockClimberController : MonoBehaviour
             StopCoroutine(activeRoutine);
             activeRoutine = null;
         }
+    }
+
+    public void BeginRouteDelayed(float delay)
+    {
+        belayUIController.ToggleHintPanel(true);
+        Invoke(nameof(BeginRoute), delay);
     }
 }

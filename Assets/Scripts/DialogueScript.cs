@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Ink.Runtime;
 using TMPro;
@@ -216,15 +217,19 @@ public class DialogueScript : MonoBehaviour {
             }
             else if (text.Contains("start rock climbing"))
             {
-                Debug.Log("Rock cliimbing minigame");
+                Debug.Log("Rock climbing minigame");
                 RockClimberController rockClimber = FindAnyObjectByType<RockClimberController>();
                 if (!rockClimber)
                 {
                     Debug.Log("ERROR. Could not find RockClimberController");
                 } else
                 {
+                    TherapyCameraController clampedCam = FindAnyObjectByType<TherapyCameraController>();
+                    clampedCam.enabled = false;
+                    LockCameraToSubject lockCam = FindAnyObjectByType<LockCameraToSubject>();
+                    lockCam.enabled = true;
                     Debug.Log("begin route?");
-                    rockClimber.BeginRoute();
+                    rockClimber.BeginRouteDelayed(2f);
                 }
                 EndOfDialogue(false);
             } else if (text.Contains("the end?")) {
