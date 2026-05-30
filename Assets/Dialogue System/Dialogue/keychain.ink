@@ -7,6 +7,7 @@
 // His paw tightens around it slightly.
 - "But then again… it’s something you keep. Something that sticks around. Maybe that’s kinda nice?" #speaker:Rocky
 - Press 'E' to pick up 'Keychain'
+- Press 'E' to pick up 'Keychain'
 -> END
 
 // choice
