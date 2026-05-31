@@ -48,7 +48,7 @@ And my brother's never gonna let me hear the end of it. #speaker:Rocky #inner_vo
 
 ...But she didn't hesitate. #speaker:Rocky #inner_voice:true
 
-Maybe we make somethin' good. #speaker:Rocky #inner_voice:true
+Maybe we could make somethin' good. #speaker:Rocky #inner_voice:true
 
 - "Therapy Scene FirstMet Ending"
 -> END
