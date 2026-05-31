@@ -473,8 +473,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneFadeDuration: 2
-  zoomTo: {fileID: 399141152}
-  camera: {fileID: 465964950}
+  zoomTo: {fileID: 1052518478}
+  cam: {fileID: 0}
 --- !u!4 &81731026
 Transform:
   m_ObjectHideFlags: 0
@@ -2483,6 +2483,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042231466}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1052518478
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1052518479}
+  m_Layer: 0
+  m_Name: Peggy Zoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1052518479
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1052518478}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0074128993, y: 0.9850699, z: 0.036114987, w: -0.1681613}
+  m_LocalPosition: {x: 2.47, y: 1.94, z: 4.58}
+  m_LocalScale: {x: 0.28596008, y: 0.2859599, z: 0.95319986}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 85.104, y: 88.296, z: 88.633}
 --- !u!1 &1088296815
 GameObject:
   m_ObjectHideFlags: 0
@@ -7668,3 +7699,4 @@ SceneRoots:
   - {fileID: 1221884459}
   - {fileID: 81731026}
   - {fileID: 7562842395631514467}
+  - {fileID: 1052518479}

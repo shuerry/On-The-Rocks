@@ -53,9 +53,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Therapy Scene Subway Ending.unity
     guid: 1ece3a46696eb49c6901afc1ae9caf5c
-  - enabled: 0
-    path: Assets/Scenes/Therapy Scene Broken.unity
-    guid: e9ad8db4814b247bdada22b125e7d472
   - enabled: 1
     path: Assets/Scenes/RockClimbingScene.unity
     guid: c06ece2f55024d1428e0684055e4608c
