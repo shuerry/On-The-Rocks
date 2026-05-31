@@ -8,6 +8,7 @@
 // He exhales, rubbing his temple.
 - "Think, Rocky. Think. Do you want this because it’s the right choice or because you’re hungry?" #speaker:Rocky
 - Press 'E' to pick up 'Pretzel'
+- Press 'E' to pick up 'Pretzel'
 -> END
 
 // choice

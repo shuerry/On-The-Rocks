@@ -9,6 +9,7 @@
 - "But… she does seem like the kind of person who’d wear one just because it’s fun." #speaker:Rocky
 // He smirks a little, imagining Peggy casually flexing a glow stick bracelet like it’s high fashion.
 - Press 'E' to pick up 'Glow sticks'
+- Press 'E' to pick up 'Glow sticks'
 -> END
 
 // choice

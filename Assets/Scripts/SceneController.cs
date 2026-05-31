@@ -7,7 +7,7 @@ public class SceneController : MonoBehaviour
 {
     [SerializeField] private float sceneFadeDuration;
     [SerializeField] private GameObject zoomTo;
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera cam;
 
     private SceneFade sceneFade;
 
@@ -46,12 +46,12 @@ public class SceneController : MonoBehaviour
     private IEnumerator moveCameraTransition(float duration) {
         float elapsedTime = 0;
         float elaspedPercentage = 0;
-        Vector3 startPosition = camera.transform.position;
+        Vector3 startPosition = cam.transform.position;
         Vector3 endPosition = zoomTo.transform.position;
 
         while (elaspedPercentage < 1) {
             elaspedPercentage = elapsedTime/(duration * 1.75f);
-            camera.transform.position = Vector3.Lerp(startPosition, endPosition, elaspedPercentage);
+            cam.transform.position = Vector3.Lerp(startPosition, endPosition, elaspedPercentage);
 
             yield return null;
             elapsedTime += Time.deltaTime;

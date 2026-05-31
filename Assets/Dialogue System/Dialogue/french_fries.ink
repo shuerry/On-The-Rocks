@@ -8,6 +8,7 @@
 // His stomach grumbles. He swears it’s louder than the carnival music.
 - "Okay, but counterpoint, who complains about French fries? No one. Ever." #speaker:Rocky
 - Press 'E' to pick up 'French fries'
+- Press 'E' to pick up 'French fries'
 -> END
 
 // choice

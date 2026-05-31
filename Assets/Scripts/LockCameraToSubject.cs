@@ -1,21 +1,28 @@
 using UnityEngine;
-using UnityEngine.Animations;
 
 public class LockCameraToSubject : MonoBehaviour
 {
     [SerializeField] private Transform subject;
-
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float rotationSmoothness = 5f;
 
     void Update()
     {
-        this.transform.LookAt(subject);
+        if (subject == null) return;
 
-        Vector3 euler = transform.rotation.eulerAngles;
+        // Calculate target rotation
+        Vector3 direction = subject.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+        // Preserve your existing constraint
+        Vector3 euler = targetRotation.eulerAngles;
         euler.y = 0f;
-        transform.rotation = Quaternion.Euler(euler);
+        targetRotation = Quaternion.Euler(euler);
+
+        // Smoothly rotate toward target
+        transform.rotation = Quaternion.Slerp(
+            transform.rotation,
+            targetRotation,
+            rotationSmoothness * Time.deltaTime
+        );
     }
 }

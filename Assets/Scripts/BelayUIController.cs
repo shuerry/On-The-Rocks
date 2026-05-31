@@ -6,6 +6,7 @@ public class BelayUIController : MonoBehaviour
 {
     [Header("References")]
     public BelayController belayController;
+    public RockClimberController rockClimberController;
 
     [Header("Root UI")]
     public GameObject root;
@@ -35,6 +36,9 @@ public class BelayUIController : MonoBehaviour
     [Tooltip("Optional parent rect of the slider fill area. If null, uses tensionSlider RectTransform.")]
     public RectTransform sliderVisualArea;
 
+    [Header("Hints")]
+    public GameObject hintPanel;
+
     [Header("Feedback")]
     public GameObject resultPanel;
     public TMP_Text resultText;
@@ -42,15 +46,37 @@ public class BelayUIController : MonoBehaviour
     public float resultMessageDuration = 1.25f;
     public bool hideUIWhenInactive = true;
 
+    [Header("Audio")]
+    public AudioSource source;
+    public AudioClip successClip;
+    public AudioClip failureClip;
+    public AudioClip stretchClip;
+    public AudioClip winClip;
+
     private bool isEventActive;
+    private RockClimberController.ClimberState currentState;
     private float resultMessageTimer;
+    private bool routeCompleted = false;
 
     private void Start()
     {
-        if (belayController == null)
+        if (!belayController)
         {
             belayController = FindAnyObjectByType<BelayController>();
         }
+        if (!rockClimberController)
+        {
+            rockClimberController = FindAnyObjectByType<RockClimberController>();
+        }
+
+        if (!source)
+        {
+            // Remove this is there is more than one AudioSource in the scene
+            source = FindFirstObjectByType<AudioSource>();
+        }
+        source.clip = stretchClip;
+
+        hintPanel.SetActive(false);
 
         ConfigureSliders();
         ResetUIImmediate();
@@ -76,12 +102,23 @@ public class BelayUIController : MonoBehaviour
             isEventActive = controllerSaysActive;
         }
 
+        if (currentState != rockClimberController.CurrentState)
+        {
+            currentState = rockClimberController.CurrentState;
+        }
+
         if (isEventActive)
         {
             UpdateTimerUIFromController();
             UpdateDistanceUI();
             UpdateLiveStatusText();
             UpdateSweetSpotVisuals();
+        }
+
+        if (currentState == RockClimberController.ClimberState.Finished && !routeCompleted)
+        {
+            routeCompleted = true;
+            source.PlayOneShot(winClip);
         }
     }
 
@@ -100,6 +137,9 @@ public class BelayUIController : MonoBehaviour
 
         if (sweetSpotBand != null)
             sweetSpotBand.gameObject.SetActive(true);
+
+        source.clip = stretchClip;
+        source.Play();
 
         UpdateTimerUIFromController();
         UpdateDistanceUI();
@@ -374,6 +414,8 @@ public class BelayUIController : MonoBehaviour
 
     private void SetResult(bool success, bool show)
     {
+        source.Stop();
+
         if (!resultText || !resultBackground)
             return;
 
@@ -381,11 +423,13 @@ public class BelayUIController : MonoBehaviour
         {
             resultText.text = "Nice!";
             resultBackground.color = Color.green;
+            if (show) source.PlayOneShot(successClip);
         }
         else
         {
             resultText.text = "Oh no!";
             resultBackground.color = Color.red;
+            if (show) source.PlayOneShot(failureClip);
         }
 
         resultPanel.SetActive(show);
@@ -429,5 +473,10 @@ public class BelayUIController : MonoBehaviour
             root.SetActive(false);
         else if (root != null)
             root.SetActive(true);
+    }
+
+    public void ToggleHintPanel(bool show)
+    {
+        hintPanel.SetActive(show);
     }
 }

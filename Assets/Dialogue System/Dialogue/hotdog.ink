@@ -7,6 +7,7 @@
 - "Ugh. I should’ve paid more attention." #speaker:Rocky
 - "Alright, whatever. It’s a safe bet. Worst case? We split it. I call that a win." #speaker:Rocky
 - Press 'E' to pick up 'Hotdog'
+- Press 'E' to pick up 'Hotdog'
 -> END
 
 // choice
