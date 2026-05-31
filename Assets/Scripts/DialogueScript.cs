@@ -176,43 +176,55 @@ public class DialogueScript : MonoBehaviour {
             else if (text.Contains("Therapy Scene Subway Ending")) {
                 Debug.Log("Ending subway scene.");
                 SceneManager.LoadScene("Therapy Scene Subway Ending");
+                PlayerPrefs.SetInt("CurrentScene", 15);
                 EndOfDialogue(false);
                 return;
             } 
             else if (text.Contains("Therapy Scene FirstMet Ending")) {
                 SceneManager.LoadScene("Therapy Scene FirstMet Ending");
+                PlayerPrefs.SetInt("CurrentScene", 8);
                 EndOfDialogue(false);
                 return;
             } else if (text.Contains("Therapy Scene WordCloud Ending")) {
                 SceneManager.LoadScene("Therapy Scene WordCloud Ending");
+                PlayerPrefs.SetInt("CurrentScene", 10);
                 EndOfDialogue(false);
                 return;
             } else if (text.Contains("Therapy Scene Post Rock Climbing")) {
                 SceneManager.LoadScene("Therapy Scene Post Rock Climbing");
+                PlayerPrefs.SetInt("CurrentScene", 17);
                 EndOfDialogue(false);
             } else if (text.Contains("Therapy Scene")) {
                 SceneManager.LoadScene("Therapy Scene");
+                PlayerPrefs.SetInt("CurrentScene", 11);
                 EndOfDialogue(false);
             } else if (text.Contains("Carnival Scene")) {
                 SceneManager.LoadScene("Carnival Scene");
+                PlayerPrefs.SetInt("CurrentScene", 12);
                 EndOfDialogue(false);
             } else if (text.Contains("FirstMet Scene")) {
                 SceneManager.LoadScene("FirstMetScene");
+                PlayerPrefs.SetInt("CurrentScene", 5);
                 EndOfDialogue(false);
             } else if (text.Contains("RockyCall Scene")) {
                 SceneManager.LoadScene("RockyCall Scene");
+                PlayerPrefs.SetInt("CurrentScene", 2);
                 EndOfDialogue(false);
             } else if (text.Contains("Calendar Minigame")) {
                 SceneManager.LoadScene("Calendar Minigame");
+                PlayerPrefs.SetInt("CurrentScene", 3);
                 EndOfDialogue(false);
             } else if (text.Contains("First Met Scene Minigame")) {
                 SceneManager.LoadScene("FirstMetSceneMinigame");
+                PlayerPrefs.SetInt("CurrentScene", 6);
                 EndOfDialogue(false);
             } else if (text.Contains("Therapy Word MiniGame")) {
                 SceneManager.LoadScene("Therapy Word MiniGame");
+                PlayerPrefs.SetInt("CurrentScene", 9);
                 EndOfDialogue(false);
             } else if (text.Contains("RockClimbingScene")) {
                 SceneManager.LoadScene("RockClimbingScene");
+                PlayerPrefs.SetInt("CurrentScene", 16);
                 EndOfDialogue(false);
             }
             else if (text.Contains("start rock climbing"))
@@ -235,6 +247,7 @@ public class DialogueScript : MonoBehaviour {
             } else if (text.Contains("the end?")) {
                 Debug.Log("End Scene");
                 SceneManager.LoadScene("EndScene");
+                PlayerPrefs.SetInt("CurrentScene", 0);
                 EndOfDialogue(false);
             }
 

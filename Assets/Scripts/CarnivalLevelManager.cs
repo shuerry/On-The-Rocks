@@ -40,7 +40,6 @@ public class CarnivalLevelManager : MonoBehaviour
 
             if (Collectables.pickupItems.Count == 3)
             {
-                MainMenu.SetTherapyCounter(1);
                 Debug.Log(Collectables.pickupItems.Count);
                 if (score < 0)
                 {
@@ -63,6 +62,7 @@ public class CarnivalLevelManager : MonoBehaviour
             Debug.Log("Good ending");
             DialogueScript.SetCarnivalEnding(true);
             SceneManager.LoadScene("Therapy Scene Carnival Ending");
+            PlayerPrefs.SetInt("CurrentScene", 13);
         }
     }
 
@@ -75,6 +75,7 @@ public class CarnivalLevelManager : MonoBehaviour
             Debug.Log("Bad ending");
             DialogueScript.SetCarnivalEnding(false);
             SceneManager.LoadScene("Therapy Scene Carnival Ending");
+            PlayerPrefs.SetInt("CurrentScene", 13);
         }
     }
 }

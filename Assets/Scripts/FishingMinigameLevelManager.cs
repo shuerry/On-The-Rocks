@@ -89,5 +89,6 @@ public class FishingMinigameLevelManager : LevelManager
         Cursor.visible = true;
 
         SceneManager.LoadScene("FirstMetScenePostRescue");
+        PlayerPrefs.SetInt("CurrentScene", 7);
     }
 }
