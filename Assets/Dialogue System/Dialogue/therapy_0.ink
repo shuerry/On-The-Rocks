@@ -18,10 +18,10 @@
 - "No pressure or anything, right?" #speaker:Rocky #rat:RockyP3 #va:Therapy_0_Rocky_1
 - "That sounds like a fun challenge." #speaker:Therapist #pigeon:PeggyP1 #rat:RockyP1
 // start choices
-+ ["Rocky, when you were picking out gifts, what was on your mind?"]
-	-> carnival_scene
-+ ["Rocky, how did you feel being put on the spot?"]
-	-> carnival_scene
+// + ["Rocky, when you were picking out gifts, what was on your mind?"]
+//	-> carnival_scene
+// + ["Rocky, how did you feel being put on the spot?"]
+//	-> carnival_scene
 + ["Rocky, did you think Peggy's idea was creative?"]
 	-> carnival_scene
 
