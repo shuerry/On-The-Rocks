@@ -6,7 +6,7 @@ public class MusicPlayer : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance != null && instance != this && instance.name == this.name)
         {
             Destroy(gameObject); // prevent duplicates
         }

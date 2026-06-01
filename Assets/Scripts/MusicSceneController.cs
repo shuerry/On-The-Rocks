@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 public class MusicSceneController : MonoBehaviour
 {
     public string[] allowedScenes;
-
     void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -28,9 +27,16 @@ public class MusicSceneController : MonoBehaviour
             }
         }
 
+        AudioSource audioSource = GetComponent<AudioSource>();
+
         if (!shouldPlay)
         {
-            Destroy(gameObject); // kill music if this scene doesn't want it
+            // kill music if this scene doesn't want it
+            audioSource.Stop();
+            // Destroy(gameObject);
+        } else if (!audioSource.isPlaying)
+        {
+            audioSource.Play();
         }
     }
 }
