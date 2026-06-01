@@ -49,6 +49,8 @@ public class Collectables : MonoBehaviour
             {
                 CollectItem();
             }
+
+            Cursor.visible = false;
         }
     }
 

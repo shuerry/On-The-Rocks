@@ -40,15 +40,15 @@
 
 "I want to get to know you better." #speaker:Peggy #pigeon:PeggyP9
 
-She said she wanted to get to know me better. A date. #speaker:Rocky #inner_voice:true
+"She said she wanted to get to know me better. A date." #speaker:Rocky #inner_voice:true
 
-Will her family even approve? Pigeons don't belong in the underground. #speaker:Rocky #inner_voice:true
+"Will her family even approve? Pigeons don't belong in the underground." #speaker:Rocky #inner_voice:true
 
-And my brother's never gonna let me hear the end of it. #speaker:Rocky #inner_voice:true
+"And my brother's never gonna let me hear the end of it." #speaker:Rocky #inner_voice:true
 
-...But she didn't hesitate. #speaker:Rocky #inner_voice:true
+"...But she didn't hesitate." #speaker:Rocky #inner_voice:true
 
-Maybe we could make somethin' good. #speaker:Rocky #inner_voice:true
+"Maybe we could make somethin' good." #speaker:Rocky #inner_voice:true
 
 - "Therapy Scene FirstMet Ending"
 -> END
