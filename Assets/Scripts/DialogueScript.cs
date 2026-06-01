@@ -248,6 +248,8 @@ public class DialogueScript : MonoBehaviour {
                 Debug.Log("End Scene");
                 SceneManager.LoadScene("EndScene");
                 PlayerPrefs.SetInt("CurrentScene", 0);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 EndOfDialogue(false);
             }
 

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
@@ -16,6 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
+        Debug.Log("New Scene button pressed");
         // SceneManager.LoadScene(PlayerPrefs.GetInt("Progress",SceneManager.GetActiveScene().buildIndex + 1));
         SceneManager.LoadScene("PeggyCall Scene");
         PlayerPrefs.SetInt("CurrentScene", 0);
