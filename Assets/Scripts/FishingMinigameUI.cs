@@ -37,6 +37,7 @@ public class FishingMinigameUI : MonoBehaviour
     private Image progressFillImage, catchZoneImage, barBorderImage;
     private GameObject progBorderGO, progBgGO;
     private GameObject barGlowGO, overlayGO;
+    private Text instructionText;
 
     // Stick rod
     private RectTransform stickRect, stickGripRect, knotRect;
@@ -131,6 +132,23 @@ public class FishingMinigameUI : MonoBehaviour
         var overlay = Img(root, "Overlay", Vector2.zero, new Vector2(1920, 1080),
             new Color(0f, 0.04f, 0.1f, 0.45f));
         overlayGO = overlay.gameObject;
+
+        var instructionGO = new GameObject("InstructionText");
+        instructionGO.transform.SetParent(root, false);
+
+        instructionText = instructionGO.AddComponent<Text>();
+        instructionText.text = "Keep Peggy inside the green bar with your cursor until the catch meter fills";
+        instructionText.font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+        instructionText.fontSize = 34;
+        instructionText.alignment = TextAnchor.MiddleCenter;
+        instructionText.color = Color.white;
+
+        var instructionRT = instructionGO.GetComponent<RectTransform>();
+        instructionRT.anchorMin = new Vector2(0.5f, 1f);
+        instructionRT.anchorMax = new Vector2(0.5f, 1f);
+        instructionRT.pivot = new Vector2(0.5f, 1f);
+        instructionRT.anchoredPosition = new Vector2(0f, -40f);
+        instructionRT.sizeDelta = new Vector2(1200f, 60f);
 
         //  Rocky (left side) 
         if (rockySprite != null)

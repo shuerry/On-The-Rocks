@@ -11,6 +11,9 @@ public class CarnivalLevelManager : MonoBehaviour
     private GameObject collectibles;
     public GameObject UIManager;
     private bool started = false;
+    [SerializeField] private GameObject scavengerHint = null;
+    [SerializeField] private GameObject followHint = null;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,6 +29,8 @@ public class CarnivalLevelManager : MonoBehaviour
         UIManager.SetActive(true);
         isGameOver = false;
         collectibles.SetActive(true);
+        scavengerHint.SetActive(true);
+        Destroy(followHint);    
     }
 
     // Update is called once per frame

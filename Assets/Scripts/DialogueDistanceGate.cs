@@ -6,6 +6,7 @@ public class DialogueDistanceGate : MonoBehaviour
     [SerializeField] private DialogueScript dialogueScript = null;
     [SerializeField] private Transform rockyTransform = null;
     [SerializeField] private Transform peggyTransform = null;
+    [SerializeField] private GameObject followHint = null;
 
     [Header("Distance Settings")]
     [Tooltip("Distance at which dialogue pauses and hides")]
@@ -39,11 +40,18 @@ public class DialogueDistanceGate : MonoBehaviour
 
     private void PauseDialogue()
     {
+        if (followHint) {
+            followHint.SetActive(true);
+        }
         dialogueScript.PauseForDistance(true);
     }
 
     private void ResumeDialogue()
     {
+        if (followHint)
+        {
+            followHint.SetActive(false);
+        }
         dialogueScript.PauseForDistance(false);
     }
 
